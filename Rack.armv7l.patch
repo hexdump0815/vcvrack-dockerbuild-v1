@@ -1,0 +1,92 @@
+diff --git a/compile.mk b/compile.mk
+index d21fe10..fa7eca5 100644
+--- a/compile.mk
++++ b/compile.mk
+@@ -12,7 +12,7 @@ FLAGS += -MMD -MP
+ # Debugger symbols. These are removed with `strip`.
+ FLAGS += -g
+ # Optimization
+-FLAGS += -O3 -march=nocona -funsafe-math-optimizations
++FLAGS += -O3 -march=armv7 -mfpu=neon -funsafe-math-optimizations
+ # Warnings
+ FLAGS += -Wall -Wextra -Wno-unused-parameter
+ 
+@@ -73,7 +73,7 @@ build/%.m.o: %.m
+ build/%.bin.o: %
+ 	@mkdir -p $(@D)
+ ifdef ARCH_LIN
+-	$(OBJCOPY) -I binary -O elf64-x86-64 -B i386:x86-64 --rename-section .data=.rodata,alloc,load,readonly,data,contents $< $@
++	$(OBJCOPY) -I binary -O elf32-littlearm -B arm7 --rename-section .data=.rodata,alloc,load,readonly,data,contents $< $@
+ endif
+ ifdef ARCH_WIN
+ 	$(OBJCOPY) -I binary -O pe-x86-64 -B i386:x86-64 --rename-section .data=.rodata,alloc,load,readonly,data,contents $< $@
+diff --git a/dep.mk b/dep.mk
+index 44563d3..19a176d 100644
+--- a/dep.mk
++++ b/dep.mk
+@@ -4,7 +4,7 @@ include $(RACK_DIR)/arch.mk
+ DEP_LOCAL ?= .
+ DEP_PATH := $(shell pwd)/$(DEP_LOCAL)
+ 
+-DEP_FLAGS += -g -O3 -march=nocona
++DEP_FLAGS += -g -O3 -march=armv7 -mfpu=neon
+ 
+ ifeq ($(ARCH), mac)
+ 	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
+diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
+index 28d6768..dcada65 100644
+--- a/src/engine/Engine.cpp
++++ b/src/engine/Engine.cpp
+@@ -9,8 +9,9 @@
+ #include <condition_variable>
+ #include <mutex>
+ #include <atomic>
+-#include <xmmintrin.h>
+-#include <pmmintrin.h>
++/* #include <xmmintrin.h> */
++/* #include <pmmintrin.h> */
++#include <unistd.h>
+ 
+ 
+ namespace rack {
+@@ -20,8 +21,8 @@ namespace engine {
+ void disableDenormals() {
+ 	// Set CPU to flush-to-zero (FTZ) and denormals-are-zero (DAZ) mode
+ 	// https://software.intel.com/en-us/node/682949
+-	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+-	_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
++	// _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
++	// _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
+ }
+ 
+ 
+diff --git a/src/window.cpp b/src/window.cpp
+index c2ab422..f90a9b8 100644
+--- a/src/window.cpp
++++ b/src/window.cpp
+@@ -244,6 +244,10 @@ Window::Window() {
+ 	glfwSetKeyCallback(win, keyCallback);
+ 	glfwSetDropCallback(win, dropCallback);
+ 
++#if (defined(__arm__) || defined(__aarch64__))
++	glfwIconifyWindow(win);
++#endif
++
+ 	// Set up GLEW
+ 	glewExperimental = GL_TRUE;
+ 	err = glewInit();
+diff --git a/dep/Makefile b/dep/Makefile
+index cd3760a..95b6bfc 100755
+--- a/dep/Makefile
++++ b/dep/Makefile
+@@ -97,8 +97,8 @@ $(openssl):
+ 	$(WGET) "https://www.openssl.org/source/openssl-1.1.1a.tar.gz"
+ 	$(SHA256) openssl-1.1.1a.tar.gz fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41
+ 	$(UNTAR) openssl-1.1.1a.tar.gz
+-	@# ./config ignores CFLAGS, so hack it in with CC
+-	cd openssl-1.1.1a && CC="$(CC) $(CFLAGS)" ./config --prefix="$(realpath $(DEP_LOCAL))"
++	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
++	cd openssl-1.1.1a && CFLAGS="" ./config --prefix="$(realpath $(DEP_LOCAL))"
+ 	$(MAKE) -C openssl-1.1.1a
+ 	$(MAKE) -C openssl-1.1.1a install_sw
+ 

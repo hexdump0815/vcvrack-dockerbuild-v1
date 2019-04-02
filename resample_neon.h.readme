@@ -1,0 +1,3 @@
+this is from: https://github.com/xiph/speexdsp/blob/resample-aarch64/libspeexdsp/resample_neon.h
+
+a aarch64 version of the resample_neon.h file
