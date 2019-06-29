@@ -1,0 +1,12 @@
+diff --git a/src/linux/ConfigurationXml.S b/src/linux/ConfigurationXml.S
+index 9227ffe..2ed53b1 100644
+--- a/src/linux/ConfigurationXml.S
++++ b/src/linux/ConfigurationXml.S
+@@ -5,6 +5,6 @@ configurationXmlStart:
+     .incbin "../../resources/data/configuration.xml"
+ configurationXmlEnd:
+     .global configurationXmlNullTerminator
+-    .type configurationXmlNullTerminator, @object
++    .type configurationXmlNullTerminator, %object
+ configurationXmlNullTerminator:
+     .int 0

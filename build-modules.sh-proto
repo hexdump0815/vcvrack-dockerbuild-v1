@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# exit on errors
+set -e
+
+WORKDIR=`dirname $0`
+cd $WORKDIR
+
+cd plugins
+for i in * ; do
+  echo ""
+  echo "=== $i ==="
+  echo ""
+  cd $i
+  RACK_DIR=${WORKDIR}/Rack make -j4 clean
+  RACK_DIR=${WORKDIR}/Rack make -j4 dep
+  RACK_DIR=${WORKDIR}/Rack make -j4
+  RACK_DIR=${WORKDIR}/Rack make -j4 dist
+  cd ..
+done
+cd ../..

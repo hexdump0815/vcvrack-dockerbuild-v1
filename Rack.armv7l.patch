@@ -1,5 +1,5 @@
 diff --git a/compile.mk b/compile.mk
-index d21fe10..fa7eca5 100644
+index 81c55f3..a1e26fb 100644
 --- a/compile.mk
 +++ b/compile.mk
 @@ -12,7 +12,7 @@ FLAGS += -MMD -MP
@@ -7,11 +7,11 @@ index d21fe10..fa7eca5 100644
  FLAGS += -g
  # Optimization
 -FLAGS += -O3 -march=nocona -funsafe-math-optimizations
-+FLAGS += -O3 -march=armv7 -mfpu=neon -funsafe-math-optimizations
++FLAGS += -O3 -march=armv7 -mfpu=neon -mno-unaligned-access -funsafe-math-optimizations
  # Warnings
  FLAGS += -Wall -Wextra -Wno-unused-parameter
- 
-@@ -73,7 +73,7 @@ build/%.m.o: %.m
+ # C++ standard
+@@ -72,7 +72,7 @@ build/%.m.o: %.m
  build/%.bin.o: %
  	@mkdir -p $(@D)
  ifdef ARCH_LIN
@@ -21,36 +21,49 @@ index d21fe10..fa7eca5 100644
  ifdef ARCH_WIN
  	$(OBJCOPY) -I binary -O pe-x86-64 -B i386:x86-64 --rename-section .data=.rodata,alloc,load,readonly,data,contents $< $@
 diff --git a/dep.mk b/dep.mk
-index 44563d3..19a176d 100644
+index bad90ec..c1412e4 100644
 --- a/dep.mk
 +++ b/dep.mk
-@@ -4,7 +4,7 @@ include $(RACK_DIR)/arch.mk
- DEP_LOCAL ?= .
- DEP_PATH := $(shell pwd)/$(DEP_LOCAL)
+@@ -5,7 +5,7 @@ DEP_LOCAL ?= dep
+ $(shell mkdir -p $(DEP_LOCAL))
+ DEP_PATH := $(abspath $(DEP_LOCAL))
  
 -DEP_FLAGS += -g -O3 -march=nocona
-+DEP_FLAGS += -g -O3 -march=armv7 -mfpu=neon
++DEP_FLAGS += -g -O3 -march=armv7 -mfpu=neon -mno-unaligned-access
  
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
+diff --git a/dep/Makefile b/dep/Makefile
+index 33d45e6..055d630 100755
+--- a/dep/Makefile
++++ b/dep/Makefile
+@@ -99,8 +99,8 @@ $(openssl):
+ 	$(WGET) "https://www.openssl.org/source/openssl-1.1.1b.tar.gz"
+ 	$(SHA256) openssl-1.1.1b.tar.gz 5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b
+ 	$(UNTAR) openssl-1.1.1b.tar.gz
+-	@# ./config ignores CFLAGS, so hack it in with CC
+-	cd openssl-1.1.1b && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
++	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
++	cd openssl-1.1.1b && CFLAGS="" ./config --prefix="$(DEP_PATH)"
+ 	$(MAKE) -C openssl-1.1.1b
+ 	$(MAKE) -C openssl-1.1.1b install_sw
+ 
 diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
-index 28d6768..dcada65 100644
+index a16d5a0..2e34a09 100644
 --- a/src/engine/Engine.cpp
 +++ b/src/engine/Engine.cpp
-@@ -9,8 +9,9 @@
- #include <condition_variable>
+@@ -10,7 +10,8 @@
  #include <mutex>
  #include <atomic>
--#include <xmmintrin.h>
--#include <pmmintrin.h>
-+/* #include <xmmintrin.h> */
-+/* #include <pmmintrin.h> */
+ #include <tuple>
+-#include <x86intrin.h>
++/* #include <x86intrin.h> */
 +#include <unistd.h>
  
  
  namespace rack {
-@@ -20,8 +21,8 @@ namespace engine {
- void disableDenormals() {
+@@ -20,8 +22,8 @@ namespace engine {
+ static void disableDenormals() {
  	// Set CPU to flush-to-zero (FTZ) and denormals-are-zero (DAZ) mode
  	// https://software.intel.com/en-us/node/682949
 -	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
@@ -60,11 +73,29 @@ index 28d6768..dcada65 100644
  }
  
  
+@@ -91,7 +93,7 @@ struct SpinBarrier {
+ 		}
+ 		else {
+ 			while (count != 0) {
+-				_mm_pause();
++				asm volatile("" ::: "memory");
+ 			}
+ 		}
+ 	}
+@@ -129,7 +131,7 @@ struct HybridBarrier {
+ 		while (!yield) {
+ 			if (count == 0)
+ 				return;
+-			_mm_pause();
++			asm volatile("" ::: "memory");
+ 		}
+ 
+ 		// Wait on mutex
 diff --git a/src/window.cpp b/src/window.cpp
-index c2ab422..f90a9b8 100644
+index 02082ec..ce5c502 100644
 --- a/src/window.cpp
 +++ b/src/window.cpp
-@@ -244,6 +244,10 @@ Window::Window() {
+@@ -245,6 +245,10 @@ Window::Window() {
  	glfwSetKeyCallback(win, keyCallback);
  	glfwSetDropCallback(win, dropCallback);
  
@@ -75,18 +106,29 @@ index c2ab422..f90a9b8 100644
  	// Set up GLEW
  	glewExperimental = GL_TRUE;
  	err = glewInit();
-diff --git a/dep/Makefile b/dep/Makefile
-index cd3760a..95b6bfc 100755
---- a/dep/Makefile
-+++ b/dep/Makefile
-@@ -97,8 +97,8 @@ $(openssl):
- 	$(WGET) "https://www.openssl.org/source/openssl-1.1.1a.tar.gz"
- 	$(SHA256) openssl-1.1.1a.tar.gz fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41
- 	$(UNTAR) openssl-1.1.1a.tar.gz
--	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1a && CC="$(CC) $(CFLAGS)" ./config --prefix="$(realpath $(DEP_LOCAL))"
-+	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
-+	cd openssl-1.1.1a && CFLAGS="" ./config --prefix="$(realpath $(DEP_LOCAL))"
- 	$(MAKE) -C openssl-1.1.1a
- 	$(MAKE) -C openssl-1.1.1a install_sw
+diff --git a/include/engine/Port.hpp b/include/engine/Port.hpp
+index 012a3ec..3d9dfb9 100644
+--- a/include/engine/Port.hpp
++++ b/include/engine/Port.hpp
+@@ -11,7 +11,7 @@ namespace engine {
+ static const int PORT_MAX_CHANNELS = 16;
+ 
+ 
+-struct alignas(32) Port {
++struct Port {
+ 	/** Voltage of the port. */
+ 	union {
+ 		/** Unstable API. Use getVoltage() and setVoltage() instead. */
+diff --git a/plugin.mk b/plugin.mk
+index ca2cd8e..88f56d1 100644
+--- a/plugin.mk
++++ b/plugin.mk
+@@ -48,6 +48,8 @@ all: $(TARGET)
+ 
+ include $(RACK_DIR)/compile.mk
+ 
++FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access
++
+ clean:
+ 	rm -rfv build $(TARGET) dist
  

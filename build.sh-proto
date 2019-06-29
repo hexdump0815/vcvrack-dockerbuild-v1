@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# exit on errors
+set -e
+
+WORKDIR=`dirname $0`
+cd $WORKDIR
+
+echo Rack
+cd Rack
+make -j2 clean
+make -j2 dep
+make -j2
+cd ..

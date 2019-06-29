@@ -3,9 +3,12 @@
 # exit on errors
 set -e
 
+WORKDIR=`dirname $0`
+cd $WORKDIR
+
 MYARCH=`uname -m`
 
-mkdir compile
+mkdir -p compile
 cd compile
 if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   git clone https://github.com/nemequ/simde.git
@@ -14,29 +17,12 @@ if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   git checkout a61e88057c90ceb4b0b2cf5182919717bbb0496b
   cd ..
 fi
-git clone https://github.com/VCVRack/Fundamental.git
-cd Fundamental
-#git checkout v1
-# this is the version i used this script last with
-git checkout 9102ada5a1ef3e72074d7f96b0c043ecab275e80
-if [ -f ../../Fundamental.$MYARCH.patch ]; then
-  patch -p1 < ../../Fundamental.$MYARCH.patch
-fi
-cd ..
-git clone https://github.com/VCVRack/Befaco.git
-cd Befaco
-#git checkout v1
-# this is the version i used this script last with
-git checkout 72a2b6fab22096522914463b9bc8ecbd3513eab5
-if [ -f ../../Befaco.$MYARCH.patch ]; then
-  patch -p1 < ../../Befaco.$MYARCH.patch
-fi
-cd ..
+
 git clone https://github.com/VCVRack/Rack.git
 cd Rack
-#git checkout v1
+#git checkout v1.0.0
 # this is the version i used this script last with
-git checkout 6d755381f9141f8ec79284b8894c56331aee82bc
+git checkout 9247ac4045c8042a9416fcbdbd0da28b4f3ca160
 git submodule update --init --recursive
 if [ -f ../../Rack.$MYARCH.patch ]; then
   patch -p1 < ../../Rack.$MYARCH.patch
@@ -52,4 +38,11 @@ if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   find include/simd -type f -exec ../../simde-ify.sh {} \;
 fi
 cd ..
-cp ../resample_neon.h ../build.sh .
+cp ../resample_neon.h .
+cp ../build.sh-proto build.sh
+
+git clone https://github.com/VCVRack/library.git
+cd library/manifests
+# TODO filter out Rack git repo
+( for i in `grep sourceUrl * | awk '{print $3}' | sed 's,",,g;s,\,,,g'`; do echo $i ; done ) | grep http | sed 's,/$,,g;s,\.git$,,g' | sed 's,/blob.*,,g;s,/tree.*,,g' | grep -v "VCVRack/Rack" | sort -u > /tmp/pluginurls.txt
+cd ../..
