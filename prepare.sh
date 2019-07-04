@@ -20,9 +20,9 @@ fi
 
 git clone https://github.com/VCVRack/Rack.git
 cd Rack
-#git checkout v1.0.0
+git checkout v1.1.0
 # this is the version i used this script last with
-git checkout 9247ac4045c8042a9416fcbdbd0da28b4f3ca160
+#git checkout xy
 git submodule update --init --recursive
 if [ -f ../../Rack.$MYARCH.patch ]; then
   patch -p1 < ../../Rack.$MYARCH.patch
