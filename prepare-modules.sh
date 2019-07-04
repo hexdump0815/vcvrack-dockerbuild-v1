@@ -393,7 +393,7 @@ echo ModularFungi
 #git checkout xy
 git clone https://github.com/david-c14/ModularFungi
 cd ModularFungi
-git checkout v1
+git checkout master
 git submodule update --init --recursive
 if [ -f ../../../ModularFungi.$MYARCH.patch ]; then
   patch -p1 < ../../../ModularFungi.$MYARCH.patch
@@ -627,7 +627,7 @@ echo skylights-vcv
 #git checkout xy
 git clone https://github.com/Skrylar/skylights-vcv
 cd skylights-vcv
-git checkout rack-v1
+git checkout master
 git submodule update --init --recursive
 if [ -f ../../../skylights-vcv.$MYARCH.patch ]; then
   patch -p1 < ../../../skylights-vcv.$MYARCH.patch
