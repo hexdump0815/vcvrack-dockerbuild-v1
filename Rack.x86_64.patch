@@ -1,0 +1,13 @@
+diff --git a/src/window.cpp b/src/window.cpp
+index 02082ec..ce5c502 100644
+--- a/src/window.cpp
++++ b/src/window.cpp
+@@ -245,6 +245,8 @@ Window::Window() {
+ 	glfwSetKeyCallback(win, keyCallback);
+ 	glfwSetDropCallback(win, dropCallback);
+ 
++	glfwIconifyWindow(win);
++
+ 	// Set up GLEW
+ 	glewExperimental = GL_TRUE;
+ 	err = glewInit();
