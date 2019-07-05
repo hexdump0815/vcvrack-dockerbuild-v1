@@ -1,0 +1,23 @@
+diff --git a/plugin.json b/plugin.json
+index 079d507..6cb5801 100644
+--- a/plugin.json
++++ b/plugin.json
+@@ -56,11 +56,6 @@
+ 			"name": "Phased Locked Loop",
+ 			"tags": ["VCO"]
+ 		},
+-		{
+-			"slug": "PortlandWeather",
+-			"name": "Portland Weather",
+-			"tags": ["Delay", "VCF"]
+-		},
+ 		{
+ 			"slug": "QuadGolombRulerRhythmGenerator",
+ 			"name": "Quad Golomb Ruler Rhythm Generator",
+@@ -97,4 +92,4 @@
+ 			"tags": ["VCF"]
+ 		}
+ 	]
+-}
+\ No newline at end of file
++}

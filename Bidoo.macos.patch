@@ -1,0 +1,34 @@
+diff --git a/plugin.json b/plugin.json
+index 0070eea..8924944 100644
+--- a/plugin.json
++++ b/plugin.json
+@@ -87,14 +87,6 @@
+         "Sequencer"
+       ]
+     },
+-    {
+-      "slug": "cANARd",
+-      "name": "cANARd",
+-      "description": "cANARd",
+-      "tags": [
+-        "Sampler"
+-      ]
+-    },
+     {
+       "slug": "clACos",
+       "name": "clACos",
+@@ -230,14 +222,6 @@
+         "Sequencer"
+       ]
+     },
+-    {
+-      "slug": "OUAIve",
+-      "name": "OUAIve",
+-      "description": "OUAIve",
+-      "tags": [
+-        "Sampler"
+-      ]
+-    },
+     {
+       "slug": "PeNEqUe",
+       "name": "PeNEqUe",

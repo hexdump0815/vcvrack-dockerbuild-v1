@@ -7,6 +7,11 @@ WORKDIR=`dirname $0`
 cd $WORKDIR
 
 MYARCH=`uname -m`
+MYOS=`uname`
+
+if [ "$MYOS" = "Darwin" ]; then
+  MYARCH="macos"
+fi
 
 mkdir -p compile/plugins
 cd compile
@@ -304,6 +309,10 @@ git clone https://github.com/almostEric/FrozenWasteland
 cd FrozenWasteland
 git checkout v1
 git submodule update --init --recursive
+# workaround some compile error by disabling one module on macos
+if [ "$MYARCH" = "macos" ]; then
+  mv src/PortlandWeather.cpp src/PortlandWeather.cpp.off 
+fi
 if [ -f ../../../FrozenWasteland.$MYARCH.patch ]; then
   patch -p1 < ../../../FrozenWasteland.$MYARCH.patch
 fi
@@ -720,6 +729,11 @@ git clone https://github.com/sebastien-bouffier/Bidoo
 cd Bidoo
 git checkout v1.0
 git submodule update --init --recursive
+# workaround some compile errors by disabling some modules on macos
+if [ "$MYARCH" = "macos" ]; then
+  mv src/OUAIVE.cpp src/OUAIVE.cpp.off
+  mv src/CANARD.cpp src/CANARD.cpp.off
+fi
 if [ -f ../../../Bidoo.$MYARCH.patch ]; then
   patch -p1 < ../../../Bidoo.$MYARCH.patch
 fi

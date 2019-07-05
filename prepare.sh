@@ -7,6 +7,11 @@ WORKDIR=`dirname $0`
 cd $WORKDIR
 
 MYARCH=`uname -m`
+MYOS=`uname`
+
+if [ "$MYOS" = "Darwin" ]; then
+  MYARCH="macos"
+fi
 
 mkdir -p compile
 cd compile
