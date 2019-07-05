@@ -81,7 +81,7 @@ git submodule update --init --recursive
 if [ -f ../../../SquinkyVCV.$MYARCH.patch ]; then
   patch -p1 < ../../../SquinkyVCV.$MYARCH.patch
 fi
-find . -type f -exec ../../../simde-ify.sh {} \;
+find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
 
 # BogaudioModules
@@ -105,7 +105,7 @@ git clone https://github.com/ValleyAudio/ValleyRackFree
 cd ValleyRackFree
 git checkout v1.0
 git submodule update --init --recursive
-find . -type f -exec ../../../simde-ify.sh {} \;
+find * -type f -exec ../../../simde-ify.sh {} \;
 if [ -f ../../../ValleyRackFree.$MYARCH.patch ]; then
   patch -p1 < ../../../ValleyRackFree.$MYARCH.patch
 fi
@@ -122,7 +122,7 @@ git submodule update --init --recursive
 if [ -f ../../../ML_modules.$MYARCH.patch ]; then
   patch -p1 < ../../../ML_modules.$MYARCH.patch
 fi
-find . -type f -exec ../../../simde-ify.sh {} \;
+find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
 
 # ImpromptuModular
@@ -181,7 +181,7 @@ if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
   patch -p1 < ../../../../surge-rack-surge.$MYARCH.patch
 fi
 cd ..
-find . -type f -exec ../../../simde-ify.sh {} \;
+find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
 
 # AS
@@ -731,8 +731,9 @@ git checkout v1.0
 git submodule update --init --recursive
 # workaround some compile errors by disabling some modules on macos
 if [ "$MYARCH" = "macos" ]; then
-  mv src/OUAIVE.cpp src/OUAIVE.cpp.off
   mv src/CANARD.cpp src/CANARD.cpp.off
+  mv src/LIMONADE.cpp src/LIMONADE.cpp.off
+  mv src/OUAIVE.cpp src/OUAIVE.cpp.off
 fi
 if [ -f ../../../Bidoo.$MYARCH.patch ]; then
   patch -p1 < ../../../Bidoo.$MYARCH.patch

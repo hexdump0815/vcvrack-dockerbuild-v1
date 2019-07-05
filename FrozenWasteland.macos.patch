@@ -21,3 +21,15 @@ index 079d507..6cb5801 100644
 -}
 \ No newline at end of file
 +}
+diff --git a/src/FrozenWasteland.cpp b/src/FrozenWasteland.cpp
+index 9fe5805..cbf945a 100644
+--- a/src/FrozenWasteland.cpp
++++ b/src/FrozenWasteland.cpp
+@@ -23,7 +23,6 @@ void init(rack::Plugin *p) {
+ 	p->addModel(modelMrBlueSky);
+ 	p->addModel(modelTheOneRingModulator);
+ 	p->addModel(modelPhasedLockedLoop);
+-	p->addModel(modelPortlandWeather);
+ 	p->addModel(modelQuadEuclideanRhythm);
+ 	p->addModel(modelQuadGolombRulerRhythm);
+ 	p->addModel(modelQuantussyCell);

@@ -1,5 +1,5 @@
 diff --git a/plugin.json b/plugin.json
-index 0070eea..8924944 100644
+index 0070eea..8b81ed8 100644
 --- a/plugin.json
 +++ b/plugin.json
 @@ -87,14 +87,6 @@
@@ -17,7 +17,22 @@ index 0070eea..8924944 100644
      {
        "slug": "clACos",
        "name": "clACos",
-@@ -230,14 +222,6 @@
+@@ -189,14 +181,6 @@
+         "vcf"
+       ]
+     },
+-    {
+-      "slug": "liMonADe",
+-      "name": "liMonADe",
+-      "description": "liMonADe",
+-      "tags": [
+-        "Oscillator"
+-      ]
+-    },
+     {
+       "slug": "LoURdE",
+       "name": "LoURdE",
+@@ -230,14 +214,6 @@
          "Sequencer"
        ]
      },
@@ -32,3 +47,24 @@ index 0070eea..8924944 100644
      {
        "slug": "PeNEqUe",
        "name": "PeNEqUe",
+diff --git a/src/plugin.cpp b/src/plugin.cpp
+index 6c5c876..0d53bdd 100644
+--- a/src/plugin.cpp
++++ b/src/plugin.cpp
+@@ -16,8 +16,6 @@ void init(rack::Plugin *p) {
+ 	p->addModel(modelLOURDE);
+ 	p->addModel(modelACNE);
+ 	p->addModel(modelMS);
+-	p->addModel(modelOUAIVE);
+-	p->addModel(modelCANARD);
+ 	p->addModel(modelEMILE);
+ 	p->addModel(modelDUKE);
+ 	p->addModel(modelMOIRE);
+@@ -27,7 +25,6 @@ void init(rack::Plugin *p) {
+ 	p->addModel(modelCLACOS);
+ 	p->addModel(modelANTN);
+ 	p->addModel(modelPENEQUE);
+-	p->addModel(modelLIMONADE);
+ 	p->addModel(modelLIMBO);
+ 	p->addModel(modelPERCO);
+ 	p->addModel(modelFFILTR);
