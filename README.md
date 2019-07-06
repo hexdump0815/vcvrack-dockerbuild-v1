@@ -53,6 +53,7 @@ IMPORTANT: in case you run into problems with those builds here, please create a
 version 1.1.0
 - upgraded vcvrack to version v1.1.0
 - more included plugins (all 51 currently available open source plugins plus 21khz, bidoo and lindenberg research - resulting in a total of 686 vcvrack modules!)
+- added notes for running vcvrack on raspbian
 - bring back support for building on and for x86_64 linux (64bit), i686 linux (32bit) and macos (64bit, tested on sierra) - please be aware that the linux intel builds start iconified like the linux arm builds by default (for possible low cpu usage automation scenarios)
 - add support for building on and for windows in 32bit and 64bit mode
 - given up on the bridge module - it is no longer developed and one can use the one from the v0 builds if required
