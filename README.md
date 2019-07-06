@@ -49,9 +49,13 @@ the dist folder can be copied anywhere, run ./Rack -d inside of it, some working
 # changelog
 
 version 1.1.0 (planned, not yet released)
-- upgrade vcvrack to version v1.1.0
-- more included modules
-- try to get the bridge module compiled
+- upgraded vcvrack to version v1.1.0
+- more included plugins (all 51 currently available open source plugins plus 21khz, bidoo and lindenberg research - resulting in a total of 686 vcvrack modules!)
+- bring back support for building on and for x86_64 linux (64bit), i686 linux (32bit) and macos (64bit, tested on sierra) - please be aware that the linux intel builds start iconified like the linux arm builds by default (for possible low cpu usage automation scenarios)
+- add support for building on and for windows in 32bit and 64bit mode
+- given up on the bridge module - it is no longer developed and one can use the one from the v0 builds if required
+- known problems: the FrozenWasteland plugin does not load (plugin.json not matching), some others not on macos and on windows
+- see readme-macos.txt
 
 version 1.0.0
 - support for vcvrack v1.0.0

@@ -7,10 +7,19 @@ WORKDIR=`dirname $0`
 cd $WORKDIR
 
 MYARCH=`uname -m`
-MYOS=`uname`
+MYUNAME=`uname`
 
-if [ "$MYOS" = "Darwin" ]; then
+if [ "$MYUNAME" = "Darwin" ]; then
   MYARCH="macos"
+else
+  MYOS=`uname -o`
+  if [ "$MYOS" = "Msys" ]; then
+    if [ "$MSYSTEM_CARCH" = "x86_64" ]; then
+      MYARCH="win64"
+    else
+      MYARCH="win32"
+    fi
+  fi
 fi
 
 mkdir -p compile

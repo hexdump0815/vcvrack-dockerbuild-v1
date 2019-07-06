@@ -5,20 +5,30 @@ cd $WORKDIR
 WORKDIR=`pwd`
 
 MYARCH=`uname -m`
-MYOS=`uname`
+MYUNAME=`uname`
 
-if [ "$MYOS" = "Darwin" ]; then
+export ZIPNAME="lin"
+if [ "$MYUNAME" = "Darwin" ]; then
   MYARCH="macos"
-fi
-
-if [ "$MYARCH" = "macos" ]; then
   export ZIPNAME="mac"
 else
-  export ZIPNAME="lin"
+  MYOS=`uname -o`
+  if [ "$MYOS" = "Msys" ]; then
+    if [ "$MSYSTEM_CARCH" = "x86_64" ]; then
+      MYARCH="win64"
+      export ZIPNAME="win"
+    else
+      MYARCH="win32"
+      export ZIPNAME="win"
+    fi
+  fi
 fi
 
 mkdir -p dist/plugins
-for i in CHANGELOG.md LICENSE-dist.txt LICENSE.md Rack res template.vcv Core.json; do  cp -r compile/Rack/$i dist; done
+for i in CHANGELOG.md LICENSE-dist.txt LICENSE.md res template.vcv Core.json; do  cp -r compile/Rack/$i dist; done
+if [ -f compile/Rack/Rack.exe ]; then
+  cp compile/Rack/Rack.exe dist
+else
+  cp compile/Rack/Rack dist
+fi
 ( cd dist/plugins ; for i in ../../compile/plugins/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
-# do not strip the debug info out yet - makes debugging easier
-#strip -S dist/Rack dist/plugins/*/plugin.so
