@@ -46,6 +46,8 @@ make-dist.sh
 
 the dist folder can be copied anywhere, run ./Rack -d inside of it, some working opengl is required otherwise software rendering will eat up too much cpu cycles ... it is recommended to use jack for audio
 
+IMPORTANT: in case you run into problems with those builds here, please create an issue in this git repo and not in the vcvrack repo, as the problems might be related to this build and not to vcvrack in general
+
 # changelog
 
 version 1.1.0 (planned, not yet released)
