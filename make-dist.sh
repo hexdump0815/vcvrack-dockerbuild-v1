@@ -28,6 +28,12 @@ mkdir -p dist/plugins
 for i in CHANGELOG.md LICENSE-dist.txt LICENSE.md res template.vcv Core.json; do  cp -r compile/Rack/$i dist; done
 if [ -f compile/Rack/Rack.exe ]; then
   cp compile/Rack/Rack.exe dist
+  cp windows-run-rack.bat dist/run-rack.bat
+  if [ "$MYARCH" = "win64" ]; then
+    cp /mingw64/bin/libwinpthread-1.dll /mingw64/bin/libstdc++-6.dll /mingw64/bin/libgcc_s_seh-1.dll dist
+  else
+    cp /mingw32/bin/libwinpthread-1.dll /mingw32/bin/libstdc++-6.dll /mingw32/bin/libgcc_s_dw2-1.dll dist
+  fi
 else
   cp compile/Rack/Rack dist
 fi

@@ -56,9 +56,9 @@ version 1.1.0 (planned, not yet released)
 - bring back support for building on and for x86_64 linux (64bit), i686 linux (32bit) and macos (64bit, tested on sierra) - please be aware that the linux intel builds start iconified like the linux arm builds by default (for possible low cpu usage automation scenarios)
 - add support for building on and for windows in 32bit and 64bit mode
 - given up on the bridge module - it is no longer developed and one can use the one from the v0 builds if required
-- known problems: the FrozenWasteland plugin does not load (plugin.json not matching), some others not on macos and on windows
-- see readme-macos.txt
-
+- known problems:
+-- it looks like that the windows 32bit version simply does not work - it gives an assertion when loading the template patch in jpommier-pffft (the first assertion in pffft_transform_internal in case anyone wants to debug and fix this)
+-- the FrozenWasteland plugin does not load (plugin.json not matching), some others not on macos and on windows (see readme-macos.txt and readme-windows.txt)
 version 1.0.0
 - support for vcvrack v1.0.0
 - support for 20 modules for v1
