@@ -22,6 +22,13 @@ sysctl -w kernel.sched_rt_runtime_us=-1
 - download and unpack vcvrack.raspbian-v1.tar.gz
 - cd vcvrack.raspbian-v1
 - ./Rack -d
+- stop it again (now it has created a fresh settings.json file) and adjust the following values in the settings.json file:
+  "sampleRate": 32000.0,
+  "threadCount": 2,
+  "frameRateLimit": 5.0,
+  "frameRateSync": false,
+  "autosavePeriod": 60.0,
+- ./Rack -d
 - qjackctl go to connections -> audio -> connect vcvrack to system
 - press some keys the lowest keyboard row and you should see some waveforms on the scope of the template patch and hear some sound
 - try to load some patches - for instance from: https://github.com/hexdump0815/sonaremin/tree/master/files/data/vcvrack-v1
