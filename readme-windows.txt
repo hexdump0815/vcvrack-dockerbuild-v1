@@ -4,6 +4,10 @@ afterwards run
 
   pacman -Su nasm yasm patch vim openssh
 
+and for 32bit support
+
+  pacman -Su mingw-w64-i686-gcc mingw-w64-i686-gdb mingw-w64-i686-cmake mingw-w64-i686-libtool mingw-w64-i686-jq
+
 the build process on windows does not use docker - the order of things to do thus is:
 
 ./prepare.sh
