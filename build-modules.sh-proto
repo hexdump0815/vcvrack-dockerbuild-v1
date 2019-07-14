@@ -13,7 +13,7 @@ for i in * ; do
   echo "=== $i ==="
   echo ""
   cd $i
-  RACK_DIR=${WORKDIR}/Rack make -j2 clean
+#  RACK_DIR=${WORKDIR}/Rack make -j2 clean
   RACK_DIR=${WORKDIR}/Rack make -j2 dep
   RACK_DIR=${WORKDIR}/Rack make -j2
   RACK_DIR=${WORKDIR}/Rack make -j2 dist
