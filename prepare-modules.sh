@@ -115,6 +115,8 @@ cd ValleyRackFree
 git checkout v1.0
 git submodule update --init --recursive
 find * -type f -exec ../../../simde-ify.sh {} \;
+# this file gets accidently simde-ified :)
+git checkout -- TopographImg.png
 if [ -f ../../../ValleyRackFree.$MYARCH.patch ]; then
   patch -p1 < ../../../ValleyRackFree.$MYARCH.patch
 fi
@@ -179,7 +181,7 @@ echo surge-rack
 #git checkout xy
 git clone https://github.com/surge-synthesizer/surge-rack
 cd surge-rack
-git checkout release/1.beta1.0
+git checkout release/1.beta1.1
 git submodule update --init --recursive
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch
@@ -746,5 +748,135 @@ if [ "$MYARCH" = "macos" ]; then
 fi
 if [ -f ../../../Bidoo.$MYARCH.patch ]; then
   patch -p1 < ../../../Bidoo.$MYARCH.patch
+fi
+cd ..
+
+# Prism
+echo Prism
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/AmalgamatedHarmonics/Prism
+cd Prism
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../Prism.$MYARCH.patch ]; then
+  patch -p1 < ../../../Prism.$MYARCH.patch
+fi
+cd ..
+
+# RackModules
+echo RackModules
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/AnimatedCircuits/RackModules
+cd RackModules
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../RackModules.$MYARCH.patch ]; then
+  patch -p1 < ../../../RackModules.$MYARCH.patch
+fi
+cd ..
+
+# Ahornberg-Microtonal
+echo Ahornberg-Microtonal
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/Coirt/Ahornberg-Microtonal
+cd Ahornberg-Microtonal
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../Ahornberg-Microtonal.$MYARCH.patch ]; then
+  patch -p1 < ../../../Ahornberg-Microtonal.$MYARCH.patch
+fi
+cd ..
+
+# MyLittleTools
+echo MyLittleTools
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/digitalhappens/MyLittleTools
+cd MyLittleTools
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../MyLittleTools.$MYARCH.patch ]; then
+  patch -p1 < ../../../MyLittleTools.$MYARCH.patch
+fi
+cd ..
+
+# MicMusic-VCV
+echo MicMusic-VCV
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/very-cool-name/MicMusic-VCV
+cd MicMusic-VCV
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../MicMusic-VCV.$MYARCH.patch ]; then
+  patch -p1 < ../../../MicMusic-VCV.$MYARCH.patch
+fi
+cd ..
+
+# ZZC
+echo ZZC
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/zezic/ZZC
+cd ZZC
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../ZZC.$MYARCH.patch ]; then
+  patch -p1 < ../../../ZZC.$MYARCH.patch
+fi
+cd ..
+
+# skjack-vcv
+echo skjack-vcv
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/Skrylar/skjack-vcv
+cd skjack-vcv
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../skjack-vcv.$MYARCH.patch ]; then
+  patch -p1 < ../../../skjack-vcv.$MYARCH.patch
+fi
+cd ..
+
+# SubmarineFree
+echo SubmarineFree
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/david-c14/SubmarineFree
+cd SubmarineFree
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../SubmarineFree.$MYARCH.patch ]; then
+  patch -p1 < ../../../SubmarineFree.$MYARCH.patch
+fi
+cd ..
+
+# Circlefade
+echo Circlefade
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/max-circlefade/Circlefade
+cd Circlefade
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../Circlefade.$MYARCH.patch ]; then
+  patch -p1 < ../../../Circlefade.$MYARCH.patch
+fi
+cd ..
+
+# SLM-vcv-rack
+echo SLM-vcv-rack
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/salvolm84/SLM-vcv-rack
+cd SLM-vcv-rack
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../SLM-vcv-rack.$MYARCH.patch ]; then
+  patch -p1 < ../../../SLM-vcv-rack.$MYARCH.patch
 fi
 cd ..
