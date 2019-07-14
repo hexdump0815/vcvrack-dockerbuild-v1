@@ -1,4 +1,4 @@
-in case you want to build the arm versions on an intel machine the following should work (assuming ubuntu 18.04 on x86_64 (64bit) linux with working docker installation) - just roughly tested, but should work ...
+in case you want to build the arm versions on an intel machine the following should work (assuming ubuntu 18.04 on x86_64 (64bit) linux with working docker installation) - just roughly tested, but should work ... as it is emulating the arm cpu in software on intel it will be way slower than building natively on arm
 
 - install qemu-user-static to do the cpu translation in software for arm 32bit and 64bit
 
@@ -15,7 +15,7 @@ docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static -v `pwd`/compile
 
 - for aarch64: open an aarch64 ubuntu container
 
-docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static -v `pwd`/compile:/compile --rm -ti arm64v8/ubuntu:18.04
+docker run -v /usr/bin/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v `pwd`/compile:/compile --rm -ti arm64v8/ubuntu:18.04
 
 - for raspbian buster: create and open an raspbian buster container
 
