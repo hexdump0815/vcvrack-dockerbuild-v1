@@ -279,7 +279,7 @@ echo LRTRack
 #git checkout xy
 git clone https://github.com/lindenbergresearch/LRTRack.git
 cd LRTRack
-git checkout v1.0.0
+git checkout master
 git submodule update --init --recursive
 if [ -f ../../../LRTRack.$MYARCH.patch ]; then
   patch -p1 < ../../../LRTRack.$MYARCH.patch
