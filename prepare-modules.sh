@@ -719,24 +719,11 @@ if [ -f ../../../sonusmodular.$MYARCH.patch ]; then
 fi
 cd ..
 
-# 21kHz-rack-plugins - alternative v1 port with polyphony
-echo 21kHz-rack-plugins
-# this is the version i used this script last with
-#git checkout xy
-git clone https://github.com/stephanepericat/21kHz-rack-plugins
-cd 21kHz-rack-plugins
-git checkout v1
-git submodule update --init --recursive
-if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
-  patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
-fi
-cd ..
-
-# # 21kHz-rack-plugins - my started v1 port
+# # 21kHz-rack-plugins - alternative v1 port with polyphony
 # echo 21kHz-rack-plugins
 # # this is the version i used this script last with
 # #git checkout xy
-# git clone https://github.com/hexdump0815/21kHz-rack-plugins
+# git clone https://github.com/stephanepericat/21kHz-rack-plugins
 # cd 21kHz-rack-plugins
 # git checkout v1
 # git submodule update --init --recursive
@@ -744,6 +731,19 @@ cd ..
 #   patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
 # fi
 # cd ..
+
+# 21kHz-rack-plugins - my started v1 port
+echo 21kHz-rack-plugins
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/hexdump0815/21kHz-rack-plugins
+cd 21kHz-rack-plugins
+git checkout v1
+git submodule update --init --recursive
+if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
+  patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
+fi
+cd ..
 
 # Bidoo
 echo Bidoo
