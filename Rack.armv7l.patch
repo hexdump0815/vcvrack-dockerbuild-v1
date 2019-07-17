@@ -33,21 +33,6 @@ index bad90ec..c1412e4 100644
  
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
-diff --git a/dep/Makefile b/dep/Makefile
-index 33d45e6..055d630 100755
---- a/dep/Makefile
-+++ b/dep/Makefile
-@@ -99,8 +99,8 @@ $(openssl):
- 	$(WGET) "https://www.openssl.org/source/openssl-1.1.1b.tar.gz"
- 	$(SHA256) openssl-1.1.1b.tar.gz 5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b
- 	$(UNTAR) openssl-1.1.1b.tar.gz
--	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1b && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
-+	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
-+	cd openssl-1.1.1b && CFLAGS="" ./config --prefix="$(DEP_PATH)"
- 	$(MAKE) -C openssl-1.1.1b
- 	$(MAKE) -C openssl-1.1.1b install_sw
- 
 diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
 index a16d5a0..2e34a09 100644
 --- a/src/engine/Engine.cpp
@@ -131,4 +116,19 @@ index ca2cd8e..88f56d1 100644
 +
  clean:
  	rm -rfv build $(TARGET) dist
+ 
+diff --git a/dep/Makefile b/dep/Makefile
+index 3e9a3ea..d918ada 100755
+--- a/dep/Makefile
++++ b/dep/Makefile
+@@ -108,8 +108,8 @@ openssl-1.1.1b:
+ 	rm openssl-1.1.1b.tar.gz
+ 
+ $(openssl): openssl-1.1.1b
+-	@# ./config ignores CFLAGS, so hack it in with CC
+-	cd openssl-1.1.1b && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
++	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
++	cd openssl-1.1.1b && CFLAGS="" ./config --prefix="$(DEP_PATH)"
+ 	$(MAKE) -C openssl-1.1.1b
+ 	$(MAKE) -C openssl-1.1.1b install_sw
  

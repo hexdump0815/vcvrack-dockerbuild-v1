@@ -34,7 +34,7 @@ fi
 
 git clone https://github.com/VCVRack/Rack.git
 cd Rack
-git checkout v1.1.0
+git checkout v1.1.1
 # this is the version i used this script last with
 #git checkout xy
 git submodule update --init --recursive
@@ -42,7 +42,7 @@ if [ -f ../../Rack.$MYARCH.patch ]; then
   patch -p1 < ../../Rack.$MYARCH.patch
 fi
 if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
-  mkdir dep/include
+  mkdir -p dep/include
   cd dep/include
   ln -s ../../../simde/simde/hedley.h
   ln -s ../../../simde/simde/simde-arch.h
