@@ -1,1 +1,1 @@
-Rack.ex -d
+Rack.exe -d
