@@ -2,7 +2,7 @@ for building the windows versions follow the preparations from https://vcvrack.c
 
 afterwards run
 
-  pacman -Su nasm yasm patch vim openssh
+  pacman -Su nasm yasm patch vim openssh rsync
 
 and for 32bit support
 
