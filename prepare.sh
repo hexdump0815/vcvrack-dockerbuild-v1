@@ -34,7 +34,7 @@ fi
 
 git clone https://github.com/VCVRack/Rack.git
 cd Rack
-git checkout v1.1.1
+git checkout v1.1.3
 # this is the version i used this script last with
 #git checkout xy
 git submodule update --init --recursive

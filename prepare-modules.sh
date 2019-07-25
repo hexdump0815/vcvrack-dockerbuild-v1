@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit on errors
-set -e
+#set -e
 
 WORKDIR=`dirname $0`
 cd $WORKDIR
@@ -374,7 +374,7 @@ echo Bark
 #git checkout xy
 git clone https://github.com/Coirt/Bark
 cd Bark
-git checkout v1.0.3
+git checkout master
 git submodule update --init --recursive
 if [ -f ../../../Bark.$MYARCH.patch ]; then
   patch -p1 < ../../../Bark.$MYARCH.patch
@@ -465,7 +465,7 @@ echo Ohmer-Modules
 #git checkout xy
 git clone https://github.com/DomiKamu/Ohmer-Modules
 cd Ohmer-Modules
-git checkout v1
+git checkout master
 git submodule update --init --recursive
 if [ -f ../../../Ohmer-Modules.$MYARCH.patch ]; then
   patch -p1 < ../../../Ohmer-Modules.$MYARCH.patch
@@ -891,5 +891,57 @@ git checkout master
 git submodule update --init --recursive
 if [ -f ../../../SLM-vcv-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../SLM-vcv-rack.$MYARCH.patch
+fi
+cd ..
+
+# RJModules
+echo RJModules
+# this is the version i used this script last with
+#git checkout xy
+git clone http://github.com/Miserlou/RJModules
+cd RJModules
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../RJModules.$MYARCH.patch ]; then
+  patch -p1 < ../../../RJModules.$MYARCH.patch
+fi
+cd ..
+
+# computerscare-vcv-modules
+echo computerscare-vcv-modules
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/freddyz/computerscare-vcv-modules
+cd computerscare-vcv-modules
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../computerscare-vcv-modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../computerscare-vcv-modules.$MYARCH.patch
+fi
+cd ..
+
+# LomasModules
+echo LomasModules
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/LomasModules/LomasModules
+cd LomasModules
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../LomasModules.$MYARCH.patch ]; then
+  patch -p1 < ../../../LomasModules.$MYARCH.patch
+fi
+cd ..
+
+# repelzen
+echo repelzen
+# this is the version i used this script last with
+#git checkout xy
+git clone https://github.com/wiqid/repelzen
+cd repelzen
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../repelzen.$MYARCH.patch ]; then
+  patch -p1 < ../../../repelzen.$MYARCH.patch
 fi
 cd ..
