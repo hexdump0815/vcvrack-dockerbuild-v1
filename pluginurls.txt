@@ -1,4 +1,5 @@
 https://github.com/hexdump0815/21kHz-rack-plugins
+https://github.com/Miserlou/RJModules
 https://github.com/alikins/Alikins-rack-plugins
 https://github.com/almostEric/FrozenWasteland
 https://github.com/AmalgamatedHarmonics/Prism
@@ -22,6 +23,7 @@ https://github.com/dllmusic/moDllz
 https://github.com/DomiKamu/Ohmer-Modules
 https://github.com/expertsleepersltd/vcvrack-encoders
 https://github.com/FrankBuss/FrankBussRackPlugin
+https://github.com/freddyz/computerscare-vcv-modules
 https://github.com/hdavid/VCVRack-Holon.ist
 https://github.com/jeremywen/JW-Modules
 https://github.com/JerrySievert/CharredDesert
@@ -32,6 +34,7 @@ https://github.com/KarateSnoopy/vcv-karatesnoopy
 https://github.com/koralfx/Koralfx-Modules
 https://github.com/korfuri/WhatTheRack
 https://github.com/lindenbergresearch/LRTRack
+https://github.com/LomasModules/LomasModules
 https://github.com/MarcBoule/Geodesics
 https://github.com/MarcBoule/ImpromptuModular
 https://github.com/martin-lueders/ML_modules
@@ -60,5 +63,6 @@ https://github.com/VCVRack/ESeries
 https://github.com/VCVRack/Fundamental
 https://github.com/VCVRack/VCV-Recorder
 https://github.com/very-cool-name/MicMusic-VCV
+https://github.com/wiqid/repelzen
 https://github.com/zezic/ZZC
 https://gitlab.com/sonusdept/sonusmodular
