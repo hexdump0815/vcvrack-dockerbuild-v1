@@ -232,7 +232,9 @@ cd ..
 echo CharredDesert
 git clone https://github.com/JerrySievert/CharredDesert
 cd CharredDesert
-git checkout v1.0
+#git checkout v1.0
+# this is the version i used this script last with
+git checkout cd3f00159e88ba740489a37c478193502bdc5fc0
 git submodule update --init --recursive
 if [ -f ../../../CharredDesert.$MYARCH.patch ]; then
   patch -p1 < ../../../CharredDesert.$MYARCH.patch
@@ -399,14 +401,14 @@ if [ -f ../../../moDllz.$MYARCH.patch ]; then
 fi
 cd ..
 
-# Ohmer-Modules
-echo Ohmer-Modules
-git clone https://github.com/DomiKamu/Ohmer-Modules
-cd Ohmer-Modules
+# Ohmer
+echo Ohmer
+git clone https://github.com/DomiKamu/Ohmer
+cd Ohmer
 git checkout master
 git submodule update --init --recursive
-if [ -f ../../../Ohmer-Modules.$MYARCH.patch ]; then
-  patch -p1 < ../../../Ohmer-Modules.$MYARCH.patch
+if [ -f ../../../Ohmer.$MYARCH.patch ]; then
+  patch -p1 < ../../../Ohmer.$MYARCH.patch
 fi
 cd ..
 
