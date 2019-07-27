@@ -11,16 +11,3 @@ index 81c55f3..d456dac 100644
  endif
  ifdef ARCH_WIN
  	$(OBJCOPY) -I binary -O pe-x86-64 -B i386:x86-64 --rename-section .data=.rodata,alloc,load,readonly,data,contents $< $@
-diff --git a/src/window.cpp b/src/window.cpp
-index b46fa16..77a0514 100644
---- a/src/window.cpp
-+++ b/src/window.cpp
-@@ -250,6 +250,8 @@ Window::Window() {
- 	glfwSetKeyCallback(win, keyCallback);
- 	glfwSetDropCallback(win, dropCallback);
- 
-+	glfwIconifyWindow(win);
-+
- 	// Set up GLEW
- 	glewExperimental = GL_TRUE;
- 	err = glewInit();

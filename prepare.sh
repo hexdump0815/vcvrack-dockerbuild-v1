@@ -41,6 +41,10 @@ git submodule update --init --recursive
 if [ -f ../../Rack.$MYARCH.patch ]; then
   patch -p1 < ../../Rack.$MYARCH.patch
 fi
+# arch independent patches
+if [ -f ../../Rack.patch ]; then
+  patch -p1 < ../../Rack.patch
+fi
 if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   mkdir -p dep/include
   cd dep/include

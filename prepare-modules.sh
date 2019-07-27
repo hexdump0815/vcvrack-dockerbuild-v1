@@ -186,7 +186,9 @@ cd ..
 echo Geodesics
 git clone https://github.com/MarcBoule/Geodesics
 cd Geodesics
-git checkout v1
+#git checkout v1
+# this is the version i used this script last with
+git checkout 4dac1c7718f4a95ff05fb87891b5bfeeead7898d
 git submodule update --init --recursive
 if [ -f ../../../Geodesics.$MYARCH.patch ]; then
   patch -p1 < ../../../Geodesics.$MYARCH.patch
@@ -275,7 +277,7 @@ cd ..
 echo FrozenWasteland
 git clone https://github.com/almostEric/FrozenWasteland
 cd FrozenWasteland
-git checkout v1
+git checkout master
 git submodule update --init --recursive
 # workaround some compile error by disabling one module on macos
 if [ "$MYARCH" = "macos" ]; then

@@ -50,6 +50,17 @@ IMPORTANT: in case you run into problems with those builds here, please create a
 
 # changelog
 
+version 1.1.3
+- upgraded vcvrack to version v1.1.3
+- more included plugins (all 68 currently available open source plugins plus 21khz - resulting in a total of 869 vcvrack modules!)
+- introduce Rack.patch file with arch independent patches to avoid having to add them to all the arch patch files
+- vcvrack starts in iconified mode now on all platforms
+- some changes in vcvrack v1.1.2 and v.1.1.3 have been reverted to let all the plugins comple and run properly (see Rack.patch)
+
+version 1.1.1
+- upgraded vcvrack to version v1.1.1
+- more included plugins (all 64 currently available open source plugins plus 21khz - resulting in a total of 772 vcvrack modules!)
+
 version 1.1.0
 - upgraded vcvrack to version v1.1.0
 - more included plugins (all 51 currently available open source plugins plus 21khz, bidoo and lindenberg research - resulting in a total of 686 vcvrack modules!)
