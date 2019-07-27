@@ -276,10 +276,11 @@ cd ..
 # LRTRack
 echo LRTRack
 # this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/lindenbergresearch/LRTRack.git
 cd LRTRack
-git checkout master
+#git checkout master
+# fix version as later master does not compile properly
+git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
 if [ -f ../../../LRTRack.$MYARCH.patch ]; then
   patch -p1 < ../../../LRTRack.$MYARCH.patch
@@ -898,7 +899,7 @@ cd ..
 echo RJModules
 # this is the version i used this script last with
 #git checkout xy
-git clone http://github.com/Miserlou/RJModules
+git clone https://github.com/Miserlou/RJModules
 cd RJModules
 git checkout master
 git submodule update --init --recursive
