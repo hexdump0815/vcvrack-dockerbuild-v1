@@ -241,6 +241,7 @@ cd ..
 
 # LRTRack
 echo LRTRack
+git clone https://github.com/lindenbergresearch/LRTRack
 cd LRTRack
 #git checkout master
 # this is the version i used this script last with
