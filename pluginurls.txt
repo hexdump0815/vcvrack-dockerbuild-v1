@@ -21,6 +21,7 @@ https://github.com/dhemery/DHE-Modules
 https://github.com/digitalhappens/MyLittleTools
 https://github.com/dllmusic/moDllz
 https://github.com/DomiKamu/Ohmer-Modules
+https://github.com/Edge-Modules/Edge
 https://github.com/expertsleepersltd/vcvrack-encoders
 https://github.com/FrankBuss/FrankBussRackPlugin
 https://github.com/freddyz/computerscare-vcv-modules

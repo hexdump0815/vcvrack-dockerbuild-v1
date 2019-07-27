@@ -29,8 +29,6 @@ cd plugins
 
 # Fundamental
 echo Fundamental
-# this is the version i used this script last with
-#git checkout 01fe49d256df8d10c901e1cbad693bb5ec50f04a
 git clone https://github.com/VCVRack/Fundamental.git
 cd Fundamental
 git checkout v1
@@ -42,8 +40,6 @@ cd ..
 
 # AudibleInstruments
 echo AudibleInstruments
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/VCVRack/AudibleInstruments.git
 cd AudibleInstruments
 git checkout v1
@@ -55,8 +51,6 @@ cd ..
 
 # Befaco
 echo Befaco
-# this is the version i used this script last with
-#git checkout 72a2b6fab22096522914463b9bc8ecbd3513eab5
 git clone https://github.com/VCVRack/Befaco.git
 cd Befaco
 git checkout v1
@@ -68,8 +62,6 @@ cd ..
 
 # ESeries
 echo ESeries
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/VCVRack/ESeries.git
 cd ESeries
 git checkout v1
@@ -81,8 +73,6 @@ cd ..
 
 # SquinkyVCV
 echo SquinkyVCV
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/squinkylabs/SquinkyVCV
 cd SquinkyVCV
 git checkout master
@@ -95,8 +85,6 @@ cd ..
 
 # BogaudioModules
 echo BogaudioModules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/bogaudio/BogaudioModules
 cd BogaudioModules
 git checkout v1
@@ -108,8 +96,6 @@ cd ..
 
 # ValleyRackFree
 echo ValleyRackFree
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/ValleyAudio/ValleyRackFree
 cd ValleyRackFree
 git checkout v1.0
@@ -124,8 +110,6 @@ cd ..
 
 # ML_modules
 echo ML_modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/martin-lueders/ML_modules
 cd ML_modules
 git checkout v1
@@ -138,8 +122,6 @@ cd ..
 
 # ImpromptuModular
 echo ImpromptuModular
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/MarcBoule/ImpromptuModular
 cd ImpromptuModular
 git checkout v1
@@ -151,8 +133,6 @@ cd ..
 
 # STS
 echo STS
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/SmallTownSound/STS
 cd STS
 git checkout V1
@@ -164,8 +144,6 @@ cd ..
 
 # JW-Modules
 echo JW-Modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/jeremywen/JW-Modules
 cd JW-Modules
 git checkout v1
@@ -177,8 +155,6 @@ cd ..
 
 # surge-rack
 echo surge-rack
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/surge-synthesizer/surge-rack
 cd surge-rack
 git checkout release/1.beta1.1
@@ -197,8 +173,6 @@ cd ..
 
 # AS
 echo AS
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/AScustomWorks/AS
 cd AS
 git checkout master
@@ -210,8 +184,6 @@ cd ..
 
 # Geodesics
 echo Geodesics
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/MarcBoule/Geodesics
 cd Geodesics
 git checkout v1
@@ -223,8 +195,6 @@ cd ..
 
 # vcv-link
 echo vcv-link
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/stellare-modular/vcv-link
 cd vcv-link
 git checkout feature/v1
@@ -236,8 +206,6 @@ cd ..
 
 # synthkit
 echo synthkit
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/jerrysievert/synthkit
 cd synthkit
 git checkout v1.0
@@ -249,8 +217,6 @@ cd ..
 
 # DrumKit
 echo DrumKit
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/JerrySievert/DrumKit
 cd DrumKit
 git checkout v1.0
@@ -262,8 +228,6 @@ cd ..
 
 # CharredDesert
 echo CharredDesert
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/JerrySievert/CharredDesert
 cd CharredDesert
 git checkout v1.0
@@ -275,11 +239,9 @@ cd ..
 
 # LRTRack
 echo LRTRack
-# this is the version i used this script last with
-git clone https://github.com/lindenbergresearch/LRTRack.git
 cd LRTRack
 #git checkout master
-# fix version as later master does not compile properly
+# this is the version i used this script last with
 git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
 if [ -f ../../../LRTRack.$MYARCH.patch ]; then
@@ -289,8 +251,6 @@ cd ..
 
 # cf
 echo cf
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/cfoulc/cf.git
 cd cf
 git checkout v1
@@ -302,8 +262,6 @@ cd ..
 
 # Alikins-rack-plugins
 echo Alikins-rack-plugins
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/alikins/Alikins-rack-plugins
 cd Alikins-rack-plugins
 git checkout master
@@ -315,8 +273,6 @@ cd ..
 
 # FrozenWasteland
 echo FrozenWasteland
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/almostEric/FrozenWasteland
 cd FrozenWasteland
 git checkout v1
@@ -332,8 +288,6 @@ cd ..
 
 # BaconPlugs
 echo BaconPlugs
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/baconpaul/BaconPlugs
 cd BaconPlugs
 git checkout master
@@ -345,8 +299,6 @@ cd ..
 
 # catro-modulo
 echo catro-modulo
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/catronomix/catro-modulo
 cd catro-modulo
 git checkout master
@@ -358,8 +310,6 @@ cd ..
 
 # modules chortlinghamster
 echo modules chortlinghamster
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/chortlinghamster/modules
 cd modules
 git checkout master
@@ -371,8 +321,6 @@ cd ..
 
 # Bark
 echo Bark
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Coirt/Bark
 cd Bark
 git checkout master
@@ -384,8 +332,6 @@ cd ..
 
 # VCVRackPlugins countmodula
 echo VCVRackPlugins countmodula
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/countmodula/VCVRackPlugins
 cd VCVRackPlugins
 git checkout V1
@@ -397,8 +343,6 @@ cd ..
 
 # modular80
 echo modular80
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/cschol/modular80
 cd modular80
 git checkout v1
@@ -410,8 +354,6 @@ cd ..
 
 # ModularFungi
 echo ModularFungi
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/david-c14/ModularFungi
 cd ModularFungi
 git checkout master
@@ -423,8 +365,6 @@ cd ..
 
 # dBiz
 echo dBiz
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/dBiz/dBiz
 cd dBiz
 git checkout master
@@ -436,8 +376,6 @@ cd ..
 
 # DHE-Modules
 echo DHE-Modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/dhemery/DHE-Modules
 cd DHE-Modules
 git checkout master
@@ -449,8 +387,6 @@ cd ..
 
 # moDllz
 echo moDllz
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/dllmusic/moDllz
 cd moDllz
 git checkout master
@@ -462,8 +398,6 @@ cd ..
 
 # Ohmer-Modules
 echo Ohmer-Modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/DomiKamu/Ohmer-Modules
 cd Ohmer-Modules
 git checkout master
@@ -475,8 +409,6 @@ cd ..
 
 # vcvrack-encoders
 echo vcvrack-encoders
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/expertsleepersltd/vcvrack-encoders
 cd vcvrack-encoders
 git checkout master
@@ -488,8 +420,6 @@ cd ..
 
 # FrankBussRackPlugin
 echo FrankBussRackPlugin
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/FrankBuss/FrankBussRackPlugin
 cd FrankBussRackPlugin
 git checkout master
@@ -501,8 +431,6 @@ cd ..
 
 # VCVRack-Holon.ist
 echo VCVRack-Holon.ist
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/hdavid/VCVRack-Holon.ist
 cd VCVRack-Holon.ist
 git checkout v1
@@ -514,8 +442,6 @@ cd ..
 
 # AmalgamatedHarmonics
 echo AmalgamatedHarmonics
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/jhoar/AmalgamatedHarmonics
 cd AmalgamatedHarmonics
 git checkout master
@@ -527,8 +453,6 @@ cd ..
 
 # vcv-karatesnoopy
 echo vcv-karatesnoopy
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/KarateSnoopy/vcv-karatesnoopy
 cd vcv-karatesnoopy
 git checkout v1
@@ -540,8 +464,6 @@ cd ..
 
 # Koralfx-Modules
 echo Koralfx-Modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/koralfx/Koralfx-Modules
 cd Koralfx-Modules
 git checkout master
@@ -553,8 +475,6 @@ cd ..
 
 # WhatTheRack
 echo WhatTheRack
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/korfuri/WhatTheRack
 cd WhatTheRack
 git checkout v1
@@ -566,8 +486,6 @@ cd ..
 
 # hetrickcv
 echo hetrickcv
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/mhetrick/hetrickcv
 cd hetrickcv
 git checkout v1
@@ -579,8 +497,6 @@ cd ..
 
 # strong_kar
 echo strong_kar
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/mrletourneau/strong_kar
 cd strong_kar
 git checkout v1.1.0
@@ -592,8 +508,6 @@ cd ..
 
 # VCV-Rack-Plugins
 echo VCV-Rack-Plugins
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/mschack/VCV-Rack-Plugins
 cd VCV-Rack-Plugins
 git checkout master
@@ -605,8 +519,6 @@ cd ..
 
 # noobhour_modules
 echo noobhour_modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/NicolasNeubauer/noobhour_modules
 cd noobhour_modules
 git checkout master
@@ -618,8 +530,6 @@ cd ..
 
 # rcm-modules
 echo rcm-modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Rcomian/rcm-modules
 cd rcm-modules
 git checkout v1
@@ -631,8 +541,6 @@ cd ..
 
 # vcv-mosquito
 echo vcv-mosquito
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/rmosquito/vcv-mosquito
 cd vcv-mosquito
 git checkout master
@@ -644,8 +552,6 @@ cd ..
 
 # skylights-vcv
 echo skylights-vcv
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Skrylar/skylights-vcv
 cd skylights-vcv
 git checkout master
@@ -657,8 +563,6 @@ cd ..
 
 # Via-for-Rack
 echo Via-for-Rack
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/starlingcode/Via-for-Rack
 cd Via-for-Rack
 git checkout v1
@@ -670,8 +574,6 @@ cd ..
 
 # vcvrack-packone
 echo vcvrack-packone
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/stoermelder/vcvrack-packone
 cd vcvrack-packone
 git checkout v1
@@ -683,8 +585,6 @@ cd ..
 
 # quantal-audio
 echo quantal-audio
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/sumpygump/quantal-audio
 cd quantal-audio
 git checkout master
@@ -696,8 +596,6 @@ cd ..
 
 # VCV-Recorder
 echo VCV-Recorder
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/VCVRack/VCV-Recorder
 cd VCV-Recorder
 git checkout v1
@@ -709,8 +607,6 @@ cd ..
 
 # sonusmodular
 echo sonusmodular
-# this is the version i used this script last with
-#git checkout xy
 git clone https://gitlab.com/sonusdept/sonusmodular
 cd sonusmodular
 git checkout master
@@ -722,8 +618,6 @@ cd ..
 
 # # 21kHz-rack-plugins - alternative v1 port with polyphony
 # echo 21kHz-rack-plugins
-# # this is the version i used this script last with
-# #git checkout xy
 # git clone https://github.com/stephanepericat/21kHz-rack-plugins
 # cd 21kHz-rack-plugins
 # git checkout v1
@@ -735,8 +629,6 @@ cd ..
 
 # 21kHz-rack-plugins - my started v1 port
 echo 21kHz-rack-plugins
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/hexdump0815/21kHz-rack-plugins
 cd 21kHz-rack-plugins
 git checkout v1
@@ -748,8 +640,6 @@ cd ..
 
 # Bidoo
 echo Bidoo
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/sebastien-bouffier/Bidoo
 cd Bidoo
 git checkout v1.0
@@ -767,8 +657,6 @@ cd ..
 
 # Prism
 echo Prism
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/AmalgamatedHarmonics/Prism
 cd Prism
 git checkout master
@@ -780,8 +668,6 @@ cd ..
 
 # RackModules
 echo RackModules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/AnimatedCircuits/RackModules
 cd RackModules
 git checkout master
@@ -793,8 +679,6 @@ cd ..
 
 # Ahornberg-Microtonal
 echo Ahornberg-Microtonal
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Coirt/Ahornberg-Microtonal
 cd Ahornberg-Microtonal
 git checkout master
@@ -806,8 +690,6 @@ cd ..
 
 # MyLittleTools
 echo MyLittleTools
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/digitalhappens/MyLittleTools
 cd MyLittleTools
 git checkout master
@@ -819,8 +701,6 @@ cd ..
 
 # MicMusic-VCV
 echo MicMusic-VCV
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/very-cool-name/MicMusic-VCV
 cd MicMusic-VCV
 git checkout master
@@ -832,8 +712,6 @@ cd ..
 
 # ZZC
 echo ZZC
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/zezic/ZZC
 cd ZZC
 git checkout master
@@ -845,8 +723,6 @@ cd ..
 
 # skjack-vcv
 echo skjack-vcv
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Skrylar/skjack-vcv
 cd skjack-vcv
 git checkout master
@@ -858,8 +734,6 @@ cd ..
 
 # SubmarineFree
 echo SubmarineFree
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/david-c14/SubmarineFree
 cd SubmarineFree
 git checkout master
@@ -871,8 +745,6 @@ cd ..
 
 # Circlefade
 echo Circlefade
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/max-circlefade/Circlefade
 cd Circlefade
 git checkout master
@@ -884,8 +756,6 @@ cd ..
 
 # SLM-vcv-rack
 echo SLM-vcv-rack
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/salvolm84/SLM-vcv-rack
 cd SLM-vcv-rack
 git checkout master
@@ -897,8 +767,6 @@ cd ..
 
 # RJModules
 echo RJModules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/Miserlou/RJModules
 cd RJModules
 git checkout master
@@ -910,8 +778,6 @@ cd ..
 
 # computerscare-vcv-modules
 echo computerscare-vcv-modules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/freddyz/computerscare-vcv-modules
 cd computerscare-vcv-modules
 git checkout master
@@ -923,8 +789,6 @@ cd ..
 
 # LomasModules
 echo LomasModules
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/LomasModules/LomasModules
 cd LomasModules
 git checkout master
@@ -936,13 +800,22 @@ cd ..
 
 # repelzen
 echo repelzen
-# this is the version i used this script last with
-#git checkout xy
 git clone https://github.com/wiqid/repelzen
 cd repelzen
 git checkout master
 git submodule update --init --recursive
 if [ -f ../../../repelzen.$MYARCH.patch ]; then
   patch -p1 < ../../../repelzen.$MYARCH.patch
+fi
+cd ..
+
+# Edge
+echo Edge
+git clone https://github.com/Edge-Modules/Edge
+cd Edge
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../Edge.$MYARCH.patch ]; then
+  patch -p1 < ../../../Edge.$MYARCH.patch
 fi
 cd ..
