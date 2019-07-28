@@ -372,7 +372,9 @@ cd ..
 echo dBiz
 git clone https://github.com/dBiz/dBiz
 cd dBiz
-git checkout master
+#git checkout master
+# this is the version i used this script last with
+git checkout 3c94ede1feacd1e01135942abfdfcbe9a50e256f
 git submodule update --init --recursive
 if [ -f ../../../dBiz.$MYARCH.patch ]; then
   patch -p1 < ../../../dBiz.$MYARCH.patch
