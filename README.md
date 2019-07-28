@@ -8,7 +8,7 @@ regarding running vcvrack on arm don't get too excited: the performance of the u
 
 my reference systems are:
 * orbsmart s92 tv box - rockchip rk3288 4x1.5ghz 2gb ram - running ubuntu 18.04 armv7l with a self compiled linux 5.1.5 kernel with mali and other patches (it is similar to an asus tinkerboard) - usb audio PCM2704 (from ebay)
-* a95xr2 tv box - amlogic s905w 4x1.2ghz 2gb ram - running ubuntu 18.04 aarch64 with a self compiled linux 5.1.5 kernel with mali and other patches (it is similar but a bit slower than an odroid c2, khadas vim or libreteck potato board) - usb audio PCM2704 (from ebay)
+* a95xr2 tv box - amlogic s905w 4x1.2ghz 2gb ram - running ubuntu 18.04 aarch64 with a self compiled linux 5.1.5 kernel with mali and other patches (it is similar but a bit slower than an odroid c2, khadas vim or libretech potato board) - usb audio PCM2704 (from ebay)
 * raspberry pi 3b - broadcom soc 4x1.2ghz 1gb ram - running ubuntu 18.04 aarch64 (not 32bit raspbian!) with a self compiled linux 5.0.20 kernel and self compiled latest mesa vc4 - native headphone jack audio
 
 compiled binary packages for all the mentioned architectures are available under releases
