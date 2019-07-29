@@ -625,7 +625,7 @@ cd ..
 
 # # 21kHz-rack-plugins - alternative v1 port with polyphony
 # echo 21kHz-rack-plugins
-# git clone https://github.com/stephanepericat/21kHz-rack-plugins
+# git clone https://github.com/stefansebik/21kHz-rack-plugins.git
 # cd 21kHz-rack-plugins
 # git checkout v1
 # git submodule update --init --recursive
