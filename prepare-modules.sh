@@ -623,20 +623,9 @@ if [ -f ../../../sonusmodular.$MYARCH.patch ]; then
 fi
 cd ..
 
-# # 21kHz-rack-plugins - alternative v1 port with polyphony
-# echo 21kHz-rack-plugins
-# git clone https://github.com/stefansebik/21kHz-rack-plugins.git
-# cd 21kHz-rack-plugins
-# git checkout v1
-# git submodule update --init --recursive
-# if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
-#   patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
-# fi
-# cd ..
-
-# 21kHz-rack-plugins - my started v1 port
+# 21kHz-rack-plugins - alternative v1 port with polyphony
 echo 21kHz-rack-plugins
-git clone https://github.com/hexdump0815/21kHz-rack-plugins
+git clone https://github.com/stefansebik/21kHz-rack-plugins.git
 cd 21kHz-rack-plugins
 git checkout v1
 git submodule update --init --recursive
@@ -644,6 +633,17 @@ if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
   patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
 fi
 cd ..
+
+# # 21kHz-rack-plugins - my started v1 port
+# echo 21kHz-rack-plugins
+# git clone https://github.com/hexdump0815/21kHz-rack-plugins
+# cd 21kHz-rack-plugins
+# git checkout v1
+# git submodule update --init --recursive
+# if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
+#   patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
+# fi
+# cd ..
 
 # Bidoo
 echo Bidoo
@@ -826,3 +826,37 @@ if [ -f ../../../Edge.$MYARCH.patch ]; then
   patch -p1 < ../../../Edge.$MYARCH.patch
 fi
 cd ..
+
+# trowaSoft-VCV
+echo trowaSoft-VCV
+git clone https://github.com/j4s0n-c/trowaSoft-VCV
+cd trowaSoft-VCV
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../trowaSoft-VCV.$MYARCH.patch ]; then
+  patch -p1 < ../../../trowaSoft-VCV.$MYARCH.patch
+fi
+cd ..
+
+# anomalies
+echo anomalies
+git clone https://github.com/wiqid/anomalies
+cd anomalies
+git checkout master
+git submodule update --init --recursive
+if [ -f ../../../anomalies.$MYARCH.patch ]; then
+  patch -p1 < ../../../anomalies.$MYARCH.patch
+fi
+cd ..
+
+# disabled for now as they use the still commented out new WhileLight from Rack
+# # RackPlugins
+# echo RackPlugins
+# git clone https://github.com/The-XOR/RackPlugins
+# cd RackPlugins
+# git checkout uno
+# git submodule update --init --recursive
+# if [ -f ../../../RackPlugins.$MYARCH.patch ]; then
+#   patch -p1 < ../../../RackPlugins.$MYARCH.patch
+# fi
+# cd ..
