@@ -7,6 +7,25 @@ WORKDIR=`dirname $0`
 cd $WORKDIR
 WORKDIR=`pwd`
 
+cd library/repos
+for i in * ; do
+  if [ -f ${i}/plugin.json ]; then
+    echo ""
+    echo "=== $i ==="
+    echo ""
+    cd $i
+  #  RACK_DIR=${WORKDIR}/Rack make -j2 clean
+    RACK_DIR=${WORKDIR}/Rack make -j2 dep
+    RACK_DIR=${WORKDIR}/Rack make -j2
+    RACK_DIR=${WORKDIR}/Rack make -j2 dist
+    cd ..
+  fi
+done
+cd ../..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}
+
 cd plugins
 for i in * ; do
   echo ""
@@ -19,4 +38,4 @@ for i in * ; do
   RACK_DIR=${WORKDIR}/Rack make -j2 dist
   cd ..
 done
-cd ../..
+cd ..

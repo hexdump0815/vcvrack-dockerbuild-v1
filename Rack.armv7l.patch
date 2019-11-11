@@ -33,49 +33,6 @@ index bad90ec..c1412e4 100644
  
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
-diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
-index a16d5a0..2e34a09 100644
---- a/src/engine/Engine.cpp
-+++ b/src/engine/Engine.cpp
-@@ -10,7 +10,8 @@
- #include <mutex>
- #include <atomic>
- #include <tuple>
--#include <x86intrin.h>
-+/* #include <x86intrin.h> */
-+#include <unistd.h>
- 
- 
- namespace rack {
-@@ -20,8 +22,8 @@ namespace engine {
- static void disableDenormals() {
- 	// Set CPU to flush-to-zero (FTZ) and denormals-are-zero (DAZ) mode
- 	// https://software.intel.com/en-us/node/682949
--	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
--	_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
-+	// _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
-+	// _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
- }
- 
- 
-@@ -91,7 +93,7 @@ struct SpinBarrier {
- 		}
- 		else {
- 			while (count != 0) {
--				_mm_pause();
-+				asm volatile("" ::: "memory");
- 			}
- 		}
- 	}
-@@ -129,7 +131,7 @@ struct HybridBarrier {
- 		while (!yield) {
- 			if (count == 0)
- 				return;
--			_mm_pause();
-+			asm volatile("" ::: "memory");
- 		}
- 
- 		// Wait on mutex
 diff --git a/include/engine/Port.hpp b/include/engine/Port.hpp
 index 012a3ec..3d9dfb9 100644
 --- a/include/engine/Port.hpp
@@ -103,17 +60,64 @@ index ca2cd8e..88f56d1 100644
  	rm -rfv build $(TARGET) dist
  
 diff --git a/dep/Makefile b/dep/Makefile
-index 3e9a3ea..d918ada 100755
+index 4ce54ad..0878501 100755
 --- a/dep/Makefile
 +++ b/dep/Makefile
-@@ -108,8 +108,8 @@ openssl-1.1.1b:
- 	rm openssl-1.1.1b.tar.gz
+@@ -113,8 +113,8 @@ openssl-1.1.1d:
+ 	rm openssl-1.1.1d.tar.gz
  
- $(openssl): openssl-1.1.1b
+ $(openssl): openssl-1.1.1d
 -	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1b && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
+-	cd openssl-1.1.1d && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
 +	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
-+	cd openssl-1.1.1b && CFLAGS="" ./config --prefix="$(DEP_PATH)"
- 	$(MAKE) -C openssl-1.1.1b
- 	$(MAKE) -C openssl-1.1.1b install_sw
++	cd openssl-1.1.1d && CFLAGS="" ./config --prefix="$(DEP_PATH)"
+ 	$(MAKE) -C openssl-1.1.1d
+ 	$(MAKE) -C openssl-1.1.1d install_sw
  
+diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
+index ee0e64b..3b6bc33 100644
+--- a/src/engine/Engine.cpp
++++ b/src/engine/Engine.cpp
+@@ -10,7 +10,8 @@
+ #include <mutex>
+ #include <atomic>
+ #include <tuple>
+-#include <pmmintrin.h>
++/* #include <pmmintrin.h> */
++#include <unistd.h>
+ 
+ 
+ namespace rack {
+@@ -20,10 +21,10 @@ namespace engine {
+ static void initMXCSR() {
+ 	// Set CPU to flush-to-zero (FTZ) and denormals-are-zero (DAZ) mode
+ 	// https://software.intel.com/en-us/node/682949
+-	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+-	_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
++	// _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
++	// _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
+ 	// Reset other flags
+-	_MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
++	// _MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
+ }
+ 
+ 
+@@ -93,7 +94,7 @@ struct SpinBarrier {
+ 		}
+ 		else {
+ 			while (count != 0) {
+-				_mm_pause();
++				asm volatile("yield" ::: "memory");
+ 			}
+ 		}
+ 	}
+@@ -131,7 +132,7 @@ struct HybridBarrier {
+ 		while (!yield) {
+ 			if (count == 0)
+ 				return;
+-			_mm_pause();
++			asm volatile("yield" ::: "memory");
+ 		}
+ 
+ 		// Wait on mutex
+

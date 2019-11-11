@@ -34,43 +34,55 @@ index bad90ec..6e14b73 100644
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
 diff --git a/dep/Makefile b/dep/Makefile
-index 33d45e6..c07b301 100755
+index 35fbcd3..74145b9 100755
 --- a/dep/Makefile
 +++ b/dep/Makefile
-@@ -92,6 +92,7 @@ $(libspeexdsp):
- 	$(SHA256) speexdsp-SpeexDSP-1.2rc3.tgz c8dded1454747f65956f981c95e7f89a06abdaa2a53e8aeaa66bab2a3d59cebd
- 	$(UNTAR) speexdsp-SpeexDSP-1.2rc3.tgz
+@@ -170,6 +170,7 @@ speexdsp-SpeexDSP-1.2rc3:
+ 
+ $(libspeexdsp): speexdsp-SpeexDSP-1.2rc3
  	cd speexdsp-SpeexDSP-1.2rc3 && $(CONFIGURE)
 +	cp ../../resample_neon.h speexdsp-SpeexDSP-1.2rc3/libspeexdsp
  	$(MAKE) -C speexdsp-SpeexDSP-1.2rc3
  	$(MAKE) -C speexdsp-SpeexDSP-1.2rc3 install
  
+@@ -180,6 +181,8 @@ libsamplerate-0.1.9:
+ 	rm libsamplerate-0.1.9.tar.gz
+ 
+ $(libsamplerate): libsamplerate-0.1.9
++	cp /usr/share/automake-1.15/config.guess libsamplerate-0.1.9/Cfg
++	cp /usr/share/automake-1.15/config.sub libsamplerate-0.1.9/Cfg
+ 	cd libsamplerate-0.1.9 && $(CONFIGURE) --disable-fftw --disable-sndfile
+ 	$(MAKE) -C libsamplerate-0.1.9
+ 	$(MAKE) -C libsamplerate-0.1.9 install
 diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
-index a16d5a0..2e34a09 100644
+index ee0e64b..3b6bc33 100644
 --- a/src/engine/Engine.cpp
 +++ b/src/engine/Engine.cpp
 @@ -10,7 +10,8 @@
  #include <mutex>
  #include <atomic>
  #include <tuple>
--#include <x86intrin.h>
-+/* #include <x86intrin.h> */
+-#include <pmmintrin.h>
++/* #include <pmmintrin.h> */
 +#include <unistd.h>
  
  
  namespace rack {
-@@ -20,8 +22,8 @@ namespace engine {
- static void disableDenormals() {
+@@ -20,10 +21,10 @@ namespace engine {
+ static void initMXCSR() {
  	// Set CPU to flush-to-zero (FTZ) and denormals-are-zero (DAZ) mode
  	// https://software.intel.com/en-us/node/682949
 -	_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 -	_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
 +	// _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 +	// _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
+ 	// Reset other flags
+-	_MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
++	// _MM_SET_ROUNDING_MODE(_MM_ROUND_NEAREST);
  }
  
  
-@@ -91,7 +93,7 @@ struct SpinBarrier {
+@@ -93,7 +94,7 @@ struct SpinBarrier {
  		}
  		else {
  			while (count != 0) {
@@ -79,7 +91,7 @@ index a16d5a0..2e34a09 100644
  			}
  		}
  	}
-@@ -129,7 +131,7 @@ struct HybridBarrier {
+@@ -131,7 +132,7 @@ struct HybridBarrier {
  		while (!yield) {
  			if (count == 0)
  				return;

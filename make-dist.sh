@@ -37,4 +37,5 @@ if [ -f compile/Rack/Rack.exe ]; then
 else
   cp compile/Rack/Rack dist
 fi
+( cd dist/plugins ; for i in ../../compile/library/repos/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
 ( cd dist/plugins ; for i in ../../compile/plugins/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
