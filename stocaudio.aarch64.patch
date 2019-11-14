@@ -1,11 +1,11 @@
 diff --git a/Makefile b/Makefile
-index f5cc224..47b1d27 100644
+index 44d3826..ac302a2 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -14,6 +14,8 @@ DEPS += $(libsamplerate)
+@@ -29,6 +29,8 @@ DEPS += $(libsamplerate)
  $(libsamplerate):
- 	$(WGET) http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz
- 	cd dep && $(UNTAR) ../libsamplerate-0.1.9.tar.gz
+ 	cd dep && $(WGET) http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz
+ 	cd dep && $(UNTAR) libsamplerate-0.1.9.tar.gz
 +	cp /usr/share/automake-1.15/config.guess dep/libsamplerate-0.1.9/Cfg
 +	cp /usr/share/automake-1.15/config.sub dep/libsamplerate-0.1.9/Cfg
  	cd dep/libsamplerate-0.1.9 && $(CONFIGURE)

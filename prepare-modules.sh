@@ -136,6 +136,54 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# VCV-Recorder
+echo ""
+echo "===> VCV-Recorder extra plugin"
+echo ""
+git clone https://github.com/VCVRack/VCV-Recorder
+cd VCV-Recorder
+git checkout v1
+git submodule update --init --recursive
+if [ -f ../../../VCV-Recorder.$MYARCH.patch ]; then
+  patch -p1 < ../../../VCV-Recorder.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# vcv-link
+echo ""
+echo "===> vcv-link extra plugin"
+echo ""
+git clone https://github.com/stellare-modular/vcv-link
+cd vcv-link
+git checkout feature/v1
+git submodule update --init --recursive
+if [ -f ../../../vcv-link.$MYARCH.patch ]; then
+  patch -p1 < ../../../vcv-link.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# 21khz-rack-plugins
+echo ""
+echo "===> 21khz-rack-plugins extra plugin"
+echo ""
+git clone https://github.com/stefansebik/21kHz-rack-plugins.git
+cd 21kHz-rack-plugins
+git checkout v1
+git submodule update --init --recursive
+if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
+  patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # LRTRack
 echo ""
 echo "===> LRTRack extra plugin"
