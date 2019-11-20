@@ -32,14 +32,20 @@ git submodule update --init --recursive
 # arch specific patching if needed
 
 for i in * ; do
-  echo ""
-  echo "===> $i"
-  echo ""
-  cd $i
-  if [ -f ../../../../${i}.$MYARCH.patch ]; then
-    patch -p1 < ../../../../${i}.$MYARCH.patch
+  # surge-rack is handled separately below
+  if [ "$i" != "SurgeRack" ]; then
+    echo ""
+    echo "===> $i"
+    echo ""
+    cd $i
+    if [ -f ../../../../${i}.patch ]; then
+      patch -p1 < ../../../../${i}.patch
+    fi
+    if [ -f ../../../../${i}.$MYARCH.patch ]; then
+      patch -p1 < ../../../../${i}.$MYARCH.patch
+    fi
+    cd ..
   fi
-  cd ..
 done
 
 # go back to a defined starting point to be on the safe side
@@ -77,6 +83,30 @@ echo "===> ML_modules extra steps"
 echo ""
 cd ML_modules
 find * -type f -exec ../../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
+# HetrickCV
+echo ""
+echo "===> HetrickCV extra steps"
+echo ""
+cd HetrickCV
+# https://github.com/VCVRack/Rack/issues/1583 is fixed on master
+git checkout master
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
+# BaconMusic
+echo ""
+echo "===> BaconMusic extra steps"
+echo ""
+cd BaconMusic
+# https://github.com/VCVRack/Rack/issues/1583 is fixed on master
+git checkout master
 cd ..
 
 # go back to a defined starting point to be on the safe side

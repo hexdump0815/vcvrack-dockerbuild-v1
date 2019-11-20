@@ -1,0 +1,13 @@
+diff --git a/dep.mk b/dep.mk
+index cc09109..eb7a31e 100644
+--- a/dep.mk
++++ b/dep.mk
+@@ -32,7 +32,7 @@ else
+ endif
+ 
+ 
+-LUA_CFLAGS = -O2 -march=nocona -funsafe-math-optimizations -fomit-frame-pointer -fno-stack-protector -fPIC
++LUA_CFLAGS = -O2 -funsafe-math-optimizations -fomit-frame-pointer -fno-stack-protector -fPIC
+ LUAJIT_CFLAGS =
+ LUASTD_CFLAGS = -Wall -DLUA_COMPAT_5_2
+ 

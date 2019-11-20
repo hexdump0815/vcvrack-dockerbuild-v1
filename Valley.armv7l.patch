@@ -1,1 +1,13 @@
-Valley.patch
+diff --git a/src/Amalgam/VecAmalgam.cpp b/src/Amalgam/VecAmalgam.cpp
+index 11a2872..30fb496 100755
+--- a/src/Amalgam/VecAmalgam.cpp
++++ b/src/Amalgam/VecAmalgam.cpp
+@@ -235,7 +235,7 @@ __m128 VecAmalgam::bitHack(const __m128& x, const __m128& y, float paramA, float
+     __a32 = _mm_cvttps_epi32(_mm_mul_ps(__xDS, _mm_set1_ps(0x7FFFFFFF)));
+     __b32 = _mm_cvttps_epi32(_mm_mul_ps(__yDS, _mm_set1_ps(0x7FFFFFFF)));
+     __c32 = _mm_and_si128(_mm_or_si128(__c32, _mm_and_si128(__a32, __b32)), _mm_castps_si128(__chance32)); // Make 1 if a == 1 AND b == 1
+-    __c32 = _mm_and_si128(__c32, ~_mm_and_si128(_mm_and_si128(~__a32, ~__b32), _mm_castps_si128(__chance32))); // Make 0 if a == 0 AND b == 0
++    __c32 = _mm_and_si128(__c32, _mm_and_si128(_mm_and_si128(__a32, __b32), _mm_castps_si128(__chance32))); // Make 0 if a == 0 AND b == 0
+     __z = _mm_div_ps(_mm_cvtepi32_ps(__c32), _mm_set1_ps(0x7FFFFFFF));
+     __zDS = _mm_switch_ps(__zDS, __z, __sample);
+     return __zDS;
