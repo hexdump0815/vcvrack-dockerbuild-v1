@@ -158,6 +158,9 @@ git checkout v1
 # # this is the version i used this script last with
 # git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
+if [ -f ../../../Fundamental.patch ]; then
+  patch -p1 < ../../../Fundamental.patch
+fi
 if [ -f ../../../Fundamental.$MYARCH.patch ]; then
   patch -p1 < ../../../Fundamental.$MYARCH.patch
 fi
@@ -174,6 +177,9 @@ git clone https://github.com/VCVRack/VCV-Recorder
 cd VCV-Recorder
 git checkout v1
 git submodule update --init --recursive
+if [ -f ../../../VCV-Recorder.patch ]; then
+  patch -p1 < ../../../VCV-Recorder.patch
+fi
 if [ -f ../../../VCV-Recorder.$MYARCH.patch ]; then
   patch -p1 < ../../../VCV-Recorder.$MYARCH.patch
 fi
@@ -190,6 +196,9 @@ git clone https://github.com/stellare-modular/vcv-link
 cd vcv-link
 git checkout feature/v1
 git submodule update --init --recursive
+if [ -f ../../../vcv-link.patch ]; then
+  patch -p1 < ../../../vcv-link.patch
+fi
 if [ -f ../../../vcv-link.$MYARCH.patch ]; then
   patch -p1 < ../../../vcv-link.$MYARCH.patch
 fi
@@ -206,6 +215,9 @@ git clone https://github.com/stefansebik/21kHz-rack-plugins.git
 cd 21kHz-rack-plugins
 git checkout v1
 git submodule update --init --recursive
+if [ -f ../../../21kHz-rack-plugins.patch ]; then
+  patch -p1 < ../../../21kHz-rack-plugins.patch
+fi
 if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
   patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
 fi
@@ -224,6 +236,9 @@ git checkout master
 # # this is the version i used this script last with
 # git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
+if [ -f ../../../LRTRack.patch ]; then
+  patch -p1 < ../../../LRTRack.patch
+fi
 if [ -f ../../../LRTRack.$MYARCH.patch ]; then
   patch -p1 < ../../../LRTRack.$MYARCH.patch
 fi
@@ -238,7 +253,7 @@ echo "===> surge-rack extra plugin"
 echo ""
 git clone https://github.com/surge-synthesizer/surge-rack
 cd surge-rack
-git checkout release/1.beta1.1
+git checkout release/1.beta1.2
 git submodule update --init --recursive
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch

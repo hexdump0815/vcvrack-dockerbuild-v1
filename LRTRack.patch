@@ -6,7 +6,7 @@ index 47b89da..9f38732 100644
  #pragma once
  
  #include "DSPEffect.hpp"
-+#include "c++/7/vector"
++#include <c++/7/vector>
  
  namespace lrt {
  
