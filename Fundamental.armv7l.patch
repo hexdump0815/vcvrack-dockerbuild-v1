@@ -1,0 +1,10 @@
+diff --git a/Makefile b/Makefile
+index f5cc224..aeae581 100644
+--- a/Makefile
++++ b/Makefile
+@@ -20,3 +20,5 @@ $(libsamplerate):
+ 
+ 
+ include $(RACK_DIR)/plugin.mk
++
++FLAGS += -Idep/include -mfpu=vfpv3-d16 -no-unaligned-access

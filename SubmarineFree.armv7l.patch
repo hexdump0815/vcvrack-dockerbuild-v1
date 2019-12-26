@@ -1,0 +1,9 @@
+diff --git a/Makefile b/Makefile
+index 5e9a82c..4b798ec 100755
+--- a/Makefile
++++ b/Makefile
+@@ -33,3 +33,4 @@ else
+ 	touch $@
+ endif
+ 
++FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access

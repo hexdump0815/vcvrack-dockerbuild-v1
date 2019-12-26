@@ -10,3 +10,17 @@ index 9227ffe..2ed53b1 100644
 +    .type configurationXmlNullTerminator, %object
  configurationXmlNullTerminator:
      .int 0
+diff --git a/Makefile b/Makefile
+index 049b7f7..e2c83bf 100644
+--- a/Makefile
++++ b/Makefile
+@@ -147,8 +147,8 @@ ifdef ARCH_LIN
+ 	-Wno-unused-but-set-variable \
+ 	-Wno-reorder \
+ 	-Wno-multichar
+-
+ 	FLAGS += -Isurge/src/linux
++	FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access
+ endif
+ 
+ ifdef ARCH_WIN

@@ -11,3 +11,13 @@ index 11a2872..30fb496 100755
      __z = _mm_div_ps(_mm_cvtepi32_ps(__c32), _mm_set1_ps(0x7FFFFFFF));
      __zDS = _mm_switch_ps(__zDS, __z, __sample);
      return __zDS;
+diff --git a/Makefile b/Makefile
+index 80f4309..61b621b 100755
+--- a/Makefile
++++ b/Makefile
+@@ -22,3 +22,5 @@ RACK_DIR ?= ../..
+ 
+ DISTRIBUTABLES += $(wildcard LICENSE* *.pdf README*) res
+ include $(RACK_DIR)/plugin.mk
++
++FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access
