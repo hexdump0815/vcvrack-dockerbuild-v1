@@ -7,4 +7,4 @@ index f5cc224..aeae581 100644
  
  include $(RACK_DIR)/plugin.mk
 +
-+FLAGS += -Idep/include -mfpu=vfpv3-d16 -no-unaligned-access
++FLAGS += -Idep/include -mfpu=vfpv3-d16 -mno-unaligned-access
