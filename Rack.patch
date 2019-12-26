@@ -1,0 +1,255 @@
+diff --git a/include/settings.hpp b/include/settings.hpp
+index a2fbe86..767e0cd 100644
+--- a/include/settings.hpp
++++ b/include/settings.hpp
+@@ -34,7 +34,8 @@ extern int threadCount;
+ extern bool paramTooltip;
+ extern bool cpuMeter;
+ extern bool lockModules;
+-extern int frameSwapInterval;
++extern float frameRateLimit;
++extern bool frameRateSync;
+ extern float autosavePeriod;
+ extern bool skipLoadOnLaunch;
+ extern std::string patchPath;
+diff --git a/src/app/MenuBar.cpp b/src/app/MenuBar.cpp
+index 05e6494..5b7292c 100644
+--- a/src/app/MenuBar.cpp
++++ b/src/app/MenuBar.cpp
+@@ -327,30 +327,6 @@ struct CursorLockItem : ui::MenuItem {
+ 	}
+ };
+ 
+-struct FrameRateValueItem : ui::MenuItem {
+-	int frameSwapInterval;
+-	void onAction(const event::Action& e) override {
+-		settings::frameSwapInterval = frameSwapInterval;
+-	}
+-};
+-
+-struct FrameRateItem : ui::MenuItem {
+-	ui::Menu* createChildMenu() override {
+-		ui::Menu* menu = new ui::Menu;
+-
+-		for (int i = 1; i <= 6; i++) {
+-			float frameRate = APP->window->getMonitorRefreshRate() / i;
+-
+-			FrameRateValueItem* item = new FrameRateValueItem;
+-			item->frameSwapInterval = i;
+-			item->text = string::f("%.0f Hz", frameRate);
+-			item->rightText += CHECKMARK(settings::frameSwapInterval == i);
+-			menu->addChild(item);
+-		}
+-		return menu;
+-	}
+-};
+-
+ struct FullscreenItem : ui::MenuItem {
+ 	void onAction(const event::Action& e) override {
+ 		APP->window->setFullScreen(!APP->window->isFullScreen());
+@@ -390,10 +366,6 @@ struct ViewButton : MenuButton {
+ 		cableTensionSlider->box.size.x = 200.0;
+ 		menu->addChild(cableTensionSlider);
+ 
+-		FrameRateItem* frameRateItem = new FrameRateItem;
+-		frameRateItem->text = "Frame rate";
+-		menu->addChild(frameRateItem);
+-
+ 		FullscreenItem* fullscreenItem = new FullscreenItem;
+ 		fullscreenItem->text = "Fullscreen";
+ 		fullscreenItem->rightText = "F11";
+diff --git a/src/app/Scene.cpp b/src/app/Scene.cpp
+index 2b9bb5a..add47c3 100644
+--- a/src/app/Scene.cpp
++++ b/src/app/Scene.cpp
+@@ -15,14 +15,6 @@ namespace rack {
+ namespace app {
+ 
+ 
+-struct FrameRateWidget : widget::TransparentWidget {
+-	void draw(const DrawArgs& args) override {
+-		std::string text = string::f("%.2f Hz", APP->window->getLastFrameRate());
+-		bndLabel(args.vg, 0.0, 0.0, INFINITY, INFINITY, -1, text.c_str());
+-	}
+-};
+-
+-
+ Scene::Scene() {
+ 	rackScroll = new RackScrollWidget;
+ 	addChild(rackScroll);
+@@ -35,11 +27,6 @@ Scene::Scene() {
+ 	moduleBrowser = moduleBrowserCreate();
+ 	moduleBrowser->hide();
+ 	addChild(moduleBrowser);
+-
+-	frameRateWidget = new FrameRateWidget;
+-	frameRateWidget->box.size = math::Vec(80.0, 30.0);
+-	frameRateWidget->hide();
+-	addChild(frameRateWidget);
+ }
+ 
+ Scene::~Scene() {
+@@ -49,7 +36,6 @@ void Scene::step() {
+ 	bool fullscreen = APP->window->isFullScreen();
+ 	menuBar->visible = !fullscreen;
+ 	rackScroll->box.pos.y = menuBar->visible ? menuBar->box.size.y : 0;
+-	frameRateWidget->box.pos.x = box.size.x - frameRateWidget->box.size.x;
+ 
+ 	// Resize owned descendants
+ 	menuBar->box.size.x = box.size.x;
+diff --git a/src/settings.cpp b/src/settings.cpp
+index eeb1ffc..0f821cb 100644
+--- a/src/settings.cpp
++++ b/src/settings.cpp
+@@ -24,13 +24,14 @@ float cableOpacity = 0.5;
+ float cableTension = 0.5;
+ bool allowCursorLock = true;
+ bool realTime = false;
+-float sampleRate = 44100.0;
+-int threadCount = 1;
++float sampleRate = 32000.0;
++int threadCount = 2;
+ bool paramTooltip = false;
+ bool cpuMeter = false;
+ bool lockModules = false;
+-int frameSwapInterval = 1;
+-float autosavePeriod = 15.0;
++float frameRateLimit = 15.0;
++bool frameRateSync = false;
++float autosavePeriod = 60.0;
+ bool skipLoadOnLaunch = false;
+ std::string patchPath;
+ std::vector<NVGcolor> cableColors = {
+@@ -74,7 +75,9 @@ json_t* toJson() {
+ 
+ 	json_object_set_new(rootJ, "lockModules", json_boolean(lockModules));
+ 
+-	json_object_set_new(rootJ, "frameSwapInterval", json_integer(frameSwapInterval));
++	json_object_set_new(rootJ, "frameRateLimit", json_real(frameRateLimit));
++
++	json_object_set_new(rootJ, "frameRateSync", json_boolean(frameRateSync));
+ 
+ 	json_object_set_new(rootJ, "autosavePeriod", json_real(autosavePeriod));
+ 
+@@ -157,9 +160,13 @@ void fromJson(json_t* rootJ) {
+ 	if (lockModulesJ)
+ 		lockModules = json_boolean_value(lockModulesJ);
+ 
+-	json_t* frameSwapIntervalJ = json_object_get(rootJ, "frameSwapInterval");
+-	if (frameSwapIntervalJ)
+-		frameSwapInterval = json_integer_value(frameSwapIntervalJ);
++	json_t* frameRateLimitJ = json_object_get(rootJ, "frameRateLimit");
++	if (frameRateLimitJ)
++		frameRateLimit = json_number_value(frameRateLimitJ);
++
++	json_t* frameRateSyncJ = json_object_get(rootJ, "frameRateSync");
++	if (frameRateSyncJ)
++		frameRateSync = json_boolean_value(frameRateSyncJ);
+ 
+ 	json_t* autosavePeriodJ = json_object_get(rootJ, "autosavePeriod");
+ 	if (autosavePeriodJ)
+diff --git a/src/window.cpp b/src/window.cpp
+index 1f6a62c..5304471 100644
+--- a/src/window.cpp
++++ b/src/window.cpp
+@@ -95,9 +95,6 @@ struct Window::Internal {
+ 	int lastWindowHeight = 0;
+ 
+ 	bool ignoreNextMouseDelta = false;
+-	int frameSwapInterval = -1;
+-	float monitorRefreshRate = 0.f;
+-	float lastFrameRate = 0.f;
+ };
+ 
+ 
+@@ -251,9 +248,8 @@ Window::Window() {
+ 	glfwSetInputMode(win, GLFW_LOCK_KEY_MODS, 1);
+ 
+ 	glfwMakeContextCurrent(win);
+-	glfwSwapInterval(1);
+-	const GLFWvidmode* monitorMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+-	internal->monitorRefreshRate = monitorMode->refreshRate;
++	// Enable v-sync
++	glfwSwapInterval(settings::frameRateSync ? 1 : 0);
+ 
+ 	// Set window callbacks
+ 	glfwSetWindowSizeCallback(win, windowSizeCallback);
+@@ -266,6 +262,8 @@ Window::Window() {
+ 	glfwSetKeyCallback(win, keyCallback);
+ 	glfwSetDropCallback(win, dropCallback);
+ 
++	glfwIconifyWindow(win);
++
+ 	// Set up GLEW
+ 	glewExperimental = GL_TRUE;
+ 	err = glewInit();
+@@ -329,10 +327,7 @@ Window::~Window() {
+ void Window::run() {
+ 	frame = 0;
+ 	while (!glfwWindowShouldClose(win)) {
+-		double frameTime = glfwGetTime();
+-		internal->lastFrameRate = 1.f / float(frameTime - frameTimeStart);
+-		// DEBUG("%.2f Hz", internal->lastFrameRate);
+-		frameTimeStart = frameTime;
++		frameTimeStart = glfwGetTime();
+ 
+ 		// Make event handlers and step() have a clean nanovg context
+ 		nvgReset(vg);
+@@ -343,10 +338,6 @@ void Window::run() {
+ 
+ 		// In case glfwPollEvents() sets another OpenGL context
+ 		glfwMakeContextCurrent(win);
+-		if (settings::frameSwapInterval != internal->frameSwapInterval) {
+-			internal->frameSwapInterval = settings::frameSwapInterval;
+-			glfwSwapInterval(settings::frameSwapInterval);
+-		}
+ 
+ 		// Call cursorPosCallback every frame, not just when the mouse moves
+ 		{
+@@ -409,10 +400,23 @@ void Window::run() {
+ 			glClearColor(0.0, 0.0, 0.0, 1.0);
+ 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+ 			nvgEndFrame(vg);
++
++			glfwSwapBuffers(win);
+ 		}
+ 
+-		glfwSwapBuffers(win);
++		// Limit frame rate
++		double frameTimeEnd = glfwGetTime();
++		if (settings::frameRateLimit > 0.0) {
++			double frameDuration = frameTimeEnd - frameTimeStart;
++			double waitDuration = 1.0 / settings::frameRateLimit - frameDuration;
++			if (waitDuration > 0.0) {
++				std::this_thread::sleep_for(std::chrono::duration<double>(waitDuration));
++			}
++		}
+ 
++		// Compute actual frame rate
++		frameTimeEnd = glfwGetTime();
++		// DEBUG("%g fps", 1 / (endTime - startTime));
+ 		frame++;
+ 	}
+ }
+@@ -523,19 +527,10 @@ bool Window::isFullScreen() {
+ }
+ 
+ bool Window::isFrameOverdue() {
+-	if (settings::frameSwapInterval == 0)
++	if (settings::frameRateLimit == 0.0)
+ 		return false;
+ 	double frameDuration = glfwGetTime() - frameTimeStart;
+-	double frameDeadline = settings::frameSwapInterval / internal->monitorRefreshRate;
+-	return frameDuration > frameDeadline;
+-}
+-
+-float Window::getMonitorRefreshRate() {
+-	return internal->monitorRefreshRate;
+-}
+-
+-float Window::getLastFrameRate() {
+-	return internal->lastFrameRate;
++	return frameDuration > 1.0 / settings::frameRateLimit;
+ }
+ 
+ std::shared_ptr<Font> Window::loadFont(const std::string& filename) {
