@@ -9,16 +9,19 @@ WORKDIR=`pwd`
 
 cd library/repos
 for i in * ; do
-  if [ -f ${i}/plugin.json ]; then
-    echo ""
-    echo "=== $i ==="
-    echo ""
-    cd $i
-  #  RACK_DIR=${WORKDIR}/Rack make -j2 clean
-    RACK_DIR=${WORKDIR}/Rack make -j2 dep
-    RACK_DIR=${WORKDIR}/Rack make -j2
-    RACK_DIR=${WORKDIR}/Rack make -j2 dist
-    cd ..
+  # surge-rack is handled separately below
+  if [ "$i" != "SurgeRack" ]; then
+    if [ -f ${i}/plugin.json ]; then
+      echo ""
+      echo "=== $i ==="
+      echo ""
+      cd $i
+    #  RACK_DIR=${WORKDIR}/Rack make -j2 clean
+      RACK_DIR=${WORKDIR}/Rack make -j2 dep
+      RACK_DIR=${WORKDIR}/Rack make -j2
+      RACK_DIR=${WORKDIR}/Rack make -j2 dist
+      cd ..
+    fi
   fi
 done
 cd ../..

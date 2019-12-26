@@ -27,7 +27,11 @@ fi
 cd compile
 cp ../build-modules.sh-proto build-modules.sh
 cd library/repos
+# looks like the STS plugin is no longer available via github
+git submodule deinit -f -- STS
+git rm -f STS
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 
 # arch specific patching if needed
 
@@ -82,6 +86,17 @@ echo ""
 echo "===> ML_modules extra steps"
 echo ""
 cd ML_modules
+find * -type f -exec ../../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
+# SubmarineFree
+echo ""
+echo "===> SubmarineFree extra steps"
+echo ""
+cd SubmarineFree
 find * -type f -exec ../../../../simde-ify.sh {} \;
 cd ..
 
@@ -158,6 +173,7 @@ git checkout v1
 # # this is the version i used this script last with
 # git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/Fundamental-source.tar.gz compile/plugins/Fundamental )
 if [ -f ../../../Fundamental.patch ]; then
   patch -p1 < ../../../Fundamental.patch
 fi
@@ -177,6 +193,7 @@ git clone https://github.com/VCVRack/VCV-Recorder
 cd VCV-Recorder
 git checkout v1
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Recorder-source.tar.gz compile/plugins/VCV-Recorder )
 if [ -f ../../../VCV-Recorder.patch ]; then
   patch -p1 < ../../../VCV-Recorder.patch
 fi
@@ -196,6 +213,7 @@ git clone https://github.com/stellare-modular/vcv-link
 cd vcv-link
 git checkout feature/v1
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/vcv-link-source.tar.gz compile/plugins/vcv-link )
 if [ -f ../../../vcv-link.patch ]; then
   patch -p1 < ../../../vcv-link.patch
 fi
@@ -215,6 +233,7 @@ git clone https://github.com/stefansebik/21kHz-rack-plugins.git
 cd 21kHz-rack-plugins
 git checkout v1
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/21khz-rack-plugins-source.tar.gz compile/plugins/21khz-rack-plugins )
 if [ -f ../../../21kHz-rack-plugins.patch ]; then
   patch -p1 < ../../../21kHz-rack-plugins.patch
 fi
@@ -236,6 +255,7 @@ git checkout master
 # # this is the version i used this script last with
 # git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/LRTRack-source.tar.gz compile/plugins/LRTRack )
 if [ -f ../../../LRTRack.patch ]; then
   patch -p1 < ../../../LRTRack.patch
 fi
@@ -255,6 +275,7 @@ git clone https://github.com/surge-synthesizer/surge-rack
 cd surge-rack
 git checkout release/1.beta1.2
 git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch
 fi

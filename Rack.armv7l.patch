@@ -54,7 +54,7 @@ index ca2cd8e..88f56d1 100644
  
  include $(RACK_DIR)/compile.mk
  
-+FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access
++FLAGS += -mfpu=neon -mno-unaligned-access
 +
  clean:
  	rm -rfv build $(TARGET) dist

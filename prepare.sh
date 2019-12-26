@@ -38,13 +38,14 @@ cd Rack
 #git checkout v1.1.5
 # ... so use some later version which worked
 #git checkout 3790d1da0d338c9fbc192ab845d3c521a523dd26
-# v1.1.6 does not seem to have a proper own version tag
-git checkout 01e5e0301d6c1f6b3d52e717fa2ba7098dd4b49c
+# v1.1.6 does not seem to have a proper own version tag - it seems to have on now ...
+#git checkout 01e5e0301d6c1f6b3d52e717fa2ba7098dd4b49c
+git checkout v1.1.6
 # this is the version i used this script last with
 #git checkout xy
 git submodule update --init --recursive
 # create a backup copy of the unpatched sources if needed to build elsewhere later from them
-( cd .. ; tar czf Rack-sources.tar.gz Rack )
+( cd ../.. ; mkdir -p source ; tar czf source/Rack-source.tar.gz compile/Rack )
 if [ -f ../../Rack.$MYARCH.patch ]; then
   patch -p1 < ../../Rack.$MYARCH.patch
 fi

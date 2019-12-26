@@ -7,4 +7,4 @@ index c52dbcb..3062113 100644
  
  include $(RACK_DIR)/plugin.mk
 +
-+FLAGS += -mfpu=neon
++FLAGS += -mfpu=neon -mno-unaligned-access
