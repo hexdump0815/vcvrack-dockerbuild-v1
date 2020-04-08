@@ -253,3 +253,43 @@ index 1f6a62c..5304471 100644
  }
  
  std::shared_ptr<Font> Window::loadFont(const std::string& filename) {
+diff --git a/dep/Makefile b/dep/Makefile
+index 4ce54ad..7bce37a 100755
+--- a/dep/Makefile
++++ b/dep/Makefile
+@@ -106,17 +106,17 @@ $(jansson): jansson-2.12
+ 	$(MAKE) -C jansson-2.12
+ 	$(MAKE) -C jansson-2.12 install
+ 
+-openssl-1.1.1d:
+-	$(WGET) "https://www.openssl.org/source/openssl-1.1.1d.tar.gz"
+-	$(SHA256) openssl-1.1.1d.tar.gz 1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2
+-	$(UNTAR) openssl-1.1.1d.tar.gz
+-	rm openssl-1.1.1d.tar.gz
++openssl-1.1.1f:
++	$(WGET) "https://www.openssl.org/source/openssl-1.1.1f.tar.gz"
++	$(SHA256) openssl-1.1.1f.tar.gz 186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35
++	$(UNTAR) openssl-1.1.1f.tar.gz
++	rm openssl-1.1.1f.tar.gz
+ 
+-$(openssl): openssl-1.1.1d
++$(openssl): openssl-1.1.1f
+ 	@# ./config ignores CFLAGS, so hack it in with CC
+-	cd openssl-1.1.1d && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
+-	$(MAKE) -C openssl-1.1.1d
+-	$(MAKE) -C openssl-1.1.1d install_sw
++	cd openssl-1.1.1f && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
++	$(MAKE) -C openssl-1.1.1f
++	$(MAKE) -C openssl-1.1.1f install_sw
+ 
+ curl-7.66.0:
+ 	$(WGET) "https://curl.haxx.se/download/curl-7.66.0.tar.gz"
+@@ -246,7 +246,7 @@ $(pffft): jpommier-pffft-29e4f76ac53b
+ 
+ # Helpers
+ 
+-src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1d curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog jpommier-pffft-29e4f76ac53b
++src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1f curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog jpommier-pffft-29e4f76ac53b
+ 
+ clean:
+ 	git clean -fdx
