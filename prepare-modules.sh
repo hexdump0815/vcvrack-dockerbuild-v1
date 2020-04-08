@@ -57,6 +57,17 @@ cd ${WORKDIR}/compile/library/repos
 
 # some special handling:
 
+# Bark
+echo ""
+echo "===> Bark extra steps"
+echo ""
+cd Bark
+find * -type f -exec ../../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
 # squinkylabs-plug1
 echo ""
 echo "===> squinkylabs-plug1 extra steps"
@@ -225,26 +236,6 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
-# 21khz-rack-plugins
-echo ""
-echo "===> 21khz-rack-plugins extra plugin"
-echo ""
-git clone https://github.com/stefansebik/21kHz-rack-plugins.git
-cd 21kHz-rack-plugins
-git checkout v1
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/21khz-rack-plugins-source.tar.gz compile/plugins/21khz-rack-plugins )
-if [ -f ../../../21kHz-rack-plugins.patch ]; then
-  patch -p1 < ../../../21kHz-rack-plugins.patch
-fi
-if [ -f ../../../21kHz-rack-plugins.$MYARCH.patch ]; then
-  patch -p1 < ../../../21kHz-rack-plugins.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
 # LRTRack
 echo ""
 echo "===> LRTRack extra plugin"
@@ -273,7 +264,7 @@ echo "===> surge-rack extra plugin"
 echo ""
 git clone https://github.com/surge-synthesizer/surge-rack
 cd surge-rack
-git checkout release/1.beta1.2
+git checkout release/1.beta1.4
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
