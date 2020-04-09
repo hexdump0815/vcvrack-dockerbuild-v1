@@ -27,9 +27,6 @@ fi
 cd compile
 cp ../build-modules.sh-proto build-modules.sh
 cd library/repos
-# looks like the STS plugin is no longer available via github
-git submodule deinit -f -- STS
-git rm -f STS
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 
@@ -138,36 +135,6 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/library/repos
 
-# # FrozenWasteland
-# echo ""
-# echo "===> FrozenWasteland extra steps"
-# echo ""
-# cd FrozenWasteland
-# # workaround some compile error by disabling one module on macos
-# if [ "$MYARCH" = "macos" ]; then
-#   mv src/PortlandWeather.cpp src/PortlandWeather.cpp.off 
-# fi
-# cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/library/repos
-
-# # Bidoo
-# echo ""
-# echo "===> Bidoo extra steps"
-# echo ""
-# cd Bidoo
-# # workaround some compile errors by disabling some modules on macos
-# if [ "$MYARCH" = "macos" ]; then
-#   mv src/CANARD.cpp src/CANARD.cpp.off
-#   mv src/LIMONADE.cpp src/LIMONADE.cpp.off
-#   mv src/OUAIVE.cpp src/OUAIVE.cpp.off
-# fi
-# cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/library/repos
-
 # some extra plugins
 
 cd ${WORKDIR}
@@ -181,8 +148,6 @@ echo ""
 git clone https://github.com/VCVRack/Fundamental.git
 cd Fundamental
 git checkout v1
-# # this is the version i used this script last with
-# git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/Fundamental-source.tar.gz compile/plugins/Fundamental )
 if [ -f ../../../Fundamental.patch ]; then
@@ -202,7 +167,12 @@ echo "===> VCV-Recorder extra plugin"
 echo ""
 git clone https://github.com/VCVRack/VCV-Recorder
 cd VCV-Recorder
-git checkout v1
+if [ "$MYARCH" = "macos" ]; then
+  # rolle back to before opus as otherwise the fails on it on macos
+  git checkout 85aac9cce1bb6295141786a48e4a800b1168bae0
+else
+  git checkout v1
+fi
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Recorder-source.tar.gz compile/plugins/VCV-Recorder )
 if [ -f ../../../VCV-Recorder.patch ]; then
@@ -243,8 +213,6 @@ echo ""
 git clone https://github.com/lindenbergresearch/LRTRack
 cd LRTRack
 git checkout master
-# # this is the version i used this script last with
-# git checkout 6b12618ac454a781c3f61ac2ded25474a4645d28
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/LRTRack-source.tar.gz compile/plugins/LRTRack )
 if [ -f ../../../LRTRack.patch ]; then
