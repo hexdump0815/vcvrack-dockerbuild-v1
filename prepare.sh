@@ -28,7 +28,10 @@ if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   git clone https://github.com/nemequ/simde.git
   cd simde
   # this is the version i used this script last with
-  git checkout a61e88057c90ceb4b0b2cf5182919717bbb0496b
+  git checkout 11f1383067d7696370c1f9cf9b50b73b6c503cb3
+  # old special branch version
+  #git checkout a61e88057c90ceb4b0b2cf5182919717bbb0496b
+  ( cd ../.. ; mkdir -p source ; tar czf source/simde.tar.gz compile/simde )
   cd ..
 fi
 

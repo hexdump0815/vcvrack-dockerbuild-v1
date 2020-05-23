@@ -7,7 +7,7 @@ index 81c55f3..017ee58 100644
  FLAGS += -g
  # Optimization
 -FLAGS += -O3 -march=nocona -funsafe-math-optimizations
-+FLAGS += -O3 -march=native -mcpu=native -funsafe-math-optimizations
++FLAGS += -O3 -march=armv8-a -mtune=cortex-a53 -funsafe-math-optimizations
  # Warnings
  FLAGS += -Wall -Wextra -Wno-unused-parameter
  # C++ standard
@@ -29,7 +29,7 @@ index bad90ec..6e14b73 100644
  DEP_PATH := $(abspath $(DEP_LOCAL))
  
 -DEP_FLAGS += -g -O3 -march=nocona
-+DEP_FLAGS += -g -O3 -march=native -mcpu=native
++DEP_FLAGS += -g -O3 -march=armv8-a -mtune=cortex-a53
  
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7

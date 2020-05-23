@@ -54,6 +54,17 @@ cd ${WORKDIR}/compile/library/repos
 
 # some special handling:
 
+# AudibleInstruments
+echo ""
+echo "===> AudibleInstruments extra steps"
+echo ""
+cd AudibleInstruments
+find * -type f -exec ../../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
 # Bark
 echo ""
 echo "===> Bark extra steps"
