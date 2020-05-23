@@ -1,0 +1,14 @@
+diff --git a/src/VuMeters.cpp b/src/VuMeters.cpp
+index 3f9712d..fd23033 100644
+--- a/src/VuMeters.cpp
++++ b/src/VuMeters.cpp
+@@ -31,7 +31,8 @@ void VuMeterBase::prepareYellowAndRedThresholds(float yellowMinDb, float redMinD
+ 
+ 
+ void VuMeterBase::processPeakHold() {// use APP->window->getLastFrameRate()
+-	holdTimeRemainBeforeReset -= 1.0f / APP->window->getLastFrameRate();
++//	holdTimeRemainBeforeReset -= 1.0f / APP->window->getLastFrameRate();
++	holdTimeRemainBeforeReset -= 1.0f / 15;
+ 	if ( holdTimeRemainBeforeReset < 0.0f ) {
+ 		holdTimeRemainBeforeReset = 2.0f;// in seconds
+ 		peakHold[0] = 0.0f;

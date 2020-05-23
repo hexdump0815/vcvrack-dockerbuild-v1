@@ -1,0 +1,39 @@
+diff --git a/src/Goto.cpp b/src/Goto.cpp
+index e7612b9..e3bbbc6 100644
+--- a/src/Goto.cpp
++++ b/src/Goto.cpp
+@@ -164,7 +164,8 @@ struct GotoContainer : widget::Widget {
+ 	int learnJumpPoint = -1;
+ 
+ 	GotoContainer() {
+-		divider.setDivision(APP->window->getMonitorRefreshRate());
++//		divider.setDivision(APP->window->getMonitorRefreshRate());
++		divider.setDivision(15);
+ 	}
+ 
+ 	void step() override {
+@@ -238,10 +239,12 @@ struct GotoContainer : widget::Widget {
+ 				if (module->smoothTransition) {
+ 					float zoom = !module->ignoreZoom ? module->jumpPoints[i].zoom : rack::settings::zoom;
+ 					if (module->centerModule) {
+-						viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate());
++//						viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate());
++						viewportCenterSmooth.trigger(mw, zoom, 15);
+ 					}
+ 					else {
+-						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, APP->window->getLastFrameRate());
++//						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, APP->window->getLastFrameRate());
++						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, 15);
+ 					}
+ 				}
+ 				else {
+@@ -283,7 +286,8 @@ struct GotoButton : LEDButton {
+ 	void step() override {
+ 		if (paramQuantity) {
+ 			lpb.param = paramQuantity->getParam();
+-			switch (lpb.process(1.f / APP->window->getLastFrameRate())) {
++//			switch (lpb.process(1.f / APP->window->getLastFrameRate())) {
++			switch (lpb.process(1.f / 15)) {
+ 				default:
+ 				case LongPressButton::NO_PRESS:
+ 					break;
