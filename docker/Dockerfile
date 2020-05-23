@@ -16,3 +16,6 @@ RUN test -e /usr/bin/aarch64-linux-gnu-cpp && rm -f /usr/bin/aarch64-linux-gnu-c
 #RUN test -e /usr/bin/x86_64-linux-gnu-gcc && rm -f /usr/bin/x86_64-linux-gnu-gcc && ln -s /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc
 #RUN test -e /usr/bin/x86_64-linux-gnu-g++ && rm -f /usr/bin/x86_64-linux-gnu-g++ && ln -s /usr/bin/g++-8 /usr/bin/x86_64-linux-gnu-g++
 #RUN test -e /usr/bin/x86_64-linux-gnu-cpp && rm -f /usr/bin/x86_64-linux-gnu-cpp && ln -s /usr/bin/cpp-8 /usr/bin/x86_64-linux-gnu-cpp
+#RUN test -e /usr/bin/i686-linux-gnu-gcc && rm -f /usr/bin/i686-linux-gnu-gcc && ln -s /usr/bin/gcc-8 /usr/bin/i686-linux-gnu-gcc
+#RUN test -e /usr/bin/i686-linux-gnu-g++ && rm -f /usr/bin/i686-linux-gnu-g++ && ln -s /usr/bin/g++-8 /usr/bin/i686-linux-gnu-g++
+#RUN test -e /usr/bin/i686-linux-gnu-cpp && rm -f /usr/bin/i686-linux-gnu-cpp && ln -s /usr/bin/cpp-8 /usr/bin/i686-linux-gnu-cpp
