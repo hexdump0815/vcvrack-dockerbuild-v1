@@ -1,14 +1,23 @@
 diff --git a/src/VuMeters.cpp b/src/VuMeters.cpp
-index 3f9712d..fd23033 100644
+index 3f9712d..f58cac9 100644
 --- a/src/VuMeters.cpp
 +++ b/src/VuMeters.cpp
-@@ -31,7 +31,8 @@ void VuMeterBase::prepareYellowAndRedThresholds(float yellowMinDb, float redMinD
+@@ -7,6 +7,8 @@
+ 
+ 
+ #include "VuMeters.hpp"
++// required for settings::frameRateLimit
++#include "settings.hpp"
+ 
+ 
+ // VuMeter signal processing code for peak/rms
+@@ -31,7 +33,8 @@ void VuMeterBase::prepareYellowAndRedThresholds(float yellowMinDb, float redMinD
  
  
  void VuMeterBase::processPeakHold() {// use APP->window->getLastFrameRate()
 -	holdTimeRemainBeforeReset -= 1.0f / APP->window->getLastFrameRate();
 +//	holdTimeRemainBeforeReset -= 1.0f / APP->window->getLastFrameRate();
-+	holdTimeRemainBeforeReset -= 1.0f / 15;
++	holdTimeRemainBeforeReset -= 1.0f / settings::frameRateLimit;
  	if ( holdTimeRemainBeforeReset < 0.0f ) {
  		holdTimeRemainBeforeReset = 2.0f;// in seconds
  		peakHold[0] = 0.0f;

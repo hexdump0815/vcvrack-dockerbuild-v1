@@ -1,5 +1,5 @@
 diff --git a/src/Goto.cpp b/src/Goto.cpp
-index e7612b9..e3bbbc6 100644
+index e7612b9..ade00a1 100644
 --- a/src/Goto.cpp
 +++ b/src/Goto.cpp
 @@ -164,7 +164,8 @@ struct GotoContainer : widget::Widget {
@@ -8,7 +8,7 @@ index e7612b9..e3bbbc6 100644
  	GotoContainer() {
 -		divider.setDivision(APP->window->getMonitorRefreshRate());
 +//		divider.setDivision(APP->window->getMonitorRefreshRate());
-+		divider.setDivision(15);
++		divider.setDivision(settings::frameRateLimit);
  	}
  
  	void step() override {
@@ -18,12 +18,12 @@ index e7612b9..e3bbbc6 100644
  					if (module->centerModule) {
 -						viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate());
 +//						viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate());
-+						viewportCenterSmooth.trigger(mw, zoom, 15);
++						viewportCenterSmooth.trigger(mw, zoom, settings::frameRateLimit);
  					}
  					else {
 -						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, APP->window->getLastFrameRate());
 +//						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, APP->window->getLastFrameRate());
-+						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, 15);
++						viewportCenterSmooth.trigger(Vec(module->jumpPoints[i].x, module->jumpPoints[i].y), zoom, settings::frameRateLimit);
  					}
  				}
  				else {
@@ -33,7 +33,7 @@ index e7612b9..e3bbbc6 100644
  			lpb.param = paramQuantity->getParam();
 -			switch (lpb.process(1.f / APP->window->getLastFrameRate())) {
 +//			switch (lpb.process(1.f / APP->window->getLastFrameRate())) {
-+			switch (lpb.process(1.f / 15)) {
++			switch (lpb.process(1.f / settings::frameRateLimit)) {
  				default:
  				case LongPressButton::NO_PRESS:
  					break;
