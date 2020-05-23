@@ -63,6 +63,8 @@ echo "===> AudibleInstruments extra steps"
 echo ""
 cd AudibleInstruments
 find * -type f -exec ../../../../simde-ify.sh {} \;
+# this file gets accidently simde-ified :)
+git checkout -- design/Warps.ai
 cd ..
 
 # go back to a defined starting point to be on the safe side

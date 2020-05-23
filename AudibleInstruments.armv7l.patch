@@ -1,10 +1,10 @@
 diff --git a/Makefile b/Makefile
-index ea1dafd..d3cc2c4 100755
+index 51794c7..095c796 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -19,3 +19,5 @@ RACK_DIR ?= ../..
+@@ -95,3 +95,5 @@ DISTRIBUTABLES += $(wildcard LICENSE*) res
  
- # Include the VCV Rack plugin Makefile framework
+ RACK_DIR ?= ../..
  include $(RACK_DIR)/plugin.mk
 +
 +FLAGS += -mfpu=vfpv3-d16 -mno-unaligned-access
