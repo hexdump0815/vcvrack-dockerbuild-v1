@@ -48,5 +48,5 @@ done
 cp -r compile/Rack/dep/include dist/rack-sdk/dep
 
 if [ "$MYOS" = "Msys" ]; then
-  cp libRack.a dist/rack-sdk
+  cp compile/Rack/libRack.a dist/rack-sdk
 fi
