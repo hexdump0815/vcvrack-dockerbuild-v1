@@ -27,6 +27,7 @@ fi
 cd compile
 cp ../build-modules.sh-proto build-modules.sh
 cd library/repos
+git checkout 95ce17d062beadd8d393ce1ebd5e5bf2057b2c3e
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 
@@ -39,9 +40,11 @@ for i in * ; do
     echo "===> $i"
     echo ""
     cd $i
+    # arch independent patches
     if [ -f ../../../../${i}.patch ]; then
       patch -p1 < ../../../../${i}.patch
     fi
+    # arch specific patches
     if [ -f ../../../../${i}.$MYARCH.patch ]; then
       patch -p1 < ../../../../${i}.$MYARCH.patch
     fi

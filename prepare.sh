@@ -49,12 +49,13 @@ git checkout v1.1.6
 git submodule update --init --recursive
 # create a backup copy of the unpatched sources if needed to build elsewhere later from them
 ( cd ../.. ; mkdir -p source ; tar czf source/Rack-source.tar.gz compile/Rack )
-if [ -f ../../Rack.$MYARCH.patch ]; then
-  patch -p1 < ../../Rack.$MYARCH.patch
-fi
 # arch independent patches
 if [ -f ../../Rack.patch ]; then
   patch -p1 < ../../Rack.patch
+fi
+# arch specific patches
+if [ -f ../../Rack.$MYARCH.patch ]; then
+  patch -p1 < ../../Rack.$MYARCH.patch
 fi
 if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
   mkdir -p dep/include

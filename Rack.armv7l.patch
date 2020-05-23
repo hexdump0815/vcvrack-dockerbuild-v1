@@ -63,16 +63,16 @@ diff --git a/dep/Makefile b/dep/Makefile
 index 4ce54ad..0878501 100755
 --- a/dep/Makefile
 +++ b/dep/Makefile
-@@ -113,8 +113,8 @@ openssl-1.1.1d:
- 	rm openssl-1.1.1d.tar.gz
+@@ -113,8 +113,8 @@ openssl-1.1.1f:
+ 	rm openssl-1.1.1f.tar.gz
  
- $(openssl): openssl-1.1.1d
+ $(openssl): openssl-1.1.1f
 -	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1d && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
+-	cd openssl-1.1.1f && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
 +	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
-+	cd openssl-1.1.1d && CFLAGS="" ./config --prefix="$(DEP_PATH)"
- 	$(MAKE) -C openssl-1.1.1d
- 	$(MAKE) -C openssl-1.1.1d install_sw
++	cd openssl-1.1.1f && CFLAGS="" ./config --prefix="$(DEP_PATH)"
+ 	$(MAKE) -C openssl-1.1.1f
+ 	$(MAKE) -C openssl-1.1.1f install_sw
  
 diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
 index ee0e64b..3b6bc33 100644
