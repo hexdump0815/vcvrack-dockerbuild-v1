@@ -1,0 +1,13 @@
+diff --git a/Makefile.common b/Makefile.common
+index 8b9b3a1..34bfcf3 100644
+--- a/Makefile.common
++++ b/Makefile.common
+@@ -225,7 +225,7 @@ else ifeq ($(PLATFORM), macosx)
+ 
+ 	# Oh where, oh where have my SDKs gone?
+ 	ifeq ($(wildcard /Applications/Xcode.app),)
+-		OSX_SDK_PATH := /Developer/SDKs/
++		OSX_SDK_PATH := /Library/Developer/CommandLineTools/SDKs/
+ 	else
+ 		OSX_SDK_PATH := /Applications/XCode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
+ 	endif

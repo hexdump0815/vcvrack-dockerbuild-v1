@@ -9,4 +9,4 @@ the build process on macos does not use docker - the order of things to do thus 
 
 and assumes a working brew https://brew.sh/ installation
 
-the Bogaudio, DHE and Surge modules do not load properly in this build
+the Bogaudio, DHE, Surge and TriggerFish-Elements modules do not load properly in this build
