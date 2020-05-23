@@ -237,6 +237,31 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# vcvrack-packgamma
+echo ""
+echo "===> vcvrack-packgamma extra plugin"
+echo ""
+git clone https://github.com/stoermelder/vcvrack-packgamma.git
+cd vcvrack-packgamma
+git checkout master
+git submodule update --init --recursive
+( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packgamma-source.tar.gz compile/plugins/vcvrack-packgamma )
+if [ -f ../../../vcvrack-packgamma.patch ]; then
+  patch -p1 < ../../../vcvrack-packgamma.patch
+fi
+if [ -f ../../../vcvrack-packgamma.$MYARCH.patch ]; then
+  patch -p1 < ../../../vcvrack-packgamma.$MYARCH.patch
+fi
+cd dep/Gamma
+if [ -f ../../../../../vcvrack-packgamma-dep-Gamma.$MYARCH.patch ]; then
+  patch -p1 < ../../../../../vcvrack-packgamma-dep-Gamma.$MYARCH.patch
+fi
+cd ../..
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # surge-rack
 echo ""
 echo "===> surge-rack extra plugin"

@@ -1,0 +1,13 @@
+diff --git a/Makefile.common b/Makefile.common
+index 8b9b3a1..2797b0d 100644
+--- a/Makefile.common
++++ b/Makefile.common
+@@ -197,7 +197,7 @@ else ifeq ($(PLATFORM), linux)
+ 	ifeq ($(ARCH), 32)
+ 		CFLAGS += -m32
+ 	else ifeq ($(ARCH), 64)
+-		CFLAGS += -m64
++		CFLAGS += -march=armv8-a -mtune=cortex-a53
+ 	else ifeq ($(ARCH), 32_64)
+ 		CFLAGS += -m32 -m64
+ 	endif
