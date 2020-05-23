@@ -39,3 +39,14 @@ else
 fi
 ( cd dist/plugins ; for i in ../../compile/library/repos/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
 ( cd dist/plugins ; for i in ../../compile/plugins/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
+
+mkdir -p dist/rack-sdk/dep
+for i in *.mk helper.py include LICENSE-dist.txt LICENSE-GPLv3.txt LICENSE.md; do
+  cp -r compile/Rack/$i dist/rack-sdk
+done
+
+cp -r compile/Rack/dep/include dist/rack-sdk/dep
+
+if [ "$MYOS" = "Msys" ]; then
+  cp libRack.a dist/rack-sdk
+fi
