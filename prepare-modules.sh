@@ -248,7 +248,7 @@ echo "===> vcvrack-packgamma extra plugin"
 echo ""
 git clone https://github.com/stoermelder/vcvrack-packgamma.git
 cd vcvrack-packgamma
-git checkout master
+git checkout v1
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packgamma-source.tar.gz compile/plugins/vcvrack-packgamma )
 if [ -f ../../../vcvrack-packgamma.patch ]; then
