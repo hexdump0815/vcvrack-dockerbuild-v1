@@ -208,7 +208,7 @@ echo "===> vcv-link extra plugin"
 echo ""
 git clone https://github.com/stellare-modular/vcv-link
 cd vcv-link
-git checkout feature/v1
+git checkout feature/v2
 git submodule update --init --recursive
 ( cd ../../.. ; mkdir -p source ; tar czf source/vcv-link-source.tar.gz compile/plugins/vcv-link )
 if [ -f ../../../vcv-link.patch ]; then
