@@ -5,3 +5,5 @@ RUN pacman --noconfirm -S base-devel git gdb cmake libx11 glu libxrandr libxiner
 
 # hack to make the ubuntu patches work flawlessly
 RUN ln -s /usr/share/automake-1.16 /usr/share/automake-1.15
+
+# IMPORTANT: another hack before preparing on archlinuxarm - cp LRTRack.win64.patch to LRTRack.armv7l.patch
