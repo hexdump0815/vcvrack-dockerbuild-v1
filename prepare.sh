@@ -25,30 +25,36 @@ fi
 mkdir -p compile
 cd compile
 if [ "$MYARCH" == "armv7l" ] || [ "$MYARCH" == "aarch64" ]; then
-  git clone https://github.com/nemequ/simde.git
-  cd simde
-  # this is the version i used this script last with
-  git checkout 11f1383067d7696370c1f9cf9b50b73b6c503cb3
-  # old special branch version
-  #git checkout a61e88057c90ceb4b0b2cf5182919717bbb0496b
-  ( cd ../.. ; mkdir -p source ; tar czf source/simde.tar.gz compile/simde )
-  cd ..
+  # if we have a source archive in the source dir use that ...
+  if [ -f ../source/simde.tar.gz ]; then
+    echo "INFO: using sources from the source archive"
+    ( cd .. ; tar xzf source/simde.tar.gz )
+  # ... otherwise get it from git and create a source archive afterwards
+  else
+    git clone https://github.com/nemequ/simde.git
+    cd simde
+    # this is the version i used this script last with
+    git checkout 11f1383067d7696370c1f9cf9b50b73b6c503cb3
+    # old special branch version
+    #git checkout a61e88057c90ceb4b0b2cf5182919717bbb0496b
+    ( cd ../.. ; mkdir -p source ; tar czf source/simde.tar.gz compile/simde )
+    cd ..
+  fi
 fi
 
-git clone https://github.com/VCVRack/Rack.git
-cd Rack
-# version v1.1.5 did not work for me ...
-#git checkout v1.1.5
-# ... so use some later version which worked
-#git checkout 3790d1da0d338c9fbc192ab845d3c521a523dd26
-# v1.1.6 does not seem to have a proper own version tag - it seems to have on now ...
-#git checkout 01e5e0301d6c1f6b3d52e717fa2ba7098dd4b49c
-git checkout v1.1.6
-# this is the version i used this script last with
-#git checkout xy
-git submodule update --init --recursive
-# create a backup copy of the unpatched sources if needed to build elsewhere later from them
-( cd ../.. ; mkdir -p source ; tar czf source/Rack-source.tar.gz compile/Rack )
+# if we have a source archive in the source dir use that ...
+if [ -f ../source/Rack-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd .. ; tar xzf source/Rack-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/VCVRack/Rack.git
+  cd Rack
+  git checkout v1.1.6
+  git submodule update --init --recursive
+  # create a backup copy of the unpatched sources if needed to build elsewhere later from them
+  ( cd ../.. ; mkdir -p source ; tar czf source/Rack-source.tar.gz compile/Rack )
+fi
 # arch independent patches
 if [ -f ../../Rack.patch ]; then
   patch -p1 < ../../Rack.patch

@@ -27,9 +27,16 @@ fi
 cd compile
 cp ../build-modules.sh-proto build-modules.sh
 cd library/repos
-# git checkout 95ce17d062beadd8d393ce1ebd5e5bf2057b2c3e
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/library-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/library-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  # git checkout 95ce17d062beadd8d393ce1ebd5e5bf2057b2c3e
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
+fi
 
 # arch specific patching if needed
 
@@ -161,11 +168,18 @@ cd compile/plugins
 echo ""
 echo "===> Fundamental extra plugin"
 echo ""
-git clone https://github.com/VCVRack/Fundamental.git
-cd Fundamental
-git checkout v1
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/Fundamental-source.tar.gz compile/plugins/Fundamental )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/Fundamental-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/Fundamental-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/VCVRack/Fundamental.git
+  cd Fundamental
+  git checkout v1
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Fundamental-source.tar.gz compile/plugins/Fundamental )
+fi
 if [ -f ../../../Fundamental.patch ]; then
   patch -p1 < ../../../Fundamental.patch
 fi
@@ -181,16 +195,23 @@ cd ${WORKDIR}/compile/plugins
 echo ""
 echo "===> VCV-Recorder extra plugin"
 echo ""
-git clone https://github.com/VCVRack/VCV-Recorder
-cd VCV-Recorder
-if [ "$MYARCH" = "macos" ]; then
-  # rolle back to before opus as otherwise the fails on it on macos
-  git checkout 85aac9cce1bb6295141786a48e4a800b1168bae0
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/VCV-Recorder-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/VCV-Recorder-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
 else
-  git checkout v1
+  git clone https://github.com/VCVRack/VCV-Recorder
+  cd VCV-Recorder
+  if [ "$MYARCH" = "macos" ]; then
+    # rolle back to before opus as otherwise the fails on it on macos
+    git checkout 85aac9cce1bb6295141786a48e4a800b1168bae0
+  else
+    git checkout v1
+  fi
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Recorder-source.tar.gz compile/plugins/VCV-Recorder )
 fi
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Recorder-source.tar.gz compile/plugins/VCV-Recorder )
 if [ -f ../../../VCV-Recorder.patch ]; then
   patch -p1 < ../../../VCV-Recorder.patch
 fi
@@ -206,11 +227,18 @@ cd ${WORKDIR}/compile/plugins
 echo ""
 echo "===> vcv-link extra plugin"
 echo ""
-git clone https://github.com/stellare-modular/vcv-link
-cd vcv-link
-git checkout feature/v2
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/vcv-link-source.tar.gz compile/plugins/vcv-link )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/vcv-link-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/vcv-link-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/stellare-modular/vcv-link
+  cd vcv-link
+  git checkout feature/v2
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/vcv-link-source.tar.gz compile/plugins/vcv-link )
+fi
 if [ -f ../../../vcv-link.patch ]; then
   patch -p1 < ../../../vcv-link.patch
 fi
@@ -226,11 +254,18 @@ cd ${WORKDIR}/compile/plugins
 echo ""
 echo "===> LRTRack extra plugin"
 echo ""
-git clone https://github.com/lindenbergresearch/LRTRack
-cd LRTRack
-git checkout master
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/LRTRack-source.tar.gz compile/plugins/LRTRack )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/LRTRack-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/LRTRack-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/lindenbergresearch/LRTRack
+  cd LRTRack
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/LRTRack-source.tar.gz compile/plugins/LRTRack )
+fi
 if [ -f ../../../LRTRack.patch ]; then
   patch -p1 < ../../../LRTRack.patch
 fi
@@ -246,11 +281,18 @@ cd ${WORKDIR}/compile/plugins
 echo ""
 echo "===> vcvrack-packgamma extra plugin"
 echo ""
-git clone https://github.com/stoermelder/vcvrack-packgamma.git
-cd vcvrack-packgamma
-git checkout v1
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packgamma-source.tar.gz compile/plugins/vcvrack-packgamma )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/vcvrack-packgamma-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/vcvrack-packgamma-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/stoermelder/vcvrack-packgamma.git
+  cd vcvrack-packgamma
+  git checkout v1
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packgamma-source.tar.gz compile/plugins/vcvrack-packgamma )
+fi
 if [ -f ../../../vcvrack-packgamma.patch ]; then
   patch -p1 < ../../../vcvrack-packgamma.patch
 fi
@@ -271,11 +313,18 @@ cd ${WORKDIR}/compile/plugins
 echo ""
 echo "===> surge-rack extra plugin"
 echo ""
-git clone https://github.com/surge-synthesizer/surge-rack
-cd surge-rack
-git checkout release/1.beta1.4
-git submodule update --init --recursive
-( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
+# if we have a source archive in the source dir use that ...
+if [ -f ../../../source/surge-rack-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../../.. ; tar xzf source/surge-rack-source.tar.gz )
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/surge-synthesizer/surge-rack
+  cd surge-rack
+  git checkout release/1.beta1.4
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
+fi
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch
 fi
@@ -287,6 +336,15 @@ fi
 cd ..
 find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
+
+# go back to a defined point
+cd ${WORKDIR}
+
+# unpack potential other source archives
+cd source
+for i in $(ls *.tar.gz | grep -v simde.tar.gz | grep -v Rack-source.tar.gz | grep -v library-source.tar.gz | grep -v Fundamental-source.tar.gz | grep -v VCV-Recorder-source.tar.gz | grep -v vcv-link-source.tar.gz | grep -v LRTRack-source.tar.gz | grep -v vcvrack-packgamma-source.tar.gz | grep -v surge-rack-source.tar.gz); do
+  ( cd .. ; tar xzf source/$i )
+done
 
 # go back to a defined point
 cd ${WORKDIR}
