@@ -75,8 +75,3 @@ fi
 cd ..
 cp ../resample_neon.h .
 cp ../build.sh-proto build.sh
-
-git clone https://github.com/VCVRack/library.git
-cd library/manifests
-( for i in `grep sourceUrl * | awk '{print $3}' | sed 's,",,g;s,\,,,g'`; do echo $i ; done ) | grep http | sed 's,/$,,g;s,\.git$,,g' | sed 's,/blob.*,,g;s,/tree.*,,g' | grep -v "VCVRack/Rack" | sort -u > /tmp/pluginurls.txt
-cd ../..

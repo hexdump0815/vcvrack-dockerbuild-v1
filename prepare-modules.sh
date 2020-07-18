@@ -26,17 +26,21 @@ fi
 
 cd compile
 cp ../build-modules.sh-proto build-modules.sh
-cd library/repos
+
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/library-source.tar.gz ]; then
+if [ -f ../source/library-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/library-source.tar.gz )
+  ( cd .. ; tar xzf source/library-source.tar.gz )
+  cd library
 # ... otherwise get it from git and create a source archive afterwards
 else
-  # git checkout 95ce17d062beadd8d393ce1ebd5e5bf2057b2c3e
+  git clone https://github.com/VCVRack/library.git
+  cd library
   git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
+  ( cd ../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 fi
+
+cd repos
 
 # arch specific patching if needed
 
@@ -169,9 +173,10 @@ echo ""
 echo "===> Fundamental extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/Fundamental-source.tar.gz ]; then
+if [ -f ../../source/Fundamental-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/Fundamental-source.tar.gz )
+  ( cd ../.. ; tar xzf source/Fundamental-source.tar.gz )
+  cd Fundamental
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/VCVRack/Fundamental.git
@@ -196,9 +201,10 @@ echo ""
 echo "===> VCV-Recorder extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/VCV-Recorder-source.tar.gz ]; then
+if [ -f ../../source/VCV-Recorder-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/VCV-Recorder-source.tar.gz )
+  ( cd ../.. ; tar xzf source/VCV-Recorder-source.tar.gz )
+  cd VCV-Recorder
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/VCVRack/VCV-Recorder
@@ -228,9 +234,10 @@ echo ""
 echo "===> vcv-link extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/vcv-link-source.tar.gz ]; then
+if [ -f ../../source/vcv-link-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/vcv-link-source.tar.gz )
+  ( cd ../.. ; tar xzf source/vcv-link-source.tar.gz )
+  cd vcv-link
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/stellare-modular/vcv-link
@@ -255,9 +262,10 @@ echo ""
 echo "===> LRTRack extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/LRTRack-source.tar.gz ]; then
+if [ -f ../../source/LRTRack-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/LRTRack-source.tar.gz )
+  ( cd ../.. ; tar xzf source/LRTRack-source.tar.gz )
+  cd LRTRack
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/lindenbergresearch/LRTRack
@@ -282,9 +290,10 @@ echo ""
 echo "===> vcvrack-packgamma extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/vcvrack-packgamma-source.tar.gz ]; then
+if [ -f ../../source/vcvrack-packgamma-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/vcvrack-packgamma-source.tar.gz )
+  ( cd ../.. ; tar xzf source/vcvrack-packgamma-source.tar.gz )
+  cd vcvrack-packgamma
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/stoermelder/vcvrack-packgamma.git
@@ -314,9 +323,10 @@ echo ""
 echo "===> surge-rack extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../../source/surge-rack-source.tar.gz ]; then
+if [ -f ../../source/surge-rack-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../../.. ; tar xzf source/surge-rack-source.tar.gz )
+  ( cd ../.. ; tar xzf source/surge-rack-source.tar.gz )
+  cd surge-rack
 # ... otherwise get it from git and create a source archive afterwards
 else
   git clone https://github.com/surge-synthesizer/surge-rack
