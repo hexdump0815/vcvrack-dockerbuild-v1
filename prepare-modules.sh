@@ -152,7 +152,7 @@ echo "===> BaconMusic extra steps"
 echo ""
 cd BaconMusic
 # https://github.com/VCVRack/Rack/issues/1583 is fixed on master
-git checkout master
+git checkout main
 cd ..
 
 # go back to a defined starting point to be on the safe side
