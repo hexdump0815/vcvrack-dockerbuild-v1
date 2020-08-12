@@ -1,0 +1,30 @@
+diff --git a/Makefile b/Makefile
+index 3c9cc73..73f1e1a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -78,10 +78,10 @@ luajit := dep/lib/libluajit-5.1.a
+ OBJECTS += $(luajit)
+ DEPS += $(luajit)
+ $(luajit):
+-	$(WGET) "http://luajit.org/download/LuaJIT-2.0.5.tar.gz"
+-	$(SHA256) LuaJIT-2.0.5.tar.gz 874b1f8297c697821f561f9b73b57ffd419ed8f4278c82e05b48806d30c1e979
+-	cd dep && $(UNTAR) ../LuaJIT-2.0.5.tar.gz
+-	cd dep/LuaJIT-2.0.5 && $(MAKE) BUILDMODE=static PREFIX="$(DEP_PATH)" install
++	$(WGET) "http://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz"
++	$(SHA256) LuaJIT-2.1.0-beta3.tar.gz 1ad2e34b111c802f9d0cdf019e986909123237a28c746b21295b63c9e785d9c3
++	cd dep && $(UNTAR) ../LuaJIT-2.1.0-beta3.tar.gz
++	cd dep/LuaJIT-2.1.0-beta3 && $(MAKE) BUILDMODE=static PREFIX="$(DEP_PATH)" install
+ endif
+ 
+ 
+diff --git a/src/LuaJITEngine.cpp b/src/LuaJITEngine.cpp
+index 0ec77ef..bcba241 100644
+--- a/src/LuaJITEngine.cpp
++++ b/src/LuaJITEngine.cpp
+@@ -1,5 +1,5 @@
+ #include "ScriptEngine.hpp"
+-#include <luajit-2.0/lua.hpp>
++#include <luajit-2.1/lua.hpp>
+ 
+ 
+ struct LuaJITEngine : ScriptEngine {

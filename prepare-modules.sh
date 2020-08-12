@@ -229,6 +229,34 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# VCV-Prototype
+echo ""
+echo "===> VCV-Prototype extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/VCV-Prototype-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/VCV-Prototype-source.tar.gz )
+  cd VCV-Prototype
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/VCVRack/VCV-Prototype
+  cd VCV-Prototype
+  git checkout v1
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Prototype-source.tar.gz compile/plugins/VCV-Prototype )
+fi
+if [ -f ../../../VCV-Prototype.patch ]; then
+  patch -p1 < ../../../VCV-Prototype.patch
+fi
+if [ -f ../../../VCV-Prototype.$MYARCH.patch ]; then
+  patch -p1 < ../../../VCV-Prototype.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # vcv-link
 echo ""
 echo "===> vcv-link extra plugin"
@@ -318,6 +346,34 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# vcvrack-packtau
+echo ""
+echo "===> vcvrack-packtau extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/vcvrack-packtau-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/vcvrack-packtau-source.tar.gz )
+  cd vcvrack-packtau
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/stoermelder/vcvrack-packtau.git
+  cd vcvrack-packtau
+  git checkout v1
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packtau-source.tar.gz compile/plugins/vcvrack-packtau )
+fi
+if [ -f ../../../vcvrack-packtau.patch ]; then
+  patch -p1 < ../../../vcvrack-packtau.patch
+fi
+if [ -f ../../../vcvrack-packtau.$MYARCH.patch ]; then
+  patch -p1 < ../../../vcvrack-packtau.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # surge-rack
 echo ""
 echo "===> surge-rack extra plugin"
@@ -331,7 +387,7 @@ if [ -f ../../source/surge-rack-source.tar.gz ]; then
 else
   git clone https://github.com/surge-synthesizer/surge-rack
   cd surge-rack
-  git checkout release/1.beta1.4
+  git checkout release/1.7.0
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
 fi
