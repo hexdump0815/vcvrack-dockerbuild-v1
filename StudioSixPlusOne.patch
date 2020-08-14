@@ -1,0 +1,15 @@
+diff --git a/src/modules/Iverson.cpp b/src/modules/Iverson.cpp
+index 42c223f..498b9a7 100644
+--- a/src/modules/Iverson.cpp
++++ b/src/modules/Iverson.cpp
+@@ -147,8 +147,8 @@ namespace sspo
+             onSampleRateChange();
+             iverson->init();
+ 
+-            controlPageUpdateDivider.setDivision (10000);
+-            paramMidiUpdateDivider.setDivision (100);
++            controlPageUpdateDivider.setDivision (1024);
++            paramMidiUpdateDivider.setDivision (64);
+         }
+         void onReset() override;
+ 

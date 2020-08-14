@@ -45,8 +45,8 @@ cd repos
 # arch specific patching if needed
 
 for i in * ; do
-  # surge-rack is handled separately below
-  if [ "$i" != "SurgeRack" ]; then
+  # SurgeRack is handled separately below, StudioSixPlusOne too until Iversion is in
+  if [ "$i" != "SurgeRack" ] || [ "$i" != "StudioSixPlusOne" ]; then
     echo ""
     echo "===> $i"
     echo ""
@@ -285,6 +285,34 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# sts-backup
+echo ""
+echo "===> sts-backup extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/sts-backup-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/sts-backup-source.tar.gz )
+  cd sts-backup
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/hexdump0815/sts-backup.git
+  cd sts-backup
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/sts-backup-source.tar.gz compile/plugins/sts-backup )
+fi
+if [ -f ../../../sts-backup.patch ]; then
+  patch -p1 < ../../../sts-backup.patch
+fi
+if [ -f ../../../sts-backup.$MYARCH.patch ]; then
+  patch -p1 < ../../../sts-backup.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # LRTRack
 echo ""
 echo "===> LRTRack extra plugin"
@@ -401,6 +429,288 @@ if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
 fi
 cd ..
 find * -type f -exec ../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# 4rack
+echo ""
+echo "===> 4rack extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/4rack-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/4rack-source.tar.gz )
+  cd 4rack
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/Moaneschien/4rack
+  cd 4rack
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/4rack-source.tar.gz compile/plugins/4rack )
+fi
+if [ -f ../../../4rack.patch ]; then
+  patch -p1 < ../../../4rack.patch
+fi
+if [ -f ../../../4rack.$MYARCH.patch ]; then
+  patch -p1 < ../../../4rack.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# CAOplugs
+echo ""
+echo "===> CAOplugs extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/CAOplugs-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/CAOplugs-source.tar.gz )
+  cd CAOplugs
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/caoliver/CAOplugs.git
+  cd CAOplugs
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/CAOplugs-source.tar.gz compile/plugins/CAOplugs )
+fi
+if [ -f ../../../CAOplugs.patch ]; then
+  patch -p1 < ../../../CAOplugs.patch
+fi
+if [ -f ../../../CAOplugs.$MYARCH.patch ]; then
+  patch -p1 < ../../../CAOplugs.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# ChowDSP-VCV
+echo ""
+echo "===> ChowDSP-VCV extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/ChowDSP-VCV-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/ChowDSP-VCV-source.tar.gz )
+  cd ChowDSP-VCV
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/jatinchowdhury18/ChowDSP-VCV
+  cd ChowDSP-VCV
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/ChowDSP-VCV-source.tar.gz compile/plugins/ChowDSP-VCV )
+fi
+if [ -f ../../../ChowDSP-VCV.patch ]; then
+  patch -p1 < ../../../ChowDSP-VCV.patch
+fi
+if [ -f ../../../ChowDSP-VCV.$MYARCH.patch ]; then
+  patch -p1 < ../../../ChowDSP-VCV.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# Demo
+echo ""
+echo "===> Demo extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Demo-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Demo-source.tar.gz )
+  cd Demo
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/squinkylabs/Demo.git
+  cd Demo
+  git checkout main
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Demo-source.tar.gz compile/plugins/Demo )
+fi
+if [ -f ../../../Demo.patch ]; then
+  patch -p1 < ../../../Demo.patch
+fi
+if [ -f ../../../Demo.$MYARCH.patch ]; then
+  patch -p1 < ../../../Demo.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# FM-Delexander
+echo ""
+echo "===> FM-Delexander extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/FM-Delexander-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/FM-Delexander-source.tar.gz )
+  cd FM-Delexander
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/anlexmatos/FM-Delexander
+  cd FM-Delexander
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/FM-Delexander-source.tar.gz compile/plugins/FM-Delexander )
+fi
+if [ -f ../../../FM-Delexander.patch ]; then
+  patch -p1 < ../../../FM-Delexander.patch
+fi
+if [ -f ../../../FM-Delexander.$MYARCH.patch ]; then
+  patch -p1 < ../../../FM-Delexander.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# FehlerFabrik
+echo ""
+echo "===> FehlerFabrik extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/FehlerFabrik-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/FehlerFabrik-source.tar.gz )
+  cd FehlerFabrik
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/RCameron93/FehlerFabrik.git
+  cd FehlerFabrik
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/FehlerFabrik-source.tar.gz compile/plugins/FehlerFabrik )
+fi
+if [ -f ../../../FehlerFabrik.patch ]; then
+  patch -p1 < ../../../FehlerFabrik.patch
+fi
+if [ -f ../../../FehlerFabrik.$MYARCH.patch ]; then
+  patch -p1 < ../../../FehlerFabrik.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# LocoVCVModules
+echo ""
+echo "===> LocoVCVModules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/LocoVCVModules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/LocoVCVModules-source.tar.gz )
+  cd LocoVCVModules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/perky/LocoVCVModules.git
+  cd LocoVCVModules
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/LocoVCVModules-source.tar.gz compile/plugins/LocoVCVModules )
+fi
+if [ -f ../../../LocoVCVModules.patch ]; then
+  patch -p1 < ../../../LocoVCVModules.patch
+fi
+if [ -f ../../../LocoVCVModules.$MYARCH.patch ]; then
+  patch -p1 < ../../../LocoVCVModules.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# MIDI-Delexander
+echo ""
+echo "===> MIDI-Delexander extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/MIDI-Delexander-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/MIDI-Delexander-source.tar.gz )
+  cd MIDI-Delexander
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/anlexmatos/MIDI-Delexander.git
+  cd MIDI-Delexander
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/MIDI-Delexander-source.tar.gz compile/plugins/MIDI-Delexander )
+fi
+if [ -f ../../../MIDI-Delexander.patch ]; then
+  patch -p1 < ../../../MIDI-Delexander.patch
+fi
+if [ -f ../../../MIDI-Delexander.$MYARCH.patch ]; then
+  patch -p1 < ../../../MIDI-Delexander.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# RackdeLirios
+echo ""
+echo "===> RackdeLirios extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/RackdeLirios-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/RackdeLirios-source.tar.gz )
+  cd RackdeLirios
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/xnamahx/RackdeLirios.git
+  cd RackdeLirios
+#  git checkout master
+  git checkout 6dfa31e5777be838f34e4ac6d01e0cab1f675b0e
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/RackdeLirios-source.tar.gz compile/plugins/RackdeLirios )
+fi
+if [ -f ../../../RackdeLirios.patch ]; then
+  patch -p1 < ../../../RackdeLirios.patch
+fi
+if [ -f ../../../RackdeLirios.$MYARCH.patch ]; then
+  patch -p1 < ../../../RackdeLirios.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# rack-modules
+echo ""
+echo "===> rack-modules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/rack-modules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/rack-modules-source.tar.gz )
+  cd rack-modules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/StudioSixPlusOne/rack-modules.git
+  cd rack-modules
+#  git checkout Iverson
+  git checkout ec432ee14afe3805c75b8418fc647943d0f3470a
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/rack-modules-source.tar.gz compile/plugins/rack-modules )
+fi
+if [ -f ../../../rack-modules.patch ]; then
+  patch -p1 < ../../../rack-modules.patch
+fi
+if [ -f ../../../rack-modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../rack-modules.$MYARCH.patch
+fi
 cd ..
 
 # go back to a defined point
