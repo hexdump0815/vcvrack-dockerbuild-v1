@@ -52,7 +52,7 @@ cd ../..
 
 for i in * ; do
   # SurgeRack is handled separately below, StudioSixPlusOne too until Iversion is in
-  if [ "$i" != "SurgeRack" ] || [ "$i" != "StudioSixPlusOne" ]; then
+  if [ "$i" != "SurgeRack" ] && [ "$i" != "StudioSixPlusOne" ]; then
     echo ""
     echo "===> $i"
     echo ""
