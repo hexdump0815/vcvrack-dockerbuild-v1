@@ -421,7 +421,9 @@ if [ -f ../../source/surge-rack-source.tar.gz ]; then
 else
   git clone https://github.com/surge-synthesizer/surge-rack
   cd surge-rack
-  git checkout release/1.7.0
+# 1.7.1 does not have its own branch it seems, so lets checkout the direct commit
+# git checkout release/1.7.0
+  git checkout a6bc1cb1aedaa904ba1b0b40325c14a575cfa23e
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
 fi
