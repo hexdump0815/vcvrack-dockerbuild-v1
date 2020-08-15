@@ -430,13 +430,14 @@ fi
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch
 fi
-# special patching for surge-rack in the surge subdir
-cd surge
-if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
-  patch -p1 < ../../../../surge-rack-surge.$MYARCH.patch
-fi
-cd ..
-find * -type f -exec ../../../simde-ify.sh {} \;
+# this seems to no longer be required with 1.7.1
+# # special patching for surge-rack in the surge subdir
+# cd surge
+# if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
+#   patch -p1 < ../../../../surge-rack-surge.$MYARCH.patch
+# fi
+# cd ..
+# find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
 
 # go back to a defined starting point to be on the safe side
@@ -492,34 +493,6 @@ if [ -f ../../../CAOplugs.patch ]; then
 fi
 if [ -f ../../../CAOplugs.$MYARCH.patch ]; then
   patch -p1 < ../../../CAOplugs.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# ChowDSP-VCV
-echo ""
-echo "===> ChowDSP-VCV extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/ChowDSP-VCV-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/ChowDSP-VCV-source.tar.gz )
-  cd ChowDSP-VCV
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/jatinchowdhury18/ChowDSP-VCV
-  cd ChowDSP-VCV
-  git checkout master
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/ChowDSP-VCV-source.tar.gz compile/plugins/ChowDSP-VCV )
-fi
-if [ -f ../../../ChowDSP-VCV.patch ]; then
-  patch -p1 < ../../../ChowDSP-VCV.patch
-fi
-if [ -f ../../../ChowDSP-VCV.$MYARCH.patch ]; then
-  patch -p1 < ../../../ChowDSP-VCV.$MYARCH.patch
 fi
 cd ..
 

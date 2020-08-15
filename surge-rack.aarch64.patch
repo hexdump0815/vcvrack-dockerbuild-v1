@@ -29,16 +29,15 @@ index 8b52374..4414310 100644
  	FLAGS += -Wno-nonnull-compare \
  	-Wno-sign-compare \
  	-Wno-char-subscripts \
-@@ -154,6 +154,15 @@ ifdef ARCH_LIN
+@@ -154,6 +154,14 @@ ifdef ARCH_LIN
  	-Wno-multichar
  
  	FLAGS += -Isurge/src/linux
 +
 +	FLAGS += -DARM_NEON \
 +	-DSIMDE_ENABLE_NATIVE_ALIASES \
-+	-march=armv7 \
-+	-mfpu=neon \
-+	-mno-unaligned-access \
++	-march=armv8-a \
++	-mtune=cortex-a53 \
 +	-Wno-psabi \
 +	-flax-vector-conversions \
 +	-Isurge/libs/simde
