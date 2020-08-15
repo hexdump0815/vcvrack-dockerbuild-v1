@@ -42,6 +42,12 @@ fi
 
 cd repos
 
+# replace missing soundpipe (which seems to be gone on github) in RJModules with backup repo
+cd RJModules/dep
+rmdir soundpipe
+git clone https://github.com/hexdump0815/soundpipe-backup.git soundpipe
+cd ../..
+
 # arch specific patching if needed
 
 for i in * ; do
