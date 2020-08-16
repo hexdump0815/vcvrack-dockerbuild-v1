@@ -430,13 +430,13 @@ fi
 if [ -f ../../../surge-rack.$MYARCH.patch ]; then
   patch -p1 < ../../../surge-rack.$MYARCH.patch
 fi
+# special patching for surge-rack in the surge subdir
+cd surge
+if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
+  patch -p1 < ../../../../surge-rack-surge.$MYARCH.patch
+fi
+cd ..
 # this seems to no longer be required with 1.7.1
-# # special patching for surge-rack in the surge subdir
-# cd surge
-# if [ -f ../../../../surge-rack-surge.$MYARCH.patch ]; then
-#   patch -p1 < ../../../../surge-rack-surge.$MYARCH.patch
-# fi
-# cd ..
 # find * -type f -exec ../../../simde-ify.sh {} \;
 cd ..
 
