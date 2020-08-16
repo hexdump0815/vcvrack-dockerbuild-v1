@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index 8b52374..4414310 100644
+index 8b52374..9d31737 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -99,14 +99,14 @@ LDFLAGS += -lwinmm
@@ -37,7 +37,7 @@ index 8b52374..4414310 100644
 +	FLAGS += -DARM_NEON \
 +	-DSIMDE_ENABLE_NATIVE_ALIASES \
 +	-march=armv7 \
-+	-mfpu=neon \
++	-mfpu=vfpv3-d16 \
 +	-mno-unaligned-access \
 +	-Wno-psabi \
 +	-flax-vector-conversions \
