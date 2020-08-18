@@ -293,3 +293,67 @@ index 4ce54ad..7bce37a 100755
  
  clean:
  	git clean -fdx
+diff --git a/src/app/ModuleBrowser.cpp b/src/app/ModuleBrowser.cpp
+index e274eb5..eb9408c 100644
+--- a/src/app/ModuleBrowser.cpp
++++ b/src/app/ModuleBrowser.cpp
+@@ -162,10 +162,10 @@ struct ModelBox : widget::OpaqueWidget {
+ 
+ 	void createPreview() {
+ 		previewFb = new widget::FramebufferWidget;
+-		if (math::isNear(APP->window->pixelRatio, 1.0)) {
+-			// Small details draw poorly at low DPI, so oversample when drawing to the framebuffer
+-			previewFb->oversample = 2.0;
+-		}
++//		if (math::isNear(APP->window->pixelRatio, 1.0)) {
++//			// Small details draw poorly at low DPI, so oversample when drawing to the framebuffer
++//			previewFb->oversample = 2.0;
++//		}
+ 		previewWidget->addChild(previewFb);
+ 
+ 		widget::ZoomWidget* zoomWidget = new widget::ZoomWidget;
+diff --git a/src/app/SvgPanel.cpp b/src/app/SvgPanel.cpp
+index 7f5459a..c75d3c7 100644
+--- a/src/app/SvgPanel.cpp
++++ b/src/app/SvgPanel.cpp
+@@ -16,10 +16,10 @@ void PanelBorder::draw(const DrawArgs& args) {
+ 
+ 
+ void SvgPanel::step() {
+-	if (math::isNear(APP->window->pixelRatio, 1.0)) {
+-		// Small details draw poorly at low DPI, so oversample when drawing to the framebuffer
+-		oversample = 2.0;
+-	}
++//	if (math::isNear(APP->window->pixelRatio, 1.0)) {
++//		// Small details draw poorly at low DPI, so oversample when drawing to the framebuffer
++//		oversample = 2.0;
++//	}
+ 	FramebufferWidget::step();
+ }
+ 
+diff --git a/src/ui/IconButton.cpp b/src/ui/IconButton.cpp
+index 2cbecd1..92b0a16 100644
+--- a/src/ui/IconButton.cpp
++++ b/src/ui/IconButton.cpp
+@@ -9,7 +9,7 @@ IconButton::IconButton() {
+ 	box.size.x = BND_TOOL_WIDTH;
+ 
+ 	fw = new widget::FramebufferWidget;
+-	fw->oversample = 2;
++	fw->oversample = 1;
+ 	addChild(fw);
+ 
+ 	sw = new widget::SvgWidget;
+diff --git a/src/window.cpp b/src/window.cpp
+index 1f6a62c..897071a 100644
+--- a/src/window.cpp
++++ b/src/window.cpp
+@@ -434,7 +438,7 @@ void Window::screenshot(float zoom) {
+ 			// Create widgets
+ 			app::ModuleWidget* mw = model->createModuleWidgetNull();
+ 			widget::FramebufferWidget* fb = new widget::FramebufferWidget;
+-			fb->oversample = 2;
++			fb->oversample = 1;
+ 			fb->addChild(mw);
+ 			fb->scale = math::Vec(zoom, zoom);
+ 
