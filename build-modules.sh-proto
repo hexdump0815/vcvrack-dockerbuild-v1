@@ -10,7 +10,7 @@ WORKDIR=`pwd`
 cd library/repos
 for i in * ; do
   # surge-rack is handled separately below
-  if [ "$i" != "SurgeRack" ] && [ "$i" != "StudioSixPlusOne" ]; then
+  if [ "$i" != "SurgeRack" ]; then
     if [ -f ${i}/plugin.json ]; then
       echo ""
       echo "=== $i ==="

@@ -51,8 +51,8 @@ cd ../..
 # arch specific patching if needed
 
 for i in * ; do
-  # SurgeRack is handled separately below, StudioSixPlusOne too until Iversion is in
-  if [ "$i" != "SurgeRack" ] && [ "$i" != "StudioSixPlusOne" ]; then
+  # SurgeRack is handled separately below
+  if [ "$i" != "SurgeRack" ]; then
     echo ""
     echo "===> $i"
     echo ""
@@ -662,35 +662,6 @@ if [ -f ../../../RackdeLirios.patch ]; then
 fi
 if [ -f ../../../RackdeLirios.$MYARCH.patch ]; then
   patch -p1 < ../../../RackdeLirios.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# rack-modules
-echo ""
-echo "===> rack-modules extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/rack-modules-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/rack-modules-source.tar.gz )
-  cd rack-modules
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/StudioSixPlusOne/rack-modules.git
-  cd rack-modules
-#  git checkout Iverson
-  git checkout ec432ee14afe3805c75b8418fc647943d0f3470a
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/rack-modules-source.tar.gz compile/plugins/rack-modules )
-fi
-if [ -f ../../../rack-modules.patch ]; then
-  patch -p1 < ../../../rack-modules.patch
-fi
-if [ -f ../../../rack-modules.$MYARCH.patch ]; then
-  patch -p1 < ../../../rack-modules.$MYARCH.patch
 fi
 cd ..
 
