@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index d941bca..a5bf264 100644
+--- a/Makefile
++++ b/Makefile
+@@ -69,8 +69,7 @@ ifdef ARCH_WIN
+ endif
+ 
+ #  -flto
+-FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
+-LDFLAGS += -flto
++FLAGS += -finline-limit=500000 -finline-functions-called-once
+ 
+ include test.mk
+ 
+diff --git a/test.mk b/test.mk
+index c34c0b2..35159d6 100644
+--- a/test.mk
++++ b/test.mk
+@@ -29,7 +29,6 @@ perf.exe : PERFFLAG = -D _PERF
+ perf.exe : FLAGS += $(ASSERTOFF)
+ 
+ FLAGS += $(PERFFLAG)
+-FLAGS += -flto
+ 
+ test.exe : FLAGS += -D _TESTEX
+ 
