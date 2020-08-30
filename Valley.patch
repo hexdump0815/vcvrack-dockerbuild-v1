@@ -1,0 +1,72 @@
+diff --git a/src/Terrorform/TerrorformWaveTableEditor.cpp b/src/Terrorform/TerrorformWaveTableEditor.cpp
+index 2a18b7c..4ce3a54 100644
+--- a/src/Terrorform/TerrorformWaveTableEditor.cpp
++++ b/src/Terrorform/TerrorformWaveTableEditor.cpp
+@@ -117,7 +117,8 @@ TFormEditorDefragMenu::TFormEditorDefragMenu() {
+     defragDoneMessage->box.size = box.size;
+     defragDoneMessage->text = "Defragmentation Complete";
+     addChild(defragDoneMessage);
+-    viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++//    viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++    viewCounter = (int) std::ceil(settings::frameRateLimit);
+ }
+ 
+ void TFormEditorDefragMenu::step() {
+@@ -125,7 +126,8 @@ void TFormEditorDefragMenu::step() {
+         --viewCounter;
+     }
+     if(viewCounter <= 0) {
+-        viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++//        viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++        viewCounter = (int) std::ceil(settings::frameRateLimit);
+         hide();
+     }
+     Widget::step();
+@@ -142,7 +144,8 @@ TFormPurgeMenu::TFormPurgeMenu() {
+         yesButton->hide();
+         questionText->hide();
+         clearedText->show();
+-        counter = (int) std::ceil(APP->window->getLastFrameRate());
++//        counter = (int) std::ceil(APP->window->getLastFrameRate());
++        counter = (int) std::ceil(settings::frameRateLimit);
+     };
+     addChild(yesButton);
+ 
+@@ -244,7 +247,8 @@ TFormEditorMainMenu::TFormEditorMainMenu() {
+         exitButton->hide();
+         purgeButton->hide();
+         defragMenu->view();
+-        defragMenu->viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++//        defragMenu->viewCounter = (int) std::ceil(APP->window->getLastFrameRate());
++        defragMenu->viewCounter = (int) std::ceil(settings::frameRateLimit);
+     };
+ 
+     purgeButton->onClick = [=]() {
+diff --git a/src/Terrorform/WavetableEditor/ClearMenu.cpp b/src/Terrorform/WavetableEditor/ClearMenu.cpp
+index 5bc03e4..1d8499b 100644
+--- a/src/Terrorform/WavetableEditor/ClearMenu.cpp
++++ b/src/Terrorform/WavetableEditor/ClearMenu.cpp
+@@ -9,7 +9,8 @@ TFormClearMenu::TFormClearMenu() {
+         yesButton->visible = false;
+         questionText->visible = false;
+         clearedText->visible = true;
+-        counter = (int) std::ceil(APP->window->getLastFrameRate());
++//        counter = (int) std::ceil(APP->window->getLastFrameRate());
++        counter = (int) std::ceil(settings::frameRateLimit);
+     };
+     addChild(yesButton);
+ 
+diff --git a/src/Terrorform/WavetableEditor/MoveMenu.cpp b/src/Terrorform/WavetableEditor/MoveMenu.cpp
+index d086c8f..b5f439f 100644
+--- a/src/Terrorform/WavetableEditor/MoveMenu.cpp
++++ b/src/Terrorform/WavetableEditor/MoveMenu.cpp
+@@ -185,7 +185,8 @@ TFormMoveMenu::TFormMoveMenu() {
+         exit();
+     };
+     destPage->onExit = [=]() {
+-        counter = APP->window->getLastFrameRate();
++//        counter = APP->window->getLastFrameRate();
++        counter = settings::frameRateLimit;
+         moveDoneText->text = "Bank " + std::to_string(*sourceBank + 1) + " moved";
+         moveDoneText->show();
+     };
