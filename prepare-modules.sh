@@ -665,6 +665,34 @@ if [ -f ../../../RackdeLirios.$MYARCH.patch ]; then
 fi
 cd ..
 
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# forsitan-modulare
+echo ""
+echo "===> forsitan-modulare extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/forsitan-modulare-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/forsitan-modulare-source.tar.gz )
+  cd forsitan-modulare
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/gosub/forsitan-modulare.git
+  cd forsitan-modulare
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/forsitan-modulare-source.tar.gz compile/plugins/forsitan-modulare )
+fi
+if [ -f ../../../forsitan-modulare.patch ]; then
+  patch -p1 < ../../../forsitan-modulare.patch
+fi
+if [ -f ../../../forsitan-modulare.$MYARCH.patch ]; then
+  patch -p1 < ../../../forsitan-modulare.$MYARCH.patch
+fi
+cd ..
+
 # go back to a defined point
 cd ${WORKDIR}
 
