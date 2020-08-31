@@ -48,6 +48,44 @@ IMPORTANT: in case you run into problems with those builds here, please create a
 
 # changelog
 
+version 1.1.6_5
+- plugins updated to the state of 25.08.2020 - library git commit: 5d2f6cd2ab4cd0ee2edc9a097630c945aff3cdeb
+- 162 open source plugins included resulting in 1700+ vcvrack modules!
+- among them are some new modules still in development and thus not yet in the regular vcvrack library and some which were never submitted to it
+
+version 1.1.6_4
+- plugins updated to the state of 17.07.2020 - library git commit: 3d1069d8a08d0ad9d367a835a6aed93dafbd100c
+- 150 open source plugins included resulting in 1640 vcvrack modules!
+
+version 1.1.6_3
+- plugins updated to the state of 22.05.2020
+- linux ubuntu versions compiled with gcc 8 instead of the default gcc 7 - seems to give about 1-2% less cpu usage
+- rack sdk files included in case anyone wants to build modules for the arm cpu versions
+- 141 open source plugins included resulting in 1550+ vcvrack modules!
+- stoermelder pack gamma added as one of them - this is not released to the vcvrack library, so do not rely on it - see: https://github.com/stoermelder/vcvrack-packgamma
+
+version 1.1.6_2
+- plugins updated to the state of 08.04.2020 (bidoo perco works now with 32khz and surge-rack is 1.4beta)
+- 132 open source plugins included resulting in 1450+ vcvrack modules!
+
+version 1.1.6.1
+- plugins updated to the state of 01.02.2020
+- 119 open source plugins included resulting in 1350+ vcvrack modules!
+
+version 1.1.6
+- upgraded vcvrack to version v1.1.6
+- reverted framerate management (VCVRack/Rack@e631131) as it resulted in increased cpu usage in iconified mode - still to be analyzed why ...
+- reworked plugin building now based on the library repo
+- most plugins are now built with "-mfpu=neon" on armv7l and for raspbian too with a few exceptions (they result in a SIGBUS crash of vcvrack due to unaligned access if compiled with "-mfpu=neon")
+- 113 open source plugins included resulting in 1300+ vcvrack modules!
+
+version 1.1.3.1
+- Bidoo plugin updated
+- new plugin: wiqid-anomalies
+- new plugin: trowaSoft
+- alternative 21Khz plugin build
+- 71 open source plugins included resulting in 887 vcvrack modules!
+
 version 1.1.3
 - upgraded vcvrack to version v1.1.3
 - more included plugins (all 68 currently available open source plugins plus 21khz - resulting in a total of 869 vcvrack modules!)
