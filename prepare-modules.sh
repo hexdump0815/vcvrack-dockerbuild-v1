@@ -693,6 +693,90 @@ if [ -f ../../../forsitan-modulare.$MYARCH.patch ]; then
 fi
 cd ..
 
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# VCVRack_modules
+echo ""
+echo "===> VCVRack_modules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/VCVRack_modules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/VCVRack_modules-source.tar.gz )
+  cd VCVRack_modules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/gweltou/VCVRack_modules.git
+  cd VCVRack_modules
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/VCVRack_modules-source.tar.gz compile/plugins/VCVRack_modules )
+fi
+if [ -f ../../../VCVRack_modules.patch ]; then
+  patch -p1 < ../../../VCVRack_modules.patch
+fi
+if [ -f ../../../VCVRack_modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../VCVRack_modules.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# VCV-Plugins
+echo ""
+echo "===> VCV-Plugins extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/VCV-Plugins-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/VCV-Plugins-source.tar.gz )
+  cd VCV-Plugins
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/jdstmporter/VCV-Plugins.git
+  cd VCV-Plugins
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/VCV-Plugins-source.tar.gz compile/plugins/VCV-Plugins )
+fi
+if [ -f ../../../VCV-Plugins.patch ]; then
+  patch -p1 < ../../../VCV-Plugins.patch
+fi
+if [ -f ../../../VCV-Plugins.$MYARCH.patch ]; then
+  patch -p1 < ../../../VCV-Plugins.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# Paralis-Modular
+echo ""
+echo "===> Paralis-Modular extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Paralis-Modular-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Paralis-Modular-source.tar.gz )
+  cd Paralis-Modular
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/PaeiChe/Paralis-Modular.git
+  cd Paralis-Modular
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Paralis-Modular-source.tar.gz compile/plugins/Paralis-Modular )
+fi
+if [ -f ../../../Paralis-Modular.patch ]; then
+  patch -p1 < ../../../Paralis-Modular.patch
+fi
+if [ -f ../../../Paralis-Modular.$MYARCH.patch ]; then
+  patch -p1 < ../../../Paralis-Modular.$MYARCH.patch
+fi
+cd ..
+
 # go back to a defined point
 cd ${WORKDIR}
 
