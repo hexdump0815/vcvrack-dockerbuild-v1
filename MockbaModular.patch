@@ -1,0 +1,14 @@
+diff --git a/src/MockbaModular.hpp b/src/MockbaModular.hpp
+index 6757916..c75fbc2 100644
+--- a/src/MockbaModular.hpp
++++ b/src/MockbaModular.hpp
+@@ -433,7 +433,8 @@ struct _Filter {
+ 	}
+ 
+ 	void setCutoff(float_4 cutoffV) {
+-		cutoff = cutoffV;
++//		cutoff = cutoffV;
++		cutoff = simd::clamp(cutoffV, 1.0f, 8000.0f);
+ 	}
+ 
+ 	void setRes(float_4 resV) {
