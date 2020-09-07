@@ -1,5 +1,17 @@
+diff --git a/Makefile b/Makefile
+index f846256..a602beb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -30,4 +30,6 @@ SOURCES += $(wildcard src/modules/AlmaFilter.cpp src/modules/MS20Filter.cpp src/
+ DISTRIBUTABLES += $(wildcard LICENSE*) res
+ 
+ # Include the Rack plugin Makefile framework
+-include $(RACK_DIR)/plugin.mk
++include $(RACK_DIR)/plugin.mk
++
++CXXFLAGS += -std=c++17
 diff --git a/src/dsp/BBDevice.hpp b/src/dsp/BBDevice.hpp
-index 47b89da..9f38732 100644
+index 47b89da..9645aec 100644
 --- a/src/dsp/BBDevice.hpp
 +++ b/src/dsp/BBDevice.hpp
 @@ -18,6 +18,7 @@
@@ -9,4 +21,18 @@ index 47b89da..9f38732 100644
 +#include <c++/7/vector>
  
  namespace lrt {
+ 
+diff --git a/src/dsp/DiodeLadder.cpp b/src/dsp/DiodeLadder.cpp
+index b175c6a..bbe36f9 100644
+--- a/src/dsp/DiodeLadder.cpp
++++ b/src/dsp/DiodeLadder.cpp
+@@ -197,7 +197,8 @@ void DiodeLadderFilter::setSamplerate(float sr) {
+ 
+ 
+ void DiodeLadderFilter::setFrequency(float fc) {
+-    DiodeLadderFilter::fc = fc;
++    /* essentially limit the cutoff frequency to around 10khz */
++    DiodeLadderFilter::fc = std::clamp(fc, 0.0f, 0.9f);
+ }
+ 
  
