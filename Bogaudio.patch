@@ -1,0 +1,26 @@
+diff --git a/src/LVCF.hpp b/src/LVCF.hpp
+index c21f26d..847dee9 100644
+--- a/src/LVCF.hpp
++++ b/src/LVCF.hpp
+@@ -59,7 +59,7 @@ struct LVCF : BGModule {
+ 		float next(float sample);
+ 	};
+ 
+-	static constexpr float maxFrequency = 20000.0f;
++	static constexpr float maxFrequency = 10000.0f;
+ 	static constexpr float minFrequency = MultimodeFilter::minFrequency;
+ 	MultimodeFilter::Mode _mode = MultimodeFilter::UNKNOWN_MODE;
+ 	int _polesSetting = 4;
+diff --git a/src/VCF.hpp b/src/VCF.hpp
+index 3b074ea..8d916e1 100644
+--- a/src/VCF.hpp
++++ b/src/VCF.hpp
+@@ -63,7 +63,7 @@ struct VCF : BGModule {
+ 		float next(float sample);
+ 	};
+ 
+-	static constexpr float maxFrequency = 20000.0f;
++	static constexpr float maxFrequency = 10000.0f;
+ 	static constexpr float minFrequency = MultimodeFilter::minFrequency;
+ 	MultimodeFilter::Mode _mode = MultimodeFilter::UNKNOWN_MODE;
+ 	MultimodeFilter::BandwidthMode _bandwidthMode = MultimodeFilter::PITCH_BANDWIDTH_MODE;
