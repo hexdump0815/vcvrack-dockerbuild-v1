@@ -7,6 +7,7 @@ index f846256..a602beb 100644
  
  # Include the Rack plugin Makefile framework
 -include $(RACK_DIR)/plugin.mk
+\ No newline at end of file
 +include $(RACK_DIR)/plugin.mk
 +
 +CXXFLAGS += -std=c++17
