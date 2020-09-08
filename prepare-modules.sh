@@ -777,6 +777,34 @@ if [ -f ../../../Paralis-Modular.$MYARCH.patch ]; then
 fi
 cd ..
 
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# ZetaCarinaeModules
+echo ""
+echo "===> ZetaCarinaeModules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/ZetaCarinaeModules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/ZetaCarinaeModules-source.tar.gz )
+  cd ZetaCarinaeModules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/mhampton/ZetaCarinaeModules.git
+  cd ZetaCarinaeModules
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/ZetaCarinaeModules-source.tar.gz compile/plugins/Paralis-Modular )
+fi
+if [ -f ../../../ZetaCarinaeModules.patch ]; then
+  patch -p1 < ../../../ZetaCarinaeModules.patch
+fi
+if [ -f ../../../ZetaCarinaeModules.$MYARCH.patch ]; then
+  patch -p1 < ../../../ZetaCarinaeModules.$MYARCH.patch
+fi
+cd ..
+
 # go back to a defined point
 cd ${WORKDIR}
 
