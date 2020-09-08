@@ -1,26 +1,22 @@
-diff --git a/src/LVCF.hpp b/src/LVCF.hpp
-index c21f26d..847dee9 100644
---- a/src/LVCF.hpp
-+++ b/src/LVCF.hpp
-@@ -59,7 +59,7 @@ struct LVCF : BGModule {
- 		float next(float sample);
- 	};
+From ece430fc99f2ca33e1a7dcae7e1585094ee590e4 Mon Sep 17 00:00:00 2001
+From: Matt Demanett <matt@demanett.net>
+Date: Mon, 7 Sep 2020 22:02:29 -0400
+Subject: [PATCH] Filters: add cutoff limit at 49% of sample rate, to support
+ low sample rates. #140
+
+---
+ src/dsp/filters/multimode.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/dsp/filters/multimode.cpp b/src/dsp/filters/multimode.cpp
+index a082eb0..e593fe7 100644
+--- a/src/dsp/filters/multimode.cpp
++++ b/src/dsp/filters/multimode.cpp
+@@ -199,6 +199,7 @@ template<int N> void MultimodeDesigner<N>::setParams(
+ 	assert(poles % modPoles == 0);
+ 	assert(frequency >= minFrequency - 0.00001f && frequency <= maxFrequency);
+ 	frequency = std::max(frequency, effectiveMinimumFrequency());
++	frequency = std::min(frequency, 0.49f * sampleRate);
+ 	assert(qbw >= minQbw && qbw <= maxQbw);
  
--	static constexpr float maxFrequency = 20000.0f;
-+	static constexpr float maxFrequency = 10000.0f;
- 	static constexpr float minFrequency = MultimodeFilter::minFrequency;
- 	MultimodeFilter::Mode _mode = MultimodeFilter::UNKNOWN_MODE;
- 	int _polesSetting = 4;
-diff --git a/src/VCF.hpp b/src/VCF.hpp
-index 3b074ea..8d916e1 100644
---- a/src/VCF.hpp
-+++ b/src/VCF.hpp
-@@ -63,7 +63,7 @@ struct VCF : BGModule {
- 		float next(float sample);
- 	};
- 
--	static constexpr float maxFrequency = 20000.0f;
-+	static constexpr float maxFrequency = 10000.0f;
- 	static constexpr float minFrequency = MultimodeFilter::minFrequency;
- 	MultimodeFilter::Mode _mode = MultimodeFilter::UNKNOWN_MODE;
- 	MultimodeFilter::BandwidthMode _bandwidthMode = MultimodeFilter::PITCH_BANDWIDTH_MODE;
+ 	bool repole = _type != type || _mode != mode || _nPoles != poles || (type == CHEBYSHEV_TYPE && (mode == LOWPASS_MODE || mode == HIGHPASS_MODE) && _qbw != qbw);
