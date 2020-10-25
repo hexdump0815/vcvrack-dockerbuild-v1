@@ -1,0 +1,10 @@
+diff --git a/src/Facets.cpp b/src/Facets.cpp
+index 475b941..bbf5d68 100644
+--- a/src/Facets.cpp
++++ b/src/Facets.cpp
+@@ -1,4 +1,5 @@
+ #include "plugin.hpp"
++#include "x86/sse3.h"
+ 
+ namespace StoermelderPackOne {
+ namespace Facets {

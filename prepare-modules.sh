@@ -371,7 +371,9 @@ fi
 if [ -f ../../../vcvrack-packone.$MYARCH.patch ]; then
   patch -p1 < ../../../vcvrack-packone.$MYARCH.patch
 fi
-find * -type f -exec ../../../../simde-ify.sh {} \;
+find * -type f -exec ../../../simde-ify.sh {} \;
+# some files here get accidently simde-ified :)
+git checkout -- docs
 cd ..
 
 # go back to a defined starting point to be on the safe side
@@ -791,9 +793,9 @@ if [ -f ../../source/southpole-vcvrack-source.tar.gz ]; then
   cd southpole-vcvrack
 # ... otherwise get it from git and create a source archive afterwards
 else
-  git clone https://github.com/gbrandt1/southpole-vcvrack
+  git clone https://github.com/dogonthehorizon/southpole-vcvrack
   cd southpole-vcvrack
-  git checkout master
+  git checkout v1
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/southpole-vcvrack-source.tar.gz compile/plugins/southpole-vcvrack )
 fi
@@ -858,34 +860,6 @@ if [ -f ../../../Modal.patch ]; then
 fi
 if [ -f ../../../Modal.$MYARCH.patch ]; then
   patch -p1 < ../../../Modal.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# lilac-loop-vcv
-echo ""
-echo "===> lilac-loop-vcv extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/lilac-loop-vcv-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/lilac-loop-vcv-source.tar.gz )
-  cd lilac-loop-vcv
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/grough/lilac-loop-vcv
-  cd lilac-loop-vcv
-  git checkout main
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/lilac-loop-vcv-source.tar.gz compile/plugins/lilac-loop-vcv )
-fi
-if [ -f ../../../lilac-loop-vcv.patch ]; then
-  patch -p1 < ../../../lilac-loop-vcv.patch
-fi
-if [ -f ../../../lilac-loop-vcv.$MYARCH.patch ]; then
-  patch -p1 < ../../../lilac-loop-vcv.$MYARCH.patch
 fi
 cd ..
 
