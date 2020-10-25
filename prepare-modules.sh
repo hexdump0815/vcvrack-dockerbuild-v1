@@ -51,8 +51,8 @@ cd ../..
 # arch specific patching if needed
 
 for i in * ; do
-  # SurgeRack is handled separately below
-  if [ "$i" != "SurgeRack" ]; then
+  # SurgeRack and Stoermelder-P1 are handled separately below
+  if [ "$i" != "SurgeRack" ] && [ "$i" != "Stoermelder-P1" ]; then
     echo ""
     echo "===> $i"
     echo ""
@@ -347,6 +347,35 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# vcvrack-packone
+echo ""
+echo "===> vcvrack-packone extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/vcvrack-packone-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/vcvrack-packone-source.tar.gz )
+  cd vcvrack-packone
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/stoermelder/vcvrack-packone.git
+  cd vcvrack-packone
+  # dev version as it has some extra features not yet in the library
+  git checkout 719bd9401123736f9beba74a36c3cab8ece95262
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packone-source.tar.gz compile/plugins/vcvrack-packone )
+fi
+if [ -f ../../../vcvrack-packone.patch ]; then
+  patch -p1 < ../../../vcvrack-packone.patch
+fi
+if [ -f ../../../vcvrack-packone.$MYARCH.patch ]; then
+  patch -p1 < ../../../vcvrack-packone.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # vcvrack-packgamma
 echo ""
 echo "===> vcvrack-packgamma extra plugin"
@@ -421,9 +450,7 @@ if [ -f ../../source/surge-rack-source.tar.gz ]; then
 else
   git clone https://github.com/surge-synthesizer/surge-rack
   cd surge-rack
-# 1.7.1 does not have its own branch it seems, so lets checkout the direct commit
-# git checkout release/1.7.0
-  git checkout a6bc1cb1aedaa904ba1b0b40325c14a575cfa23e
+  git checkout release/1.7.1.2
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/surge-rack-source.tar.gz compile/plugins/surge-rack )
 fi
@@ -549,34 +576,6 @@ if [ -f ../../../FM-Delexander.patch ]; then
 fi
 if [ -f ../../../FM-Delexander.$MYARCH.patch ]; then
   patch -p1 < ../../../FM-Delexander.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# FehlerFabrik
-echo ""
-echo "===> FehlerFabrik extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/FehlerFabrik-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/FehlerFabrik-source.tar.gz )
-  cd FehlerFabrik
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/RCameron93/FehlerFabrik.git
-  cd FehlerFabrik
-  git checkout master
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/FehlerFabrik-source.tar.gz compile/plugins/FehlerFabrik )
-fi
-if [ -f ../../../FehlerFabrik.patch ]; then
-  patch -p1 < ../../../FehlerFabrik.patch
-fi
-if [ -f ../../../FehlerFabrik.$MYARCH.patch ]; then
-  patch -p1 < ../../../FehlerFabrik.$MYARCH.patch
 fi
 cd ..
 
@@ -780,30 +779,173 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
-# ZetaCarinaeModules
+# southpole-vcvrack
 echo ""
-echo "===> ZetaCarinaeModules extra plugin"
+echo "===> southpole-vcvrack extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../source/ZetaCarinaeModules-source.tar.gz ]; then
+if [ -f ../../source/southpole-vcvrack-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/ZetaCarinaeModules-source.tar.gz )
-  cd ZetaCarinaeModules
+  ( cd ../.. ; tar xzf source/southpole-vcvrack-source.tar.gz )
+  cd southpole-vcvrack
 # ... otherwise get it from git and create a source archive afterwards
 else
-  git clone https://github.com/mhampton/ZetaCarinaeModules.git
-  cd ZetaCarinaeModules
+  git clone https://github.com/gbrandt1/southpole-vcvrack
+  cd southpole-vcvrack
   git checkout master
   git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/ZetaCarinaeModules-source.tar.gz compile/plugins/Paralis-Modular )
+  ( cd ../../.. ; mkdir -p source ; tar czf source/southpole-vcvrack-source.tar.gz compile/plugins/southpole-vcvrack )
 fi
-if [ -f ../../../ZetaCarinaeModules.patch ]; then
-  patch -p1 < ../../../ZetaCarinaeModules.patch
+if [ -f ../../../southpole-vcvrack.patch ]; then
+  patch -p1 < ../../../southpole-vcvrack.patch
 fi
-if [ -f ../../../ZetaCarinaeModules.$MYARCH.patch ]; then
-  patch -p1 < ../../../ZetaCarinaeModules.$MYARCH.patch
+if [ -f ../../../southpole-vcvrack.$MYARCH.patch ]; then
+  patch -p1 < ../../../southpole-vcvrack.$MYARCH.patch
 fi
 cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# AtomicHorse-Modules
+echo ""
+echo "===> AtomicHorse-Modules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/AtomicHorse-Modules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/AtomicHorse-Modules-source.tar.gz )
+  cd AtomicHorse-Modules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/animeslave/AtomicHorse-Modules
+  cd AtomicHorse-Modules
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/AtomicHorse-Modules-source.tar.gz compile/plugins/AtomicHorse-Modules )
+fi
+if [ -f ../../../AtomicHorse-Modules.patch ]; then
+  patch -p1 < ../../../AtomicHorse-Modules.patch
+fi
+if [ -f ../../../AtomicHorse-Modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../AtomicHorse-Modules.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# Modal
+echo ""
+echo "===> Modal extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Modal-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Modal-source.tar.gz )
+  cd Modal
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/PelleJuul/Modal
+  cd Modal
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Modal-source.tar.gz compile/plugins/Modal )
+fi
+if [ -f ../../../Modal.patch ]; then
+  patch -p1 < ../../../Modal.patch
+fi
+if [ -f ../../../Modal.$MYARCH.patch ]; then
+  patch -p1 < ../../../Modal.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# lilac-loop-vcv
+echo ""
+echo "===> lilac-loop-vcv extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/lilac-loop-vcv-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/lilac-loop-vcv-source.tar.gz )
+  cd lilac-loop-vcv
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/grough/lilac-loop-vcv
+  cd lilac-loop-vcv
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/lilac-loop-vcv-source.tar.gz compile/plugins/lilac-loop-vcv )
+fi
+if [ -f ../../../lilac-loop-vcv.patch ]; then
+  patch -p1 < ../../../lilac-loop-vcv.patch
+fi
+if [ -f ../../../lilac-loop-vcv.$MYARCH.patch ]; then
+  patch -p1 < ../../../lilac-loop-vcv.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# Diapason-modules
+echo ""
+echo "===> Diapason-modules extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Diapason-modules-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Diapason-modules-source.tar.gz )
+  cd Diapason-modules
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/gle-bellier/Diapason-modules
+  cd Diapason-modules
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Diapason-modules-source.tar.gz compile/plugins/Diapason-modules )
+fi
+if [ -f ../../../Diapason-modules.patch ]; then
+  patch -p1 < ../../../Diapason-modules.patch
+fi
+if [ -f ../../../Diapason-modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../Diapason-modules.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# Agave
+echo ""
+echo "===> Agave extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Agave-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Agave-source.tar.gz )
+  cd Agave
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/jatinchowdhury18/Agave
+  cd Agave
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Agave-source.tar.gz compile/plugins/Agave )
+fi
+if [ -f ../../../Agave.patch ]; then
+  patch -p1 < ../../../Agave.patch
+fi
+if [ -f ../../../Agave.$MYARCH.patch ]; then
+  patch -p1 < ../../../Agave.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
 
 # go back to a defined point
 cd ${WORKDIR}
