@@ -371,6 +371,7 @@ fi
 if [ -f ../../../vcvrack-packone.$MYARCH.patch ]; then
   patch -p1 < ../../../vcvrack-packone.$MYARCH.patch
 fi
+find * -type f -exec ../../../../simde-ify.sh {} \;
 cd ..
 
 # go back to a defined starting point to be on the safe side
@@ -876,7 +877,7 @@ if [ -f ../../source/lilac-loop-vcv-source.tar.gz ]; then
 else
   git clone https://github.com/grough/lilac-loop-vcv
   cd lilac-loop-vcv
-  git checkout master
+  git checkout main
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/lilac-loop-vcv-source.tar.gz compile/plugins/lilac-loop-vcv )
 fi
