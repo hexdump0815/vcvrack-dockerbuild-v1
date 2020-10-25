@@ -257,6 +257,15 @@ diff --git a/dep/Makefile b/dep/Makefile
 index 4ce54ad..7bce37a 100755
 --- a/dep/Makefile
 +++ b/dep/Makefile
+@@ -96,7 +96,7 @@ $(glfw): glfw
+ 	$(MAKE) -C glfw/build install
+ 
+ jansson-2.12:
+-	$(WGET) "http://www.digip.org/jansson/releases/jansson-2.12.tar.gz"
++	$(WGET) "https://ftp.osuosl.org/pub/blfs/conglomeration/jansson/jansson-2.12.tar.gz"
+ 	$(SHA256) jansson-2.12.tar.gz 5f8dec765048efac5d919aded51b26a32a05397ea207aa769ff6b53c7027d2c9
+ 	$(UNTAR) jansson-2.12.tar.gz
+ 	rm jansson-2.12.tar.gz
 @@ -106,17 +106,17 @@ $(jansson): jansson-2.12
  	$(MAKE) -C jansson-2.12
  	$(MAKE) -C jansson-2.12 install
@@ -284,12 +293,31 @@ index 4ce54ad..7bce37a 100755
  
  curl-7.66.0:
  	$(WGET) "https://curl.haxx.se/download/curl-7.66.0.tar.gz"
-@@ -246,7 +246,7 @@ $(pffft): jpommier-pffft-29e4f76ac53b
+@@ -235,18 +238,18 @@ $(oui-blendish): $(wildcard oui-blendish/*.h)
+ $(osdialog): $(wildcard osdialog/*.h)
+ 	cp $^ include/
+ 
+-jpommier-pffft-29e4f76ac53b:
+-	$(WGET) "https://bitbucket.org/jpommier/pffft/get/29e4f76ac53b.zip"
+-	$(SHA256) 29e4f76ac53b.zip bb10afba127904a0c6c553fa445082729b7d72373511bda1b12a5be0e03f318a
+-	$(UNZIP) 29e4f76ac53b.zip
+-	rm 29e4f76ac53b.zip
+-
+-$(pffft): jpommier-pffft-29e4f76ac53b
+-	cp jpommier-pffft-29e4f76ac53b/*.h include/
++pffft:
++	$(WGET) "https://vcvrack.com/downloads/dep/pffft.zip"
++	$(SHA256) pffft.zip fd3ebe4f3843675a79912167a4e74415ed0ad302ed8adc90e1af23a7c67654b4
++	$(UNZIP) pffft.zip
++	rm pffft.zip
++ 
++$(pffft): pffft
++	cp pffft/*.h include/
  
  # Helpers
  
 -src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1d curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog jpommier-pffft-29e4f76ac53b
-+src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1f curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog jpommier-pffft-29e4f76ac53b
++src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1f curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog pffft
  
  clean:
  	git clean -fdx
@@ -357,3 +385,16 @@ index 1f6a62c..897071a 100644
  			fb->addChild(mw);
  			fb->scale = math::Vec(zoom, zoom);
  
+diff --git a/Makefile b/Makefile
+index eb28daab..5305e6aa 100644
+--- a/Makefile
++++ b/Makefile
+@@ -13,7 +13,7 @@ SED := perl -pi -e
+ 
+ SOURCES += dep/nanovg/src/nanovg.c
+ SOURCES += dep/osdialog/osdialog.c
+-SOURCES += $(wildcard dep/jpommier-pffft-*/pffft.c) $(wildcard dep/jpommier-pffft-*/fftpack.c)
++SOURCES += dep/pffft/pffft.c dep/pffft/fftpack.c
+ SOURCES += $(wildcard src/*.cpp src/*/*.cpp)
+ 
+ ifdef ARCH_LIN
