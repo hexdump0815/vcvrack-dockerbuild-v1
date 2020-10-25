@@ -37,18 +37,4 @@ index aba4db5..31ec0e4 100644
  				default:
  				case LongPressButton::NO_PRESS:
  					break;
-diff --git a/src/MidiCat.cpp b/src/MidiCat.cpp
-index 920889b..5320207 100644
---- a/src/MidiCat.cpp
-+++ b/src/MidiCat.cpp
-@@ -156,8 +156,8 @@ struct MidiCatModule : Module, StripIdFixModule {
- 			//valueFilters[id].lambda = 1 / 0.01f;
- 			APP->engine->addParamHandle(&paramHandles[id]);
- 		}
--		loopDivider.setDivision(128);
--		indicatorDivider.setDivision(2048);
-+		loopDivider.setDivision(64);
-+		indicatorDivider.setDivision(1024);
- 		onReset();
- 	}
  
