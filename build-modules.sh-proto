@@ -9,17 +9,17 @@ WORKDIR=`pwd`
 
 cd library/repos
 for i in * ; do
-  # surge-rack is handled separately below
-  if [ "$i" != "SurgeRack" ]; then
+  # SurgeRack and Stoermelder-P1 are handled separately below
+  if [ "$i" != "SurgeRack" ] && [ "$i" != "Stoermelder-P1" ]; then
     if [ -f ${i}/plugin.json ]; then
       echo ""
       echo "=== $i ==="
       echo ""
       cd $i
-    #  RACK_DIR=${WORKDIR}/Rack make -j2 clean
-      RACK_DIR=${WORKDIR}/Rack make -j2 dep
-      RACK_DIR=${WORKDIR}/Rack make -j2
-      RACK_DIR=${WORKDIR}/Rack make -j2 dist
+    #  RACK_DIR=${WORKDIR}/Rack make -j4 clean
+      RACK_DIR=${WORKDIR}/Rack make -j4 dep
+      RACK_DIR=${WORKDIR}/Rack make -j4
+      RACK_DIR=${WORKDIR}/Rack make -j4 dist
       cd ..
     fi
   fi
@@ -35,10 +35,10 @@ for i in * ; do
   echo "=== $i ==="
   echo ""
   cd $i
-#  RACK_DIR=${WORKDIR}/Rack make -j2 clean
-  RACK_DIR=${WORKDIR}/Rack make -j2 dep
-  RACK_DIR=${WORKDIR}/Rack make -j2
-  RACK_DIR=${WORKDIR}/Rack make -j2 dist
+#  RACK_DIR=${WORKDIR}/Rack make -j4 clean
+  RACK_DIR=${WORKDIR}/Rack make -j4 dep
+  RACK_DIR=${WORKDIR}/Rack make -j4
+  RACK_DIR=${WORKDIR}/Rack make -j4 dist
   cd ..
 done
 cd ..
