@@ -1,11 +1,12 @@
 diff --git a/Makefile b/Makefile
-index d941bca..a5bf264 100644
+index 7c4d4e5..d587bdf 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -69,8 +69,7 @@ ifdef ARCH_WIN
+@@ -66,9 +66,7 @@ ifdef ARCH_WIN
+ 	FLAGS += -fmax-errors=5
  endif
  
- #  -flto
+-#  -flto
 -FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
 -LDFLAGS += -flto
 +FLAGS += -finline-limit=500000 -finline-functions-called-once
