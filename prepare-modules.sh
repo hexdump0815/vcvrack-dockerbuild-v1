@@ -36,6 +36,8 @@ if [ -f ../source/library-source.tar.gz ]; then
 else
   git clone https://github.com/VCVRack/library.git
   cd library
+  # this is the version i used this script last with
+  #git checkout 52397d8150e073fcf3355267c776bfb61a4699d6
   git submodule update --init --recursive
   ( cd ../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 fi
