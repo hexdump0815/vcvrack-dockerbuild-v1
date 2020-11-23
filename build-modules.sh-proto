@@ -9,8 +9,8 @@ WORKDIR=`pwd`
 
 cd library/repos
 for i in * ; do
-  # SurgeRack and Stoermelder-P1 are handled separately below
-  if [ "$i" != "SurgeRack" ] && [ "$i" != "Stoermelder-P1" ]; then
+  # SurgeRack is handled separately below
+  if [ "$i" != "SurgeRack" ]; then
     if [ -f ${i}/plugin.json ]; then
       echo ""
       echo "=== $i ==="

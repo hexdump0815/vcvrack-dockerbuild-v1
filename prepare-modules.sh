@@ -51,8 +51,8 @@ cd ../..
 # arch specific patching if needed
 
 for i in * ; do
-  # SurgeRack and Stoermelder-P1 are handled separately below
-  if [ "$i" != "SurgeRack" ] && [ "$i" != "Stoermelder-P1" ]; then
+  # SurgeRack is handled separately below
+  if [ "$i" != "SurgeRack" ]; then
     echo ""
     echo "===> $i"
     echo ""
@@ -342,38 +342,6 @@ fi
 if [ -f ../../../LRTRack.$MYARCH.patch ]; then
   patch -p1 < ../../../LRTRack.$MYARCH.patch
 fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# vcvrack-packone
-echo ""
-echo "===> vcvrack-packone extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/vcvrack-packone-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/vcvrack-packone-source.tar.gz )
-  cd vcvrack-packone
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/stoermelder/vcvrack-packone.git
-  cd vcvrack-packone
-  # dev version as it has some extra features not yet in the library
-  git checkout 719bd9401123736f9beba74a36c3cab8ece95262
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/vcvrack-packone-source.tar.gz compile/plugins/vcvrack-packone )
-fi
-if [ -f ../../../vcvrack-packone.patch ]; then
-  patch -p1 < ../../../vcvrack-packone.patch
-fi
-if [ -f ../../../vcvrack-packone.$MYARCH.patch ]; then
-  patch -p1 < ../../../vcvrack-packone.$MYARCH.patch
-fi
-find * -type f -exec ../../../simde-ify.sh {} \;
-# some files here get accidently simde-ified :)
-git checkout -- docs
 cd ..
 
 # go back to a defined starting point to be on the safe side
@@ -782,28 +750,28 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
-# southpole-vcvrack
+# myrisa-modules
 echo ""
-echo "===> southpole-vcvrack extra plugin"
+echo "===> myrisa-modules extra plugin"
 echo ""
 # if we have a source archive in the source dir use that ...
-if [ -f ../../source/southpole-vcvrack-source.tar.gz ]; then
+if [ -f ../../source/myrisa-modules-source.tar.gz ]; then
   echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/southpole-vcvrack-source.tar.gz )
-  cd southpole-vcvrack
+  ( cd ../.. ; tar xzf source/myrisa-modules-source.tar.gz )
+  cd myrisa-modules
 # ... otherwise get it from git and create a source archive afterwards
 else
-  git clone https://github.com/dogonthehorizon/southpole-vcvrack
-  cd southpole-vcvrack
-  git checkout v1
+  git clone https://github.com/gwatcha/myrisa-modules.git
+  cd myrisa-modules
+  git checkout master
   git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/southpole-vcvrack-source.tar.gz compile/plugins/southpole-vcvrack )
+  ( cd ../../.. ; mkdir -p source ; tar czf source/myrisa-modules-source.tar.gz compile/plugins/myrisa-modules )
 fi
-if [ -f ../../../southpole-vcvrack.patch ]; then
-  patch -p1 < ../../../southpole-vcvrack.patch
+if [ -f ../../../myrisa-modules.patch ]; then
+  patch -p1 < ../../../myrisa-modules.patch
 fi
-if [ -f ../../../southpole-vcvrack.$MYARCH.patch ]; then
-  patch -p1 < ../../../southpole-vcvrack.$MYARCH.patch
+if [ -f ../../../myrisa-modules.$MYARCH.patch ]; then
+  patch -p1 < ../../../myrisa-modules.$MYARCH.patch
 fi
 cd ..
 
