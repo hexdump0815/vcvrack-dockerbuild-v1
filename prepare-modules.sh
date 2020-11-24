@@ -752,6 +752,34 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
+# southpole-vcvrack
+echo ""
+echo "===> southpole-vcvrack extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/southpole-vcvrack-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/southpole-vcvrack-source.tar.gz )
+  cd southpole-vcvrack
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/dogonthehorizon/southpole-vcvrack
+  cd southpole-vcvrack
+  git checkout v1
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/southpole-vcvrack-source.tar.gz compile/plugins/southpole-vcvrack )
+fi
+if [ -f ../../../southpole-vcvrack.patch ]; then
+  patch -p1 < ../../../southpole-vcvrack.patch
+fi
+if [ -f ../../../southpole-vcvrack.$MYARCH.patch ]; then
+  patch -p1 < ../../../southpole-vcvrack.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
 # myrisa-modules
 echo ""
 echo "===> myrisa-modules extra plugin"
