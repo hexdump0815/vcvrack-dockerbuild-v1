@@ -540,7 +540,7 @@ if [ -f ../../source/FM-Delexander-source.tar.gz ]; then
 else
   git clone https://github.com/anlexmatos/FM-Delexander
   cd FM-Delexander
-  git checkout master
+  git checkout beta-3
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/FM-Delexander-source.tar.gz compile/plugins/FM-Delexander )
 fi
@@ -886,34 +886,6 @@ if [ -f ../../../Diapason-modules.patch ]; then
 fi
 if [ -f ../../../Diapason-modules.$MYARCH.patch ]; then
   patch -p1 < ../../../Diapason-modules.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
-
-# Agave
-echo ""
-echo "===> Agave extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/Agave-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/Agave-source.tar.gz )
-  cd Agave
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/jatinchowdhury18/Agave
-  cd Agave
-  git checkout master
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/Agave-source.tar.gz compile/plugins/Agave )
-fi
-if [ -f ../../../Agave.patch ]; then
-  patch -p1 < ../../../Agave.patch
-fi
-if [ -f ../../../Agave.$MYARCH.patch ]; then
-  patch -p1 < ../../../Agave.$MYARCH.patch
 fi
 cd ..
 
