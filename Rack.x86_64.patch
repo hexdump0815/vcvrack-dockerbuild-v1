@@ -1,0 +1,24 @@
+diff --git a/dep/Makefile b/dep/Makefile
+index 4ce54ad..ddb9ad2 100755
+--- a/dep/Makefile
++++ b/dep/Makefile
+@@ -185,10 +185,15 @@ $(libsamplerate): libsamplerate-0.1.9
+ 	$(MAKE) -C libsamplerate-0.1.9 install
+ 
+ rtmidi-4.0.0:
+-	$(WGET) "http://www.music.mcgill.ca/~gary/rtmidi/release/rtmidi-4.0.0.tar.gz"
+-	$(SHA256) rtmidi-4.0.0.tar.gz 370cfe710f43fbeba8d2b8c8bc310f314338c519c2cf2865e2d2737b251526cd
+-	$(UNTAR) rtmidi-4.0.0.tar.gz
+-	rm rtmidi-4.0.0.tar.gz
++#	$(WGET) "http://www.music.mcgill.ca/~gary/rtmidi/release/rtmidi-4.0.0.tar.gz"
++#	$(SHA256) rtmidi-4.0.0.tar.gz 370cfe710f43fbeba8d2b8c8bc310f314338c519c2cf2865e2d2737b251526cd
++#	$(UNTAR) rtmidi-4.0.0.tar.gz
++#	rm rtmidi-4.0.0.tar.gz
++	$(WGET) "https://github.com/thestk/rtmidi/archive/4.0.0.tar.gz"
++	$(SHA256) 4.0.0.tar.gz d32de9ceebf6d969537e9a9720925a1ac7f6a8bc4ac4ce7c58c01434f4e54f44
++	$(UNTAR) 4.0.0.tar.gz
++	rm 4.0.0.tar.gz
++	cd rtmidi-4.0.0 && ./autogen.sh --no-configure
+ 
+ RTMIDI_FLAGS += --enable-shared=no
+ ifdef ARCH_LIN

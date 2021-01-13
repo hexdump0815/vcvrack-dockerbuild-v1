@@ -45,7 +45,7 @@ index 35fbcd3..74145b9 100755
  	$(MAKE) -C speexdsp-SpeexDSP-1.2rc3
  	$(MAKE) -C speexdsp-SpeexDSP-1.2rc3 install
  
-@@ -180,6 +181,8 @@ libsamplerate-0.1.9:
+@@ -180,15 +181,21 @@ libsamplerate-0.1.9:
  	rm libsamplerate-0.1.9.tar.gz
  
  $(libsamplerate): libsamplerate-0.1.9
@@ -54,6 +54,23 @@ index 35fbcd3..74145b9 100755
  	cd libsamplerate-0.1.9 && $(CONFIGURE) --disable-fftw --disable-sndfile
  	$(MAKE) -C libsamplerate-0.1.9
  	$(MAKE) -C libsamplerate-0.1.9 install
+ 
+ rtmidi-4.0.0:
+-	$(WGET) "http://www.music.mcgill.ca/~gary/rtmidi/release/rtmidi-4.0.0.tar.gz"
+-	$(SHA256) rtmidi-4.0.0.tar.gz 370cfe710f43fbeba8d2b8c8bc310f314338c519c2cf2865e2d2737b251526cd
+-	$(UNTAR) rtmidi-4.0.0.tar.gz
+-	rm rtmidi-4.0.0.tar.gz
++#	$(WGET) "http://www.music.mcgill.ca/~gary/rtmidi/release/rtmidi-4.0.0.tar.gz"
++#	$(SHA256) rtmidi-4.0.0.tar.gz 370cfe710f43fbeba8d2b8c8bc310f314338c519c2cf2865e2d2737b251526cd
++#	$(UNTAR) rtmidi-4.0.0.tar.gz
++	$(WGET) "https://github.com/thestk/rtmidi/archive/4.0.0.tar.gz"
++	$(SHA256) 4.0.0.tar.gz d32de9ceebf6d969537e9a9720925a1ac7f6a8bc4ac4ce7c58c01434f4e54f44
++	$(UNTAR) 4.0.0.tar.gz
++	rm 4.0.0.tar.gz
++	cd rtmidi-4.0.0 && ./autogen.sh --no-configure
+ 
+ RTMIDI_FLAGS += --enable-shared=no
+ ifdef ARCH_LIN
 diff --git a/src/engine/Engine.cpp b/src/engine/Engine.cpp
 index ee0e64b..3b6bc33 100644
 --- a/src/engine/Engine.cpp
