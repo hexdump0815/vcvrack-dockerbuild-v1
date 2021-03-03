@@ -146,6 +146,17 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/library/repos
 
+# Comfortzone
+echo ""
+echo "===> Comfortzone extra steps"
+echo ""
+cd Comfortzone
+find * -type f -exec ../../../../simde-ify.sh {} \;
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/library/repos
+
 # HetrickCV
 echo ""
 echo "===> HetrickCV extra steps"
@@ -849,7 +860,7 @@ if [ -f ../../source/Modal-source.tar.gz ]; then
 else
   git clone https://github.com/PelleJuul/Modal
   cd Modal
-  git checkout master
+  git checkout main
   git submodule update --init --recursive
   ( cd ../../.. ; mkdir -p source ; tar czf source/Modal-source.tar.gz compile/plugins/Modal )
 fi
@@ -891,6 +902,31 @@ cd ..
 
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
+
+# Poly_AudibleInstruments
+echo ""
+echo "===> Poly_AudibleInstruments extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/Poly_AudibleInstruments-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/Poly_AudibleInstruments-source.tar.gz )
+  cd Poly_AudibleInstruments
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/Xenakios/Poly_AudibleInstruments
+  cd Poly_AudibleInstruments
+  git checkout master
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/Poly_AudibleInstruments-source.tar.gz compile/plugins/Poly_AudibleInstruments )
+fi
+if [ -f ../../../Poly_AudibleInstruments.patch ]; then
+  patch -p1 < ../../../Poly_AudibleInstruments.patch
+fi
+if [ -f ../../../Poly_AudibleInstruments.$MYARCH.patch ]; then
+  patch -p1 < ../../../Poly_AudibleInstruments.$MYARCH.patch
+fi
+cd ..
 
 # go back to a defined point
 cd ${WORKDIR}
