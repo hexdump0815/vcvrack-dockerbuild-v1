@@ -2,6 +2,15 @@ diff --git a/Makefile b/Makefile
 index 3c9cc73..73f1e1a 100644
 --- a/Makefile
 +++ b/Makefile
+@@ -16,7 +16,7 @@ DUKTAPE ?= 0
+ QUICKJS ?= 1
+ LUAJIT ?= 1
+ PYTHON ?= 0
+-SUPERCOLLIDER ?= 1
++SUPERCOLLIDER ?= 0
+ VULT ?= 1
+ LIBPD ?= 1
+ FAUST ?= 1
 @@ -78,10 +78,10 @@ luajit := dep/lib/libluajit-5.1.a
  OBJECTS += $(luajit)
  DEPS += $(luajit)
@@ -16,6 +25,15 @@ index 3c9cc73..73f1e1a 100644
 +	cd dep/LuaJIT-2.1.0-beta3 && $(MAKE) BUILDMODE=static PREFIX="$(DEP_PATH)" install
  endif
  
+ 
+@@ -95,7 +95,7 @@ OBJECTS += $(supercollider)
+ DEPS += $(supercollider)
+ DISTRIBUTABLES += dep/supercollider/SCClassLibrary
+ DISTRIBUTABLES += support/supercollider_extensions
+-SUPERCOLLIDER_CMAKE_FLAGS += -DSUPERNOVA=0 -DSC_EL=0 -DSC_VIM=0 -DSC_ED=0 -DSC_IDE=0 -DSC_ABLETON_LINK=0 -DSC_QT=0 -DCMAKE_BUILD_TYPE=Release -DSCLANG_SERVER=0 -DBUILD_TESTING=0 -DNO_LIBSNDFILE=1
++SUPERCOLLIDER_CMAKE_FLAGS += -DSUPERNOVA=0 -DSC_EL=0 -DSC_VIM=0 -DSC_ED=0 -DSC_IDE=0 -DSC_ABLETON_LINK=0 -DSC_QT=0 -DCMAKE_BUILD_TYPE=Release -DSCLANG_SERVER=0 -DBUILD_TESTING=0 -DNO_LIBSNDFILE=1 -DSSE=0 -DSSE2=0 -DNATIVE=0
+ SUPERCOLLIDER_SUBMODULES += external_libraries/hidapi external_libraries/nova-simd external_libraries/nova-tt external_libraries/portaudio_sc_org external_libraries/yaml-cpp
+ SUPERCOLLIDER_BRANCH := topic/vcv-prototype-support
  
 diff --git a/src/LuaJITEngine.cpp b/src/LuaJITEngine.cpp
 index 0ec77ef..bcba241 100644

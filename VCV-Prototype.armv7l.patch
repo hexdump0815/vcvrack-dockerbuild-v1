@@ -2,6 +2,15 @@ diff --git a/Makefile b/Makefile
 index 3c9cc73..520dcd5 100644
 --- a/Makefile
 +++ b/Makefile
+@@ -16,7 +16,7 @@ DUKTAPE ?= 0
+ QUICKJS ?= 1
+ LUAJIT ?= 1
+ PYTHON ?= 0
+-SUPERCOLLIDER ?= 1
++SUPERCOLLIDER ?= 0
+ VULT ?= 1
+ LIBPD ?= 1
+ FAUST ?= 1
 @@ -64,6 +64,9 @@ QUICKJS_MAKE_FLAGS += prefix="$(DEP_PATH)"
  ifdef ARCH_WIN
  	QUICKJS_MAKE_FLAGS += CONFIG_WIN32=y
@@ -22,3 +31,12 @@ index 3c9cc73..520dcd5 100644
  $(luajit):
  	$(WGET) "http://luajit.org/download/LuaJIT-2.0.5.tar.gz"
  	$(SHA256) LuaJIT-2.0.5.tar.gz 874b1f8297c697821f561f9b73b57ffd419ed8f4278c82e05b48806d30c1e979
+@@ -95,7 +95,7 @@ OBJECTS += $(supercollider)
+ DEPS += $(supercollider)
+ DISTRIBUTABLES += dep/supercollider/SCClassLibrary
+ DISTRIBUTABLES += support/supercollider_extensions
+-SUPERCOLLIDER_CMAKE_FLAGS += -DSUPERNOVA=0 -DSC_EL=0 -DSC_VIM=0 -DSC_ED=0 -DSC_IDE=0 -DSC_ABLETON_LINK=0 -DSC_QT=0 -DCMAKE_BUILD_TYPE=Release -DSCLANG_SERVER=0 -DBUILD_TESTING=0 -DNO_LIBSNDFILE=1
++SUPERCOLLIDER_CMAKE_FLAGS += -DSUPERNOVA=0 -DSC_EL=0 -DSC_VIM=0 -DSC_ED=0 -DSC_IDE=0 -DSC_ABLETON_LINK=0 -DSC_QT=0 -DCMAKE_BUILD_TYPE=Release -DSCLANG_SERVER=0 -DBUILD_TESTING=0 -DNO_LIBSNDFILE=1 -DSSE=0 -DSSE2=0 -DNATIVE=0
+ SUPERCOLLIDER_SUBMODULES += external_libraries/hidapi external_libraries/nova-simd external_libraries/nova-tt external_libraries/portaudio_sc_org external_libraries/yaml-cpp
+ SUPERCOLLIDER_BRANCH := topic/vcv-prototype-support
+ 
