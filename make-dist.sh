@@ -40,6 +40,12 @@ fi
 ( cd dist/plugins ; for i in ../../compile/library/repos/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
 ( cd dist/plugins ; for i in ../../compile/plugins/*/dist/*-${ZIPNAME}.zip ; do unzip $i ; done )
 
+# the skjack plugin is partial broken and not recommended, so move it away
+if [ -d dist/plugins/SkJack ]; then
+  mkdir -p dist/plugins.off
+  mv dist/plugins/SkJack dist/plugins.off
+fi
+
 mkdir -p dist/rack-sdk/dep
 for i in *.mk helper.py include LICENSE-dist.txt LICENSE-GPLv3.txt LICENSE.md; do
   cp -r compile/Rack/$i dist/rack-sdk
