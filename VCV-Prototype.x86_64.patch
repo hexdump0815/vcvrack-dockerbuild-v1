@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 3c9cc73..520dcd5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -16,7 +16,7 @@ DUKTAPE ?= 0
+ QUICKJS ?= 1
+ LUAJIT ?= 1
+ PYTHON ?= 0
+-SUPERCOLLIDER ?= 1
++SUPERCOLLIDER ?= 0
+ VULT ?= 1
+ LIBPD ?= 1
+ FAUST ?= 1
