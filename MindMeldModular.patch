@@ -1,7 +1,7 @@
 diff --git a/src/VuMeters.cpp b/src/VuMeters.cpp
 index 3f9712d..f58cac9 100644
---- a/src/VuMeters.cpp
-+++ b/src/VuMeters.cpp
+--- a/src/comp/VuMeters.cpp
++++ b/src/comp/VuMeters.cpp
 @@ -7,6 +7,8 @@
  
  
