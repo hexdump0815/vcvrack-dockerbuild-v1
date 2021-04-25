@@ -2,12 +2,14 @@ diff --git a/compile.mk b/compile.mk
 index 81c55f3..a1e26fb 100644
 --- a/compile.mk
 +++ b/compile.mk
-@@ -12,7 +12,7 @@ FLAGS += -MMD -MP
+@@ -12,7 +12,9 @@ FLAGS += -MMD -MP
  # Debugger symbols. These are removed with `strip`.
  FLAGS += -g
  # Optimization
 -FLAGS += -O3 -march=nocona -funsafe-math-optimizations
-+FLAGS += -O3 -march=armv7 -mfpu=neon -mno-unaligned-access -funsafe-math-optimizations
++#FLAGS += -O3 -march=armv7 -mfpu=neon -mno-unaligned-access -funsafe-math-optimizations
++# use the below options to optimize for the odroid u3
++FLAGS += -O3 -march=armv7 -mtune=cortex-a9 -mfpu=neon -mno-unaligned-access -funsafe-math-optimizations
  # Warnings
  FLAGS += -Wall -Wextra -Wno-unused-parameter
  # C++ standard
@@ -24,12 +26,14 @@ diff --git a/dep.mk b/dep.mk
 index bad90ec..c1412e4 100644
 --- a/dep.mk
 +++ b/dep.mk
-@@ -5,7 +5,7 @@ DEP_LOCAL ?= dep
+@@ -5,7 +5,9 @@ DEP_LOCAL ?= dep
  $(shell mkdir -p $(DEP_LOCAL))
  DEP_PATH := $(abspath $(DEP_LOCAL))
  
 -DEP_FLAGS += -g -O3 -march=nocona
-+DEP_FLAGS += -g -O3 -march=armv7 -mfpu=neon -mno-unaligned-access
++#DEP_FLAGS += -g -O3 -march=armv7 -mfpu=neon -mno-unaligned-access
++# use the below options to optimize for the odroid u3
++DEP_FLAGS += -g -O3 -march=armv7 -mtune=cortex-a9 -mfpu=neon -mno-unaligned-access
  
  ifeq ($(ARCH), mac)
  	DEP_MAC_SDK_FLAGS := -mmacosx-version-min=10.7
@@ -63,17 +67,6 @@ diff --git a/dep/Makefile b/dep/Makefile
 index 4ce54ad..0878501 100755
 --- a/dep/Makefile
 +++ b/dep/Makefile
-@@ -113,8 +113,8 @@ openssl-1.1.1f:
- 	rm openssl-1.1.1f.tar.gz
- 
- $(openssl): openssl-1.1.1f
--	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1f && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
-+	@# we have to unset CFLAGS, as otherwise it will try to compile armv8 asm
-+	cd openssl-1.1.1f && CFLAGS="" ./config --prefix="$(DEP_PATH)"
- 	$(MAKE) -C openssl-1.1.1f
- 	$(MAKE) -C openssl-1.1.1f install_sw
- 
 @@ -185,10 +185,15 @@ $(libsamplerate): libsamplerate-0.1.9
  	$(MAKE) -C libsamplerate-0.1.9 install
  

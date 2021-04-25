@@ -11,22 +11,26 @@ index 3c9cc73..520dcd5 100644
  VULT ?= 1
  LIBPD ?= 1
  FAUST ?= 1
-@@ -64,6 +64,9 @@ QUICKJS_MAKE_FLAGS += prefix="$(DEP_PATH)"
+@@ -64,6 +64,11 @@ QUICKJS_MAKE_FLAGS += prefix="$(DEP_PATH)"
  ifdef ARCH_WIN
  	QUICKJS_MAKE_FLAGS += CONFIG_WIN32=y
  endif
 +
-+$(quickjs): DEP_CFLAGS := $(filter-out -march=armv7 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
++#$(quickjs): DEP_CFLAGS := $(filter-out -march=armv7 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
++# use the below options to optimize for the odroid u3
++$(quickjs): DEP_CFLAGS := $(filter-out -march=armv7 -mtune=cortex-a9 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
 +
  $(quickjs):
  	cd dep && git clone "https://github.com/JerrySievert/QuickJS.git"
  	cd dep/QuickJS && git checkout 807adc8ca9010502853d471bd8331cdc1d376b94
-@@ -77,6 +80,9 @@ SOURCES += src/LuaJITEngine.cpp
+@@ -77,6 +80,11 @@ SOURCES += src/LuaJITEngine.cpp
  luajit := dep/lib/libluajit-5.1.a
  OBJECTS += $(luajit)
  DEPS += $(luajit)
 +
-+$(luajit): DEP_CFLAGS := $(filter-out -march=armv7 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
++#$(luajit): DEP_CFLAGS := $(filter-out -march=armv7 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
++# use the below options to optimize for the odroid u3
++$(luajit): DEP_CFLAGS := $(filter-out -march=armv7 -mtune=cortex-a9 -mfpu=neon -mno-unaligned-access,$(CFLAGS))
 +
  $(luajit):
  	$(WGET) "http://luajit.org/download/LuaJIT-2.0.5.tar.gz"
