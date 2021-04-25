@@ -280,10 +280,11 @@ index 1f6a62c..897071a 100644
  			fb->scale = math::Vec(zoom, zoom);
  
 diff --git a/src/settings.cpp b/src/settings.cpp
-index ca380d7..9f694c7 100644
+index ca380d7..75e0a9b 100644
 --- a/src/settings.cpp
 +++ b/src/settings.cpp
-@@ -25,17 +25,13 @@ float cableTension = 0.5;
+@@ -24,19 +24,15 @@ float cableOpacity = 0.5;
+ float cableTension = 0.5;
  bool allowCursorLock = true;
  bool realTime = false;
 -bool keepPreviews = true;
