@@ -97,57 +97,6 @@ index 2b9bb5a..add47c3 100644
  
  	// Resize owned descendants
  	menuBar->box.size.x = box.size.x;
-diff --git a/src/settings.cpp b/src/settings.cpp
-index eeb1ffc..0f821cb 100644
---- a/src/settings.cpp
-+++ b/src/settings.cpp
-@@ -24,13 +24,14 @@ float cableOpacity = 0.5;
- float cableTension = 0.5;
- bool allowCursorLock = true;
- bool realTime = false;
--float sampleRate = 44100.0;
--int threadCount = 1;
-+float sampleRate = 32000.0;
-+int threadCount = 2;
- bool paramTooltip = false;
- bool cpuMeter = false;
- bool lockModules = false;
--int frameSwapInterval = 1;
--float autosavePeriod = 15.0;
-+float frameRateLimit = 15.0;
-+bool frameRateSync = false;
-+float autosavePeriod = 60.0;
- bool skipLoadOnLaunch = false;
- std::string patchPath;
- std::vector<NVGcolor> cableColors = {
-@@ -74,7 +75,9 @@ json_t* toJson() {
- 
- 	json_object_set_new(rootJ, "lockModules", json_boolean(lockModules));
- 
--	json_object_set_new(rootJ, "frameSwapInterval", json_integer(frameSwapInterval));
-+	json_object_set_new(rootJ, "frameRateLimit", json_real(frameRateLimit));
-+
-+	json_object_set_new(rootJ, "frameRateSync", json_boolean(frameRateSync));
- 
- 	json_object_set_new(rootJ, "autosavePeriod", json_real(autosavePeriod));
- 
-@@ -157,9 +160,13 @@ void fromJson(json_t* rootJ) {
- 	if (lockModulesJ)
- 		lockModules = json_boolean_value(lockModulesJ);
- 
--	json_t* frameSwapIntervalJ = json_object_get(rootJ, "frameSwapInterval");
--	if (frameSwapIntervalJ)
--		frameSwapInterval = json_integer_value(frameSwapIntervalJ);
-+	json_t* frameRateLimitJ = json_object_get(rootJ, "frameRateLimit");
-+	if (frameRateLimitJ)
-+		frameRateLimit = json_number_value(frameRateLimitJ);
-+
-+	json_t* frameRateSyncJ = json_object_get(rootJ, "frameRateSync");
-+	if (frameRateSyncJ)
-+		frameRateSync = json_boolean_value(frameRateSyncJ);
- 
- 	json_t* autosavePeriodJ = json_object_get(rootJ, "autosavePeriod");
- 	if (autosavePeriodJ)
 diff --git a/src/window.cpp b/src/window.cpp
 index 1f6a62c..5304471 100644
 --- a/src/window.cpp
@@ -266,61 +215,6 @@ index 4ce54ad..7bce37a 100755
  	$(SHA256) jansson-2.12.tar.gz 5f8dec765048efac5d919aded51b26a32a05397ea207aa769ff6b53c7027d2c9
  	$(UNTAR) jansson-2.12.tar.gz
  	rm jansson-2.12.tar.gz
-@@ -106,17 +106,17 @@ $(jansson): jansson-2.12
- 	$(MAKE) -C jansson-2.12
- 	$(MAKE) -C jansson-2.12 install
- 
--openssl-1.1.1d:
--	$(WGET) "https://www.openssl.org/source/openssl-1.1.1d.tar.gz"
--	$(SHA256) openssl-1.1.1d.tar.gz 1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2
--	$(UNTAR) openssl-1.1.1d.tar.gz
--	rm openssl-1.1.1d.tar.gz
-+openssl-1.1.1f:
-+	$(WGET) "https://www.openssl.org/source/openssl-1.1.1f.tar.gz"
-+	$(SHA256) openssl-1.1.1f.tar.gz 186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35
-+	$(UNTAR) openssl-1.1.1f.tar.gz
-+	rm openssl-1.1.1f.tar.gz
- 
--$(openssl): openssl-1.1.1d
-+$(openssl): openssl-1.1.1f
- 	@# ./config ignores CFLAGS, so hack it in with CC
--	cd openssl-1.1.1d && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
--	$(MAKE) -C openssl-1.1.1d
--	$(MAKE) -C openssl-1.1.1d install_sw
-+	cd openssl-1.1.1f && CC="$(CC) $(CFLAGS)" ./config --prefix="$(DEP_PATH)"
-+	$(MAKE) -C openssl-1.1.1f
-+	$(MAKE) -C openssl-1.1.1f install_sw
- 
- curl-7.66.0:
- 	$(WGET) "https://curl.haxx.se/download/curl-7.66.0.tar.gz"
-@@ -235,18 +238,18 @@ $(oui-blendish): $(wildcard oui-blendish/*.h)
- $(osdialog): $(wildcard osdialog/*.h)
- 	cp $^ include/
- 
--jpommier-pffft-29e4f76ac53b:
--	$(WGET) "https://bitbucket.org/jpommier/pffft/get/29e4f76ac53b.zip"
--	$(SHA256) 29e4f76ac53b.zip bb10afba127904a0c6c553fa445082729b7d72373511bda1b12a5be0e03f318a
--	$(UNZIP) 29e4f76ac53b.zip
--	rm 29e4f76ac53b.zip
--
--$(pffft): jpommier-pffft-29e4f76ac53b
--	cp jpommier-pffft-29e4f76ac53b/*.h include/
-+pffft:
-+	$(WGET) "https://vcvrack.com/downloads/dep/pffft.zip"
-+	$(SHA256) pffft.zip fd3ebe4f3843675a79912167a4e74415ed0ad302ed8adc90e1af23a7c67654b4
-+	$(UNZIP) pffft.zip
-+	rm pffft.zip
-+ 
-+$(pffft): pffft
-+	cp pffft/*.h include/
- 
- # Helpers
- 
--src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1d curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog jpommier-pffft-29e4f76ac53b
-+src: glew-2.1.0 glfw jansson-2.12 speexdsp-SpeexDSP-1.2rc3 openssl-1.1.1f curl-7.66.0 libzip-1.5.2 zlib-1.2.11 rtmidi-4.0.0 rtaudio nanovg nanosvg oui-blendish osdialog pffft
- 
- clean:
- 	git clean -fdx
 diff --git a/src/app/ModuleBrowser.cpp b/src/app/ModuleBrowser.cpp
 index e274eb5..eb9408c 100644
 --- a/src/app/ModuleBrowser.cpp
@@ -385,16 +279,79 @@ index 1f6a62c..897071a 100644
  			fb->addChild(mw);
  			fb->scale = math::Vec(zoom, zoom);
  
-diff --git a/Makefile b/Makefile
-index eb28daab..5305e6aa 100644
---- a/Makefile
-+++ b/Makefile
-@@ -13,7 +13,7 @@ SED := perl -pi -e
+diff --git a/src/settings.cpp b/src/settings.cpp
+index ca380d7..9f694c7 100644
+--- a/src/settings.cpp
++++ b/src/settings.cpp
+@@ -25,18 +25,14 @@ float cableTension = 0.5;
+ bool allowCursorLock = true;
+ bool realTime = false;
+ bool keepPreviews = true;
+-float sampleRate = 44100.0;
+-int threadCount = 1;
++float sampleRate = 32000.0;
++int threadCount = 2;
+ bool paramTooltip = false;
+ bool cpuMeter = false;
+ bool lockModules = false;
+-#if defined ARCH_MAC
+-	// Most Mac GPUs can't handle rendering the screen every frame, so use ~30 Hz by default.
+-	int frameSwapInterval = 2;
+-#else
+-	int frameSwapInterval = 1;
+-#endif
+-float autosavePeriod = 15.0;
++float frameRateLimit = 15.0;
++bool frameRateSync = false;
++float autosavePeriod = 60.0;
+ bool skipLoadOnLaunch = false;
+ bool pauseUnfocused = false;
+ bool disableCableLights = false;
+@@ -85,7 +81,9 @@ json_t* toJson() {
  
- SOURCES += dep/nanovg/src/nanovg.c
- SOURCES += dep/osdialog/osdialog.c
--SOURCES += $(wildcard dep/jpommier-pffft-*/pffft.c) $(wildcard dep/jpommier-pffft-*/fftpack.c)
-+SOURCES += dep/pffft/pffft.c dep/pffft/fftpack.c
- SOURCES += $(wildcard src/*.cpp src/*/*.cpp)
+ 	json_object_set_new(rootJ, "lockModules", json_boolean(lockModules));
  
- ifdef ARCH_LIN
+-	json_object_set_new(rootJ, "frameSwapInterval", json_integer(frameSwapInterval));
++	json_object_set_new(rootJ, "frameRateLimit", json_real(frameRateLimit));
++
++	json_object_set_new(rootJ, "frameRateSync", json_boolean(frameRateSync));
+ 
+ 	json_object_set_new(rootJ, "autosavePeriod", json_real(autosavePeriod));
+ 
+@@ -175,9 +173,13 @@ void fromJson(json_t* rootJ) {
+ 	if (lockModulesJ)
+ 		lockModules = json_boolean_value(lockModulesJ);
+ 
+-	json_t* frameSwapIntervalJ = json_object_get(rootJ, "frameSwapInterval");
+-	if (frameSwapIntervalJ)
+-		frameSwapInterval = json_integer_value(frameSwapIntervalJ);
++	json_t* frameRateLimitJ = json_object_get(rootJ, "frameRateLimit");
++	if (frameRateLimitJ)
++		frameRateLimit = json_number_value(frameRateLimitJ);
++
++	json_t* frameRateSyncJ = json_object_get(rootJ, "frameRateSync");
++	if (frameRateSyncJ)
++		frameRateSync = json_boolean_value(frameRateSyncJ);
+ 
+ 	json_t* autosavePeriodJ = json_object_get(rootJ, "autosavePeriod");
+ 	if (autosavePeriodJ)
+diff --git a/src/system.cpp b/src/system.cpp
+index 0687dcf..ccb12ef 100644
+--- a/src/system.cpp
++++ b/src/system.cpp
+@@ -153,6 +153,7 @@ void setThreadName(const std::string& name) {
+ #endif
+ }
+ 
++#if defined ARCH_MAC
+ // The following function is taken from the jacktrip source code
+ // https://github.com/jacktrip/jacktrip/blob/main/src/jacktrip_globals.cpp
+ // The following function is taken from the chromium source code
+@@ -240,6 +241,7 @@ void setRealtimeProcessPriorityForMacOS() {
+ 
+     return;
+ }
++#endif
+ 
+ void setThreadRealTime(bool realTime) {
+ #if defined ARCH_LIN
