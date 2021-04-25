@@ -2,12 +2,14 @@ diff --git a/Makefile.common b/Makefile.common
 index 8b9b3a1..2797b0d 100644
 --- a/Makefile.common
 +++ b/Makefile.common
-@@ -197,7 +197,7 @@ else ifeq ($(PLATFORM), linux)
+@@ -197,7 +197,9 @@ else ifeq ($(PLATFORM), linux)
  	ifeq ($(ARCH), 32)
  		CFLAGS += -m32
  	else ifeq ($(ARCH), 64)
 -		CFLAGS += -m64
 +		CFLAGS += -march=armv8-a -mtune=cortex-a53
++# use the below options to optimize for the amlogic s905x3
++#		CFLAGS += -march=armv8.2-a -mtune=cortex-a55 --param l1-cache-line-size=64 --param l1-cache-size=8 --param l2-cache-size=512
  	else ifeq ($(ARCH), 32_64)
  		CFLAGS += -m32 -m64
  	endif
