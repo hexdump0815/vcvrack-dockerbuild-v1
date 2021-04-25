@@ -283,12 +283,13 @@ diff --git a/src/settings.cpp b/src/settings.cpp
 index ca380d7..9f694c7 100644
 --- a/src/settings.cpp
 +++ b/src/settings.cpp
-@@ -25,18 +25,14 @@ float cableTension = 0.5;
+@@ -25,17 +25,13 @@ float cableTension = 0.5;
  bool allowCursorLock = true;
  bool realTime = false;
- bool keepPreviews = true;
+-bool keepPreviews = true;
 -float sampleRate = 44100.0;
 -int threadCount = 1;
++bool keepPreviews = false;
 +float sampleRate = 32000.0;
 +int threadCount = 2;
  bool paramTooltip = false;
