@@ -56,3 +56,5 @@ cp -r compile/Rack/dep/include dist/rack-sdk/dep
 if [ "$MYOS" = "Msys" ]; then
   cp compile/Rack/libRack.a dist/rack-sdk
 fi
+
+cp simde-ify.sh dist/rack-sdk
