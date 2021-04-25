@@ -37,7 +37,7 @@ else
   git clone https://github.com/VCVRack/library.git
   cd library
   # this is the version i used this script last with
-  #git checkout 52397d8150e073fcf3355267c776bfb61a4699d6
+  #git checkout 1b25c6a339e0e011c684dd162105eb912aca14f8
   git submodule update --init --recursive
   ( cd ../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 fi
@@ -791,33 +791,33 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
-# myrisa-modules
-echo ""
-echo "===> myrisa-modules extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/myrisa-modules-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/myrisa-modules-source.tar.gz )
-  cd myrisa-modules
+# # myrisa-modules
+# echo ""
+# echo "===> myrisa-modules extra plugin"
+# echo ""
+# # if we have a source archive in the source dir use that ...
+# if [ -f ../../source/myrisa-modules-source.tar.gz ]; then
+#   echo "INFO: using sources from the source archive"
+#   ( cd ../.. ; tar xzf source/myrisa-modules-source.tar.gz )
+#   cd myrisa-modules
 # ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/gwatcha/myrisa-modules.git
-  cd myrisa-modules
-  git checkout master
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/myrisa-modules-source.tar.gz compile/plugins/myrisa-modules )
-fi
-if [ -f ../../../myrisa-modules.patch ]; then
-  patch -p1 < ../../../myrisa-modules.patch
-fi
-if [ -f ../../../myrisa-modules.$MYARCH.patch ]; then
-  patch -p1 < ../../../myrisa-modules.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
+# # else
+#   git clone https://github.com/gwatcha/myrisa-modules.git
+#   cd myrisa-modules
+#   git checkout master
+#   git submodule update --init --recursive
+#   ( cd ../../.. ; mkdir -p source ; tar czf source/myrisa-modules-source.tar.gz compile/plugins/myrisa-modules )
+# fi
+# if [ -f ../../../myrisa-modules.patch ]; then
+#   patch -p1 < ../../../myrisa-modules.patch
+# fi
+# if [ -f ../../../myrisa-modules.$MYARCH.patch ]; then
+#   patch -p1 < ../../../myrisa-modules.$MYARCH.patch
+# fi
+# cd ..
+# 
+# # go back to a defined starting point to be on the safe side
+# cd ${WORKDIR}/compile/plugins
 
 # AtomicHorse-Modules
 echo ""
