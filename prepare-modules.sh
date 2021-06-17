@@ -36,8 +36,13 @@ if [ -f ../source/library-source.tar.gz ]; then
 else
   git clone https://github.com/VCVRack/library.git
   cd library
+  # looks like the 23volts plugin is no longer available via github
+  cd repos
+  git submodule deinit -f -- 23volts
+  git rm -f 23volts
+  cd ..
   # this is the version i used this script last with
-  #git checkout 1b25c6a339e0e011c684dd162105eb912aca14f8
+  #git checkout 50da224d0e636048f4a021d6a4a2b8e0989c792d
   git submodule update --init --recursive
   ( cd ../.. ; mkdir -p source ; tar czf source/library-source.tar.gz compile/library )
 fi
@@ -651,33 +656,34 @@ cd ..
 # go back to a defined starting point to be on the safe side
 cd ${WORKDIR}/compile/plugins
 
-# forsitan-modulare
-echo ""
-echo "===> forsitan-modulare extra plugin"
-echo ""
-# if we have a source archive in the source dir use that ...
-if [ -f ../../source/forsitan-modulare-source.tar.gz ]; then
-  echo "INFO: using sources from the source archive"
-  ( cd ../.. ; tar xzf source/forsitan-modulare-source.tar.gz )
-  cd forsitan-modulare
-# ... otherwise get it from git and create a source archive afterwards
-else
-  git clone https://github.com/gosub/forsitan-modulare.git
-  cd forsitan-modulare
-  git checkout master
-  git submodule update --init --recursive
-  ( cd ../../.. ; mkdir -p source ; tar czf source/forsitan-modulare-source.tar.gz compile/plugins/forsitan-modulare )
-fi
-if [ -f ../../../forsitan-modulare.patch ]; then
-  patch -p1 < ../../../forsitan-modulare.patch
-fi
-if [ -f ../../../forsitan-modulare.$MYARCH.patch ]; then
-  patch -p1 < ../../../forsitan-modulare.$MYARCH.patch
-fi
-cd ..
-
-# go back to a defined starting point to be on the safe side
-cd ${WORKDIR}/compile/plugins
+# forsitan-modulare is now in the regular vcvrack library
+# # forsitan-modulare
+# echo ""
+# echo "===> forsitan-modulare extra plugin"
+# echo ""
+# # if we have a source archive in the source dir use that ...
+# if [ -f ../../source/forsitan-modulare-source.tar.gz ]; then
+#   echo "INFO: using sources from the source archive"
+#   ( cd ../.. ; tar xzf source/forsitan-modulare-source.tar.gz )
+#   cd forsitan-modulare
+# # ... otherwise get it from git and create a source archive afterwards
+# else
+#   git clone https://github.com/gosub/forsitan-modulare.git
+#   cd forsitan-modulare
+#   git checkout master
+#   git submodule update --init --recursive
+#   ( cd ../../.. ; mkdir -p source ; tar czf source/forsitan-modulare-source.tar.gz compile/plugins/forsitan-modulare )
+# fi
+# if [ -f ../../../forsitan-modulare.patch ]; then
+#   patch -p1 < ../../../forsitan-modulare.patch
+# fi
+# if [ -f ../../../forsitan-modulare.$MYARCH.patch ]; then
+#   patch -p1 < ../../../forsitan-modulare.$MYARCH.patch
+# fi
+# cd ..
+# 
+# # go back to a defined starting point to be on the safe side
+# cd ${WORKDIR}/compile/plugins
 
 # VCVRack_modules
 echo ""
@@ -925,6 +931,36 @@ if [ -f ../../../Poly_AudibleInstruments.patch ]; then
 fi
 if [ -f ../../../Poly_AudibleInstruments.$MYARCH.patch ]; then
   patch -p1 < ../../../Poly_AudibleInstruments.$MYARCH.patch
+fi
+cd ..
+
+# go back to a defined starting point to be on the safe side
+cd ${WORKDIR}/compile/plugins
+
+# 23volts-vcv
+# at least for a certain time this repo disappeared from github, so i
+# moved it over here as extra plugin and disabled it in library repo for now
+echo ""
+echo "===> 23volts-vcv extra plugin"
+echo ""
+# if we have a source archive in the source dir use that ...
+if [ -f ../../source/23volts-vcv-source.tar.gz ]; then
+  echo "INFO: using sources from the source archive"
+  ( cd ../.. ; tar xzf source/23volts-vcv-source.tar.gz )
+  cd 23volts-vcv
+# ... otherwise get it from git and create a source archive afterwards
+else
+  git clone https://github.com/23volts/23volts-vcv.git
+  cd 23volts-vcv
+  git checkout bf1f1c2cd93216b0dfd0d2483391c4a9eff2c0c7
+  git submodule update --init --recursive
+  ( cd ../../.. ; mkdir -p source ; tar czf source/23volts-vcv-source.tar.gz compile/plugins/23volts-vcv )
+fi
+if [ -f ../../../23volts-vcv.patch ]; then
+  patch -p1 < ../../../23volts-vcv.patch
+fi
+if [ -f ../../../23volts-vcv.$MYARCH.patch ]; then
+  patch -p1 < ../../../23volts-vcv.$MYARCH.patch
 fi
 cd ..
 
