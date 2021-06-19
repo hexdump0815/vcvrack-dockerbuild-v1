@@ -37,4 +37,54 @@ index aba4db5..31ec0e4 100644
  				default:
  				case LongPressButton::NO_PRESS:
  					break;
+diff --git a/src/Stroke.cpp b/src/Stroke.cpp
+index 808eee0..8c8e978 100644
+--- a/src/Stroke.cpp
++++ b/src/Stroke.cpp
+@@ -360,7 +360,8 @@ struct CmdZoomModuleSmooth : CmdBase {
+ 		if (!mw) mw = w->getAncestorOfType<ModuleWidget>();
+ 		if (!mw) return;
+ 		Vec p = mw->box.size.mult(Vec(1.f - scale, 1.f - scale));
+-		viewportCenterSmooth.trigger(mw->box.grow(p), APP->window->getLastFrameRate(), 0.6f);
++//		viewportCenterSmooth.trigger(mw->box.grow(p), APP->window->getLastFrameRate(), 0.6f);
++		viewportCenterSmooth.trigger(mw->box.grow(p), settings::frameRateLimit, 0.6f);
+ 	}
+ 	void step() override {
+ 		viewportCenterSmooth.process();
+@@ -392,7 +393,8 @@ struct CmdZoomModuleCustomSmooth : CmdBase {
+ 		ModuleWidget* mw = dynamic_cast<ModuleWidget*>(w);
+ 		if (!mw) mw = w->getAncestorOfType<ModuleWidget>();
+ 		if (!mw) return;
+-		viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate(), 0.6f);
++//		viewportCenterSmooth.trigger(mw, zoom, APP->window->getLastFrameRate(), 0.6f);
++		viewportCenterSmooth.trigger(mw, zoom, settings::frameRateLimit, 0.6f);
+ 	}
+ 	void step() override {
+ 		viewportCenterSmooth.process();
+@@ -417,7 +419,8 @@ struct CmdZoomOutSmooth : CmdBase {
+ 	void initialCmd(KEY_MODE keyMode) override {
+ 		math::Rect moduleBox = APP->scene->rack->moduleContainer->getChildrenBoundingBox();
+ 		if (!moduleBox.size.isFinite()) return;
+-		viewportCenterSmooth.trigger(moduleBox, APP->window->getLastFrameRate(), 0.6f);
++//		viewportCenterSmooth.trigger(moduleBox, APP->window->getLastFrameRate(), 0.6f);
++		viewportCenterSmooth.trigger(moduleBox, settings::frameRateLimit, 0.6f);
+ 	}
+ 	void step() override {
+ 		viewportCenterSmooth.process();
+@@ -437,7 +440,8 @@ struct CmdZoomToggleSmooth : CmdZoomModuleSmooth {
+ 		if (settings::zoom > 1.f) {
+ 			math::Rect moduleBox = APP->scene->rack->moduleContainer->getChildrenBoundingBox();
+ 			if (!moduleBox.size.isFinite()) return;
+-			viewportCenterSmooth.trigger(moduleBox, APP->window->getLastFrameRate(), 0.6f);
++//			viewportCenterSmooth.trigger(moduleBox, APP->window->getLastFrameRate(), 0.6f);
++			viewportCenterSmooth.trigger(moduleBox, settings::frameRateLimit, 0.6f);
+ 		}
+ 		else {
+ 			CmdZoomModuleSmooth::initialCmd(keyMode);
+@@ -1733,4 +1737,4 @@ struct StrokeWidget : ThemedModuleWidget<StrokeModule<10>> {
+ } // namespace Stroke
+ } // namespace StoermelderPackOne
  
+-Model* modelStroke = createModel<StoermelderPackOne::Stroke::StrokeModule<10>, StoermelderPackOne::Stroke::StrokeWidget>("Stroke");
+\ No newline at end of file
++Model* modelStroke = createModel<StoermelderPackOne::Stroke::StrokeModule<10>, StoermelderPackOne::Stroke::StrokeWidget>("Stroke");
